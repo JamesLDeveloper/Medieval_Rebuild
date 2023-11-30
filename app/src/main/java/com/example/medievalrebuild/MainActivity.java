@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 if (player != null) {
 
-                    new MyAlertDialog(MainActivity.this, MainActivity.this);
+ //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
                     Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
                     intent.putExtra("player", player);
 
@@ -362,9 +362,17 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public Player createPlayer() {
 
-        System.out.println("userTextInput before myAlertDialog created " + userTextInput);
+        if (player == null){
+            System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-        MyAlertDialog myAlertDialog = new MyAlertDialog(this, this);
+            MyAlertDialog myAlertDialog = new MyAlertDialog(this, this);
+            }
+
+
+
+
+
+
 
 //        System.out.println("userTextInput after myAlertDialog created " + userTextInput);
 
@@ -387,7 +395,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         //characterActivity = new CharacterActivity();
         //mainTextView.setText(player.toString());
         return player;
-
 
     }
 
@@ -424,60 +431,85 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public void nextLevel() {
         String progress = player.getProgress();
+        waitingForAnswer = true;
+        userChoice = -1;
+
+
         switch (progress) {
             case "level1":
+
+           //    while (progress.equalsIgnoreCase("level1")) {
+
+
 //        boolean level1InProgress = true;
-                //while (progress.equalsIgnoreCase("level1")) {
+                    //while (progress.equalsIgnoreCase("level1")) {
                     //player.setProgress("level1");
 //                    mainActivity.addDelay(2000);
                     mainTextView.setText("You discover a chest. Would you like to open it?");
                     System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
                     //                  String chest = console.next().toLowerCase();
 
-                userChoice = -1;
+                    userChoice = -1;
+
+                System.out.println(userChoice);
+
+//                waitingForAnswer = true;
+//                while (waitingForAnswer) {
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
                 waitingForAnswer = true;
-                while (waitingForAnswer) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                System.out.println("waiting for answer " + waitingForAnswer);
 
                 int chest = userChoice;
+                System.out.println("chest int  " + chest);
 
 
+                chest = 1;
+                System.out.println("chest int  " + chest);
 
 
-                    //waitingForAnswer = false;
+                if (chest == 1) {
+                    System.out.println("chest int  " + chest);
+                    System.out.println("You open the chest to find a helmet. You put it on.");
+                    System.out.println("You choose option 0");
+                    mainTextView.setText("You open the chest to find a helmet. You put it on.");
+                    Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+                    player.setHelmet(platedHelmet);
+                    //System.out.println(player);
+                    //addDelay(2000);
+                    player.setProgress("level2");
+                }
+
+                    while (waitingForAnswer == false) {
 
                         if (chest == 0) {
                             System.out.println("You open the chest to find a helmet. You put it on.");
                             System.out.println("You choose option 0");
                             mainTextView.setText("You open the chest to find a helmet. You put it on.");
-                            //Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
-                            //player.setHelmet(platedHelmet);
+                            Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+                            player.setHelmet(platedHelmet);
                             //System.out.println(player);
                             //addDelay(2000);
-                            //player.setProgress("level2");
+                            player.setProgress("level2");
                             //userChoice = -1;
                             //break;
                         } else if (chest == 1) {
                             System.out.println("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
                             System.out.println("You choose option 1");
                             mainTextView.setText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
-                            //Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
-                            //player.setShoe(leatherboots);
+                            Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
+                            player.setShoe(leatherboots);
                             //System.out.println(player);
-                            //player.setProgress("level2");
+                            player.setProgress("level2");
                             //userChoice = -1;
                             //break;
-                        } else if (chest==2) {
+                        } else if (chest == 2) {
                             System.out.println("You choose option 2");
-
-
-
 
 
                             //System.out.println("Please enter your save name.");
@@ -485,35 +517,43 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             //userChoice = -1;
 
 
-
-
-
                             //save(console);
                             //break;
-                        } else if (chest==3) {
+                        } else if (chest == 3) {
                             System.out.println("You choose option 3");
                             //System.out.println("Please enter your save mainActivity name.");
                             //String savedFileName = userTextInput;
                             //userChoice = -1;
                             //save(console);
                             //break;
-                        } else if (chest==4) {
+                        } else if (chest == 4) {
                             System.out.println("You choose option 4");
                             //System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             //System.exit(0);
                             //userChoice = -1;
                             //break;
                         } else {
-                             System.out.println("Please try again, your options are y or n to open the chest.");
+                            System.out.println("Please try again, your options are y or n to open the chest.");
+//                            break;
                             // chest = userChoice;
                         }
 
-              //      }
-                   // nextLevel();
-               // waitingForAnswer = false;
+                        waitingForAnswer = true;
+                        //      }
+                        // nextLevel();
+                        // waitingForAnswer = false;
 
-                userChoice = -1;
+                        userChoice = -1;
+                    }
 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        waitingForAnswer = false;
+                    }
+                });
+
+//                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + progress);

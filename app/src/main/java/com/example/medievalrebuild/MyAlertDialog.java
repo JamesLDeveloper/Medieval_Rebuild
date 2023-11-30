@@ -25,6 +25,7 @@ public class MyAlertDialog {
         this.callBack = callBack;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
         builder.setTitle("Enter Text");
 
         final EditText input = new EditText(context);
