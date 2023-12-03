@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setLogo(R.drawable.medieval_marvels_and_might_icon);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.medieval_marvels_and_might_icon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setElevation(0);
 
         setContentView(R.layout.activity_main);
 
@@ -398,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player == null){
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialog = new MyAlertDialog(this, this);
+            MyAlertDialog myAlertDialog = new MyAlertDialog(this, this, "Please enter your character name");
             }
 
 
@@ -433,21 +433,28 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     @Override
     public void onTextEnteredForPlayerName(String enteredText){
-    userTextInput = enteredText;
+
+        if (!enteredText.equalsIgnoreCase("")) {
+
+            userTextInput = enteredText;
 
 
-        System.out.println("userTextInput before player created " + userTextInput);
-        player = new Player(userTextInput);
-        System.out.println("userTextInput after player created " + userTextInput);
+            System.out.println("userTextInput before player created " + userTextInput);
+            player = new Player(userTextInput);
+            System.out.println("userTextInput after player created " + userTextInput);
 
-        System.out.println("New player name is " + player.getName());
+            System.out.println("New player name is " + player.getName());
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nextLevel();
-            }
-        }, 1000);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    nextLevel();
+                }
+            }, 1000);
+        } else {
+        createPlayer();
+
+        }
 
     }
 
@@ -984,10 +991,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     userSubmitButton.setEnabled(true);
                     System.out.println("You choose option 0");
                     mainTextView.setText("You open the chest to find a helmet. You put it on.");
-                    Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8);
                     player.setHelmet(platedHelmet);
                     //System.out.println(player);
-                    //addDelay(2000);
+                    addDelay(2000);
                     player.setProgress("level2");
                     userSubmitButton.setEnabled(false);
               //      addDelay(10000);
@@ -1005,7 +1012,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     //userChoice = -1;
                     //break;
                 } else {
-
+                    startDelayedTask(200000, true);
                 }
                 nextLevel();
                 break;
@@ -1043,20 +1050,20 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                     //save(userTextInputCollected);
                                     break;
                                 } else {
-                                    userSubmitButton.setEnabled(false);
+                        //            userSubmitButton.setEnabled(false);
                        //             addDelay(2000);
-                                    userSubmitButton.setEnabled(true);
+                        //            userSubmitButton.setEnabled(true);
                                     System.out.println("\nYou have damaged the Zombie");
                                     mainTextView.setText("You have damaged the Zombie");
                                     zombieHealth -= currentWeaponDamage;
-                                    userSubmitButton.setEnabled(false);
+                         //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
-                                    userSubmitButton.setEnabled(true);
+                          //          userSubmitButton.setEnabled(true);
                                     System.out.println("The Zombie now has " + zombieHealth + " health.");
                                     mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
-                                    userSubmitButton.setEnabled(false);
+                         //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
-                                    userSubmitButton.setEnabled(true);
+                         //           userSubmitButton.setEnabled(true);
                                     mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
                                     System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
                                     player.takeDamage(zombieDamage);
@@ -1064,9 +1071,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             }
                             break;
                         } else if (zombie == 1) {
-                            userSubmitButton.setEnabled(false);
+                        //    userSubmitButton.setEnabled(false);
                         //    addDelay(2000);
-                            userSubmitButton.setEnabled(true);
+                        //    userSubmitButton.setEnabled(true);
                             System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
                             mainTextView.setText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
                             player.takeDamage(zombieDamage * 1.5);
@@ -1089,6 +1096,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
  */                       } else {
                             //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // zombie = userChoice;
+                            startDelayedTask(200000, true);
                         }
 
                 break;

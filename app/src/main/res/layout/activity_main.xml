@@ -24,7 +24,7 @@
             android:id="@+id/tv_main_user_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="31"
+            android:layout_weight="41"
             android:text="TextView"
             app:autoSizeTextType="uniform" />
 
@@ -51,13 +51,6 @@
                 android:layout_weight="1"
                 android:text="Button"
                 app:autoSizeTextType="uniform" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_main_2"
@@ -76,7 +69,6 @@
                 android:layout_weight="1"
                 android:text="Button"
                 app:autoSizeTextType="uniform" />
-
         </LinearLayout>
 
         <LinearLayout

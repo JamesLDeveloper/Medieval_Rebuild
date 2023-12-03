@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 
 
-
 public class MyAlertDialog {
 
     public interface DialogCallBack {
@@ -18,27 +17,30 @@ public class MyAlertDialog {
 
     private DialogCallBack callBack;
 
-    private String enteredText ="";
+    private String enteredText;
 
-    public MyAlertDialog(Context context, DialogCallBack callBack){
+    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString){
 
         this.callBack = callBack;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
-        builder.setTitle("Enter Text");
+
+
+        builder.setTitle(setTitleString);
 
         final EditText input = new EditText(context);
         builder.setView(input);
 
         builder.setPositiveButton("OK", ((dialog, which) -> {
 
-           enteredText = input.getText().toString();
 
-           System.out.println ("Testing "+ enteredText);
-            callBack.onTextEnteredForPlayerName(enteredText);
-            callBack.onTextEnteredForOtherPurpose(enteredText);
-            dialog.dismiss();
+                enteredText = input.getText().toString();
+               System.out.println ("Testing "+ enteredText);
+               callBack.onTextEnteredForPlayerName(enteredText);
+               callBack.onTextEnteredForOtherPurpose(enteredText);
+               dialog.dismiss();
+
 
         }));
 
