@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button switchToCharacter;
 
+//    private int time;
+
     private boolean waitingForAnswer = true;
 
     CharacterActivity characterActivity;
@@ -463,8 +465,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     public void nextLevel() {
 
 //        delayTask = new DelayTask();
-
+        System.out.println("nextLevel() called");
         String progress = player.getProgress();
+        System.out.println(progress);
         waitingForAnswer = true;
         userChoice = -1;
 
@@ -479,7 +482,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     //while (progress.equalsIgnoreCase("level1")) {
                     //player.setProgress("level1");
 //                    mainActivity.addDelay(2000);
-                
+                userSubmitButton.setEnabled(false);
+             //   addDelay(2000);
+                userSubmitButton.setEnabled(true);
                     mainTextView.setText("You discover a chest. Would you like to open it?");
                     System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
                     //                  String chest = console.next().toLowerCase();
@@ -512,30 +517,30 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-                while (waitingForAnswer == false) {
+//                while (waitingForAnswer == false) {
+//
+//                    System.out.println("chest after waiting for answer while statement  " + chest);
+//                    if (chest == 0) {
+//                        System.out.println("chest int  " + chest);
+//                        System.out.println("You open the chest to find a helmet. You put it on.");
+//                        System.out.println("You choose option 0");
+//                        mainTextView.setText("You open the chest to find a helmet. You put it on.");
+//                        Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+//                        player.setHelmet(platedHelmet);
+//                        //System.out.println(player);
+//                        //addDelay(2000);
+//                        player.setProgress("level2");
+//                      //  startDelayedTask(10000, true);
+//                        removeDelay();
+//                    } else {
+//
+//                    }
+//                    break;
+//
+//                }
 
-                    System.out.println("chest after waiting for answer while statement  " + chest);
-                    if (chest == 0) {
-                        System.out.println("chest int  " + chest);
-                        System.out.println("You open the chest to find a helmet. You put it on.");
-                        System.out.println("You choose option 0");
-                        mainTextView.setText("You open the chest to find a helmet. You put it on.");
-                        Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
-                        player.setHelmet(platedHelmet);
-                        //System.out.println(player);
-                        //addDelay(2000);
-                        player.setProgress("level2");
-                      //  startDelayedTask(10000, true);
-                        removeDelay();
-                    } else {
 
-                    }
-                    break;
-
-                }
-
-
-                startDelayedTask(20000, true);
+                startDelayedTask(200000, true);
 
 
 
@@ -622,6 +627,30 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
                 break;
+            case "level2":
+                userSubmitButton.setEnabled(false);
+             //   addDelay(5000);
+                userSubmitButton.setEnabled(true);
+                mainTextView.setText("You have reached the start of level 2");
+                System.out.println("You have reached the start of level 2");
+                userSubmitButton.setEnabled(false);
+           //     addDelay(5000);
+                userSubmitButton.setEnabled(true);
+
+
+
+                   System.out.println("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+
+                zombie = userChoice;
+
+                startDelayedTask(200000, true);
+
+
+
+                break;
+
+
             default:
                 throw new IllegalStateException("Unexpected value: " + progress);
 
@@ -902,6 +931,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private void addDelay(int time) {
         try {
             Thread.sleep(time);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -924,11 +954,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
     private void startDelayedTask(int time, boolean applyDelay) {
-        if (applyDelay) {
+     //   if (applyDelay) {
             cancelDelayedTask(); // Cancel any existing tasks
-        }
+    //    }
 
-        System.out.println("Delayed task starting in: " + time);
+        System.out.println("Delayed Task Due to run");
+//        System.out.println("Delayed task starting in: " + time);
 
         delayedTask = new Runnable() {
             @Override
@@ -936,21 +967,31 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 // Your task logic goes here
             System.out.println(chest);
 
-                if(chest == 0){
+
+            switch(player.getProgress()) {
+
+                case "level1":
+                    chest = userChoice;
+                if (chest == 0) {
                     System.out.println("Chest is: " + chest);
 
 
-                        System.out.println("chest int  " + chest);
-                        System.out.println("You open the chest to find a helmet. You put it on.");
-                        System.out.println("You choose option 0");
-                        mainTextView.setText("You open the chest to find a helmet. You put it on.");
-                        Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
-                        player.setHelmet(platedHelmet);
-                        //System.out.println(player);
-                        //addDelay(2000);
-                        player.setProgress("level2");
+                    System.out.println("chest int  " + chest);
+                    System.out.println("You open the chest to find a helmet. You put it on.");
 
-
+                    userSubmitButton.setEnabled(false);
+             //       addDelay(2000);
+                    userSubmitButton.setEnabled(true);
+                    System.out.println("You choose option 0");
+                    mainTextView.setText("You open the chest to find a helmet. You put it on.");
+                    Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+                    player.setHelmet(platedHelmet);
+                    //System.out.println(player);
+                    //addDelay(2000);
+                    player.setProgress("level2");
+                    userSubmitButton.setEnabled(false);
+              //      addDelay(10000);
+                    userSubmitButton.setEnabled(true);
 
                 } else if (chest == 1) {
                     System.out.println("Chest is : " + chest);
@@ -966,7 +1007,94 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 } else {
 
                 }
+                nextLevel();
+                break;
 
+                case "level2":
+                        zombie = userChoice;
+                        if (zombie == 0) {
+                            userSubmitButton.setEnabled(false);
+                  //          addDelay(2000);
+                            userSubmitButton.setEnabled(true);
+                            mainTextView.setText("You attack the zombie");
+                            System.out.println("\nYou attack the zombie");
+                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+
+                            while (player.getHealth() > 0) {
+                                if (currentWeaponDamage >= zombieHealth) {
+                                    userSubmitButton.setEnabled(false);
+                                //    addDelay(2000);
+                                    userSubmitButton.setEnabled(true);
+                                    zombieHealth -= currentWeaponDamage;
+                                    mainTextView.setText("You have killed the Zombie and taken no damage.");
+                                    System.out.println("You have killed the Zombie and taken no damage.");
+                                    Weapon longSword = new Weapon("Long Sword", 12);
+                                    player.setCurrentWeapon(longSword);
+                                    userSubmitButton.setEnabled(false);
+                             //       addDelay(2000);
+                                    userSubmitButton.setEnabled(true);
+                                    mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+                                    System.out.println("The Zombie was carrying a Long Sword which you claim as your own.");
+                                    System.out.println(player);
+                                    player.setProgress("level3");
+                                    System.out.println("Player progress is: " + player.getProgress());
+                                    System.out.println("Please enter your save game name.");
+                                    //                                    //String savedFileName = userTextInputCollected;
+                                    //save(userTextInputCollected);
+                                    break;
+                                } else {
+                                    userSubmitButton.setEnabled(false);
+                       //             addDelay(2000);
+                                    userSubmitButton.setEnabled(true);
+                                    System.out.println("\nYou have damaged the Zombie");
+                                    mainTextView.setText("You have damaged the Zombie");
+                                    zombieHealth -= currentWeaponDamage;
+                                    userSubmitButton.setEnabled(false);
+                         //           addDelay(2000);
+                                    userSubmitButton.setEnabled(true);
+                                    System.out.println("The Zombie now has " + zombieHealth + " health.");
+                                    mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+                                    userSubmitButton.setEnabled(false);
+                         //           addDelay(2000);
+                                    userSubmitButton.setEnabled(true);
+                                    mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+                                    System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
+                                    player.takeDamage(zombieDamage);
+                                }
+                            }
+                            break;
+                        } else if (zombie == 1) {
+                            userSubmitButton.setEnabled(false);
+                        //    addDelay(2000);
+                            userSubmitButton.setEnabled(true);
+                            System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                            mainTextView.setText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                            player.takeDamage(zombieDamage * 1.5);
+                            player.setProgress("level3");
+                            break;
+/*
+                        } else if (zombie == 2) {
+                            System.out.println("Please enter your save game name.");
+                            String savedFileName = userTextInputCollected;
+                            save(userTextInputCollected);
+                            break;
+                        } else if (zombie ==3) {
+                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                            System.exit(0);
+                            break;
+                        } else if (zombie == 4) {
+                            System.out.println("What is the name of your save file?");
+                            String loadFileName = userTextInputCollected + ".svr";
+                            player = load(loadFileName);
+ */                       } else {
+                            //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                            // zombie = userChoice;
+                        }
+
+                break;
+                default:
+
+            }
 
                 // Task completed
                 Log.d("DelayedTask", "Task completed");
@@ -983,10 +1111,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private void removeDelay() {
         if (delayedTask != null) {
             handler.removeCallbacks(delayedTask);
-            delayedTask.run(); // Execute the task immediately
-            delayedTask = null;
+            //cancelDelayedTask();
             Log.d("DelayedTask", "Delay removed, task executed immediately");
+
         }
+        if (delayedTask != null) {
+            //delayedTask.run(); // Execute the task immediately
+            delayedTask = null;
+        }
+        startDelayedTask(0,false);
     }
 
     private void cancelDelayedTask() {
@@ -996,6 +1129,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             Log.d("DelayedTask", "Task cancelled");
         }
     }
+
+//    public void setTime(int time){
+//        this.time = time;
+//    }
 
 
 }
