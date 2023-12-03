@@ -47,6 +47,17 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     TextView mainTextView;
 
+    String mainTextViewText;
+
+    TextView previousStageTextView;
+
+    String previousStageTextViewText = "";
+
+    TextView previousPreviousStageTextView;
+
+    String previousPreviousStageTextViewText = "";
+
+
     Button userResponse0Button;
 
     Button userResponse1Button;
@@ -140,7 +151,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         int unit = TypedValue.COMPLEX_UNIT_SP;
 
         mainImageView = findViewById(R.id.iv_main_image);
+
+        previousPreviousStageTextView = findViewById(R.id.tv_previous_previous_stage_user_text);
+        previousStageTextView = findViewById(R.id.tv_previous_stage_user_text);
         mainTextView = findViewById(R.id.tv_main_user_text);
+
 
         switchToCharacter = findViewById(R.id.btn_main_character);
 
@@ -173,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 userSubmitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
 
-        mainTextView.setText("Welcome to Medieval Marvels!");
-
+        previousStageTextViewText = "";
+        setPreviousAndMainText("Welcome to Medieval Marvels!");
 
 //        userTextInput = findViewById(R.id.ett_main_user_text);
         //       TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
@@ -450,7 +465,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 public void run() {
                     nextLevel();
                 }
-            }, 1000);
+            }, 100);
         } else {
         createPlayer();
 
@@ -492,7 +507,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 userSubmitButton.setEnabled(false);
              //   addDelay(2000);
                 userSubmitButton.setEnabled(true);
-                    mainTextView.setText("You discover a chest. Would you like to open it?");
+
+                setPreviousAndMainText("You discover a chest. Would you like to open it?");
+
+
+
                     System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
                     //                  String chest = console.next().toLowerCase();
 
@@ -638,18 +657,35 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 userSubmitButton.setEnabled(false);
              //   addDelay(5000);
                 userSubmitButton.setEnabled(true);
-                mainTextView.setText("You have reached the start of level 2");
+         //       mainTextView.setText("You have reached the start of level 2");
                 System.out.println("You have reached the start of level 2");
+
+                setPreviousAndMainText("You have reached the start of level 2");
+
+
                 userSubmitButton.setEnabled(false);
            //     addDelay(5000);
                 userSubmitButton.setEnabled(true);
 
 
 
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
                    System.out.println("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-                mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+  //              mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                        setPreviousAndMainText("You discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it?");
 
                 zombie = userChoice;
+
+
+        }
+    }, 5000);
+
+
 
                 startDelayedTask(200000, true);
 
@@ -980,6 +1016,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 case "level1":
                     chest = userChoice;
                 if (chest == 0) {
+
+
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+
+
                     System.out.println("Chest is: " + chest);
 
 
@@ -990,21 +1036,37 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
              //       addDelay(2000);
                     userSubmitButton.setEnabled(true);
                     System.out.println("You choose option 0");
-                    mainTextView.setText("You open the chest to find a helmet. You put it on.");
+          //          mainTextView.setText("You open the chest to find a helmet. You put it on.");
+
+                            setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
+
+
                     Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8);
                     player.setHelmet(platedHelmet);
+
+                        }
+                    }, 5000);
+
                     //System.out.println(player);
-                    addDelay(2000);
+                   // addDelay(2000);
                     player.setProgress("level2");
                     userSubmitButton.setEnabled(false);
               //      addDelay(10000);
                     userSubmitButton.setEnabled(true);
 
+
+
+
+
+
                 } else if (chest == 1) {
                     System.out.println("Chest is : " + chest);
                     System.out.println("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
                     System.out.println("You choose option 1");
-                    mainTextView.setText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
+              //      mainTextView.setText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
+
+                    setPreviousAndMainText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
+
                     Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
                     player.setShoe(leatherboots);
                     //System.out.println(player);
@@ -1023,7 +1085,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             userSubmitButton.setEnabled(false);
                   //          addDelay(2000);
                             userSubmitButton.setEnabled(true);
-                            mainTextView.setText("You attack the zombie");
+                 //           mainTextView.setText("You attack the zombie");
+
+                            setPreviousAndMainText("You attack the zombie");
+
                             System.out.println("\nYou attack the zombie");
                             int currentWeaponDamage = player.getCurrentWeaponDamage();
 
@@ -1033,14 +1098,20 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 //    addDelay(2000);
                                     userSubmitButton.setEnabled(true);
                                     zombieHealth -= currentWeaponDamage;
-                                    mainTextView.setText("You have killed the Zombie and taken no damage.");
+                         //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+
+                                    setPreviousAndMainText("You have killed the Zombie and taken no damage.");
+
                                     System.out.println("You have killed the Zombie and taken no damage.");
                                     Weapon longSword = new Weapon("Long Sword", 12);
                                     player.setCurrentWeapon(longSword);
                                     userSubmitButton.setEnabled(false);
                              //       addDelay(2000);
                                     userSubmitButton.setEnabled(true);
-                                    mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+
+                                    setPreviousAndMainText("The Zombie was carrying a Long Sword which you claim as your own.");
+
+                      //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
                                     System.out.println("The Zombie was carrying a Long Sword which you claim as your own.");
                                     System.out.println(player);
                                     player.setProgress("level3");
@@ -1054,17 +1125,26 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                        //             addDelay(2000);
                         //            userSubmitButton.setEnabled(true);
                                     System.out.println("\nYou have damaged the Zombie");
-                                    mainTextView.setText("You have damaged the Zombie");
+
+                                    setPreviousAndMainText("You have damaged the Zombie");
+
+                              //      mainTextView.setText("You have damaged the Zombie");
                                     zombieHealth -= currentWeaponDamage;
                          //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                           //          userSubmitButton.setEnabled(true);
                                     System.out.println("The Zombie now has " + zombieHealth + " health.");
-                                    mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+
+                                    setPreviousAndMainText("The Zombie now has " + zombieHealth + " health.");
+
+                         //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
                          //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                          //           userSubmitButton.setEnabled(true);
-                                    mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+
+                                    setPreviousAndMainText("The Zombie has attacked you with " + zombieDamage + " damage.");
+
+                             //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
                                     System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
                                     player.takeDamage(zombieDamage);
                                 }
@@ -1075,7 +1155,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         //    addDelay(2000);
                         //    userSubmitButton.setEnabled(true);
                             System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
-                            mainTextView.setText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                       //     mainTextView.setText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+
+                            setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+
                             player.takeDamage(zombieDamage * 1.5);
                             player.setProgress("level3");
                             break;
@@ -1136,6 +1219,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             delayedTask = null;
             Log.d("DelayedTask", "Task cancelled");
         }
+    }
+
+
+    private void setPreviousAndMainText(String newMainText){
+        mainTextViewText = newMainText;
+        previousPreviousStageTextView.setText(previousPreviousStageTextViewText);
+        previousStageTextView.setText(previousStageTextViewText);
+        mainTextView.setText(mainTextViewText);
+        previousPreviousStageTextViewText = previousStageTextViewText;
+        previousStageTextViewText = mainTextViewText;
     }
 
 //    public void setTime(int time){
