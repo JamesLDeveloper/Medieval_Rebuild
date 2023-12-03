@@ -1212,8 +1212,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             nextLevel();
                             break;
                         } else if (enemy2 == 1) {
-                            setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
-                            System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                            setPreviousAndMainText("You choose not to attack the " + zombieKing.getEnemyName() + ". The Zombie attacks you in the back as you run away.");
+                            System.out.println("You choose not to attack the " + zombieKing.getEnemyName() + ". The Zombie attacks you in the back as you run away.");
                             player.takeDamage(zombieKing.getEnemyDamage() / 2);
                             player.setProgress("level5");
                             nextLevel();
