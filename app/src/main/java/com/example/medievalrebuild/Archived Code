@@ -1,0 +1,285 @@
+           /* case "level2":
+                while (player.getProgress().equalsIgnoreCase("level2")) {
+                    System.out.println("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                    zombie = userChoice;
+                    while (true) {
+                        if (zombie == 0) {
+                            System.out.println("\nYou attack the zombie");
+                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+                            while (true) {
+                                if (currentWeaponDamage >= zombieHealth) {
+                                    addDelay(2000);
+                                    zombieHealth -= currentWeaponDamage;
+                                    System.out.println("You have killed the Zombie and taken no damage.");
+                                    Weapon longSword = new Weapon("Long Sword", 12);
+                                    player.setCurrentWeapon(longSword);
+                                    System.out.println("The Zombie was carrying a Long Sword which you claim as your own.");
+                                    System.out.println(player);
+                                    player.setProgress("level3");
+                                    System.out.println("Please enter your save game name.");
+                                    String savedFileName = userTextInputCollected;
+                                    save(userTextInputCollected);
+                                    break;
+                                } else {
+                                    addDelay(2000);
+                                    System.out.println("\nYou have damaged the Zombie");
+                                    zombieHealth -= currentWeaponDamage;
+                                    System.out.println("The Zombie now has " + zombieHealth + " health.");
+                                    System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
+                                    player.takeDamage(zombieDamage);
+                                }
+                            }
+                            break;
+                        } else if (zombie == 1) {
+                            System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                            player.takeDamage(zombieDamage * 1.5);
+                            player.setProgress("level3");
+                            break;
+
+                        } else if (zombie == 2) {
+                            System.out.println("Please enter your save game name.");
+                            String savedFileName = userTextInputCollected;
+                            save(userTextInputCollected);
+                            break;
+                        } else if (zombie ==3) {
+                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                            System.exit(0);
+                            break;
+                        } else if (zombie == 4) {
+                            System.out.println("What is the name of your save file?");
+                            String loadFileName = userTextInputCollected + ".svr";
+                            player = load(loadFileName);
+                        } else {
+                            //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                            // zombie = userChoice;
+                        }
+                    }
+                } */
+
+
+                          /* case "level3":
+                                while (player.getProgress().equalsIgnoreCase("level3")) {
+                                    System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+                                    chestTwo = userChoice;
+                                    while (true) {
+                                        if (chestTwo== 0) {
+                                            addDelay(2000);
+                                            System.out.println("You open the chest to find some chain mail. You put it on.");
+                                            Armour chainMail = new Armour("Chain Mail", 10, 10);
+                                            player.setArmour(chainMail);
+                                            System.out.println(player);
+                                            addDelay(2000);
+                                            player.setProgress("level4");
+                                            break;
+                                        } else if (chestTwo== 1) {
+                                            System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
+                                            Armour platedArmor = new Armour("Plated Armor", 7, 6);
+                                            player.setArmour(platedArmor);
+                                            System.out.println(player);
+                                            player.setProgress("level4");
+                                            break;
+                                        } else if (chestTwo== 2) {
+                                            System.out.println("Please enter your save game name.");
+                                            String savedFileName = userTextInputCollected;
+                                            save(savedFileName);
+                                            break;
+                                        } else if (chestTwo== 4) {
+                                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                                            System.exit(0);
+                                            break;
+                                        } else {
+                                            // System.out.println("Please try again, your options are y or n to open the chest.");
+                                            //  chestTwo = console.next().toLowerCase();
+                                        }
+                                    }
+                                } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                case "level2":
+                                                        zombie = userChoice;
+                                                        if (zombie == 0) {
+                                                            userSubmitButton.setEnabled(false);
+                                                  //          addDelay(2000);
+                                                            userSubmitButton.setEnabled(true);
+                                                 //           mainTextView.setText("You attack the zombie");
+
+                                                            setPreviousAndMainText("You attack the zombie");
+
+                                                            System.out.println("\nYou attack the zombie");
+                                                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+
+                                                            while (player.getHealth() > 0) {
+                                                                if (currentWeaponDamage >= zombieHealth) {
+                                                                    userSubmitButton.setEnabled(false);
+                                                                //    addDelay(2000);
+                                                                    userSubmitButton.setEnabled(true);
+                                                                    zombieHealth -= currentWeaponDamage;
+                                                         //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+
+                                                                    setPreviousAndMainText("You have killed the Zombie and taken no damage.");
+
+                                                                    System.out.println("You have killed the Zombie and taken no damage.");
+                                                                    Weapon longSword = new Weapon("Long Sword", 12);
+                                                                    player.setCurrentWeapon(longSword);
+                                                                    userSubmitButton.setEnabled(false);
+                                                             //       addDelay(2000);
+                                                                    userSubmitButton.setEnabled(true);
+
+                                                                    setPreviousAndMainText("The Zombie was carrying a Long Sword which you claim as your own.");
+
+                                                      //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+                                                                    System.out.println("The Zombie was carrying a Long Sword which you claim as your own.");
+                                                                    System.out.println(player);
+                                                                    player.setProgress("level3");
+                                                                    System.out.println("Player progress is: " + player.getProgress());
+                                                                    System.out.println("Please enter your save game name.");
+                                                                    //                                    //String savedFileName = userTextInputCollected;
+                                                                    //save(userTextInputCollected);
+                                                                    break;
+                                                                } else {
+                                                        //            userSubmitButton.setEnabled(false);
+                                                       //             addDelay(2000);
+                                                        //            userSubmitButton.setEnabled(true);
+                                                                    System.out.println("\nYou have damaged the Zombie");
+
+                                                                    setPreviousAndMainText("You have damaged the Zombie");
+
+                                                              //      mainTextView.setText("You have damaged the Zombie");
+                                                                    zombieHealth -= currentWeaponDamage;
+                                                         //           userSubmitButton.setEnabled(false);
+                                                         //           addDelay(2000);
+                                                          //          userSubmitButton.setEnabled(true);
+                                                                    System.out.println("The Zombie now has " + zombieHealth + " health.");
+
+                                                                    setPreviousAndMainText("The Zombie now has " + zombieHealth + " health.");
+
+                                                         //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+                                                         //           userSubmitButton.setEnabled(false);
+                                                         //           addDelay(2000);
+                                                         //           userSubmitButton.setEnabled(true);
+
+                                                                    setPreviousAndMainText("The Zombie has attacked you with " + zombieDamage + " damage.");
+
+                                                             //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+                                                                    System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
+                                                                    player.takeDamage(zombieDamage);
+                                                                }
+                                                            }
+                                                            nextLevel();
+                                                            break;
+                                                        } else if (zombie == 1) {
+                                                        //    userSubmitButton.setEnabled(false);
+                                                        //    addDelay(2000);
+                                                        //    userSubmitButton.setEnabled(true);
+                                                            System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                                                       //     mainTextView.setText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+
+                                                            setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+
+                                                            player.takeDamage(zombieDamage * 1.5);
+                                                            player.setProgress("level3");
+                                                            nextLevel();
+                                                            break;
+                                /*
+                                                        } else if (zombie == 2) {
+                                                            System.out.println("Please enter your save game name.");
+                                                            String savedFileName = userTextInputCollected;
+                                                            save(userTextInputCollected);
+                                                            break;
+                                                        } else if (zombie ==3) {
+                                                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                                                            System.exit(0);
+                                                            break;
+                                                        } else if (zombie == 4) {
+                                                            System.out.println("What is the name of your save file?");
+                                                            String loadFileName = userTextInputCollected + ".svr";
+                                                            player = load(loadFileName);
+                                 */                       } else {
+                                                            //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                                                            // zombie = userChoice;
+                                                            startDelayedTask(200000, true);
+                                                        }
+
+                                               nextLevel();
+                                                break;
+
+
+                                                          /* case "level4":
+                                                                while (player.getProgress().equalsIgnoreCase("level4")) {
+                                                                    System.out.println("\nYou discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                                                                    enemy2 = userChoice;
+                                                                    while (true) {
+                                                                        if (enemy2 == 0 ) {
+                                                                            System.out.println("\nYou attack the " + zombieKing.getEnemyName());
+                                                                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+                                                                            int zombieKingHealth = zombieKing.getEnemyHealth();
+                                                                            while (true) {
+                                                                                if (currentWeaponDamage >= zombieKingHealth) {
+                                                                                    addDelay(2000);
+                                                                                    zombieKingHealth -= currentWeaponDamage;
+                                                                                    System.out.println("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
+                                                                                    System.out.println("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
+                                                                                    Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
+                                                                                    player.setTrouser(chainMailTrousers);
+                                                                                    System.out.println(player);
+                                                                                    player.setProgress("level5");
+                                                                                    System.out.println("Please enter your save game name.");
+                                                                                    String savedFileName = userTextInputCollected;
+                                                                                    save(savedFileName);
+                                                                                    player.setProgress("level5");
+                                                                                    break;
+                                                                                } else {
+                                                                                    addDelay(2000);
+                                                                                    System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
+                                                                                    zombieKingHealth -= currentWeaponDamage;
+                                                                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKingHealth + " health.");
+                                                                                    System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
+                                                                                    player.takeDamage(zombieKing.getEnemyDamage());
+                                                                                }
+                                                                            }
+                                                                            break;
+                                                                        } else if (enemy2 == 1) {
+                                                                            System.out.println("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
+                                                                            player.takeDamage(zombieKing.getEnemyDamage() / 2);
+                                                                            player.setProgress("level5");
+                                                                            break;
+                                                                        } else if (enemy2 == 2) {
+                                                                            System.out.println("Please enter your save mainActivity name.");
+                                                                            String savedFileName = userTextInputCollected;
+                                                                            save(savedFileName);
+                                                                            break;
+                                                                        } else if (enemy2 == 3) {
+                                                                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                                                                            System.exit(0);
+                                                                            break;
+                                                                        } else {
+                                                                            // System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                                                                            // enemy2 = userChoice;
+                                                                        }
+                                                                    }
+                                                                } */
+
+
+
+
