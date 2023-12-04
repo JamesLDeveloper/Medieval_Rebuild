@@ -314,12 +314,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     newOrLoadSelected = options[which];
 
                     if (newOrLoadSelected.equalsIgnoreCase("New Game")) {
-                        mainTextViewText = "";
-                        previousStageTextViewText = "";
+                        mainTextViewText = "Welcome to Medieval Marvels and Might!";
+                        previousStageTextViewText = "Welcome to Medieval Marvels and Might!";
                         previousPreviousStageTextViewText = "";
                         player = null;
                         createPlayer();
-                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
+//                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
                         art.homeScreen();
                     } else if (newOrLoadSelected.contentEquals("Load")) {
                         //chooseLoadGame();
