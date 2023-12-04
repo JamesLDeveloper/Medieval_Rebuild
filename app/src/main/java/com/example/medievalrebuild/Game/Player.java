@@ -1,7 +1,9 @@
 package com.example.medievalrebuild.Game;
 
 import com.example.medievalrebuild.ArmourFiles.*;
+import com.example.medievalrebuild.MainActivity;
 import com.example.medievalrebuild.Weapons.Weapon;
+import com.example.medievalrebuild.MyAlertDialog;
 
 import java.io.Serializable;
 
@@ -16,6 +18,8 @@ public class Player implements Serializable {
     private final String name;
     private double health;
 
+    private MainActivity mainActivity;
+
     private Weapon currentWeapon;
 
     private Armour armour;
@@ -29,7 +33,7 @@ public class Player implements Serializable {
     //implement a max health variable?
 
     /* Constructors */
-    public Player(String name) {
+    public Player(String name, MainActivity mainActivity) {
         this.name = name;
         this.currentWeapon = new Weapon("Rusty Short Sword", 3);
         this.health = 100;
@@ -38,6 +42,7 @@ public class Player implements Serializable {
         this.shirt = new Shirt("None", 0, 0);
         this.trouser = new Trouser("None", 0, 0);
         this.shoe = new Shoe("None", 0, 0);
+        this.mainActivity = mainActivity;
         this.progress = "level1";
     }
 
@@ -48,7 +53,15 @@ public class Player implements Serializable {
         this.health -= damage;
         if (this.health <= 0) {
             System.out.println("You have succumbed to the enemy, better luck next time.");
-            System.exit(1);
+            //System.exit(1);
+
+            if (mainActivity != null){
+                mainActivity.chooseNewOrLoad();
+            } else {
+
+            }
+
+
         } else {
             System.out.println("Current Health: " + this.health);
         }

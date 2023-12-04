@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     TextView mainTextView;
 
-    String mainTextViewText;
+    String mainTextViewText = "";
 
     TextView previousStageTextView;
 
@@ -298,30 +298,64 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public void chooseNewOrLoad() {
 
-        AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        chooseGameModeDialogBuilder.setCancelable(false);
-        chooseGameModeDialogBuilder.setTitle("Load a saved Game or start a new one?");
+        if (player != null){
+
+            AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseGameModeDialogBuilder.setCancelable(false);
+            chooseGameModeDialogBuilder.setTitle("You have Succumbed to the Enemy. Load or Start a New Game?");
 
 //        final String[] options = {"Real life", "Movie quotes", "Both"};
 
-        chooseGameModeDialogBuilder.setItems(new String[]{"New Game", "Load"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d("TestDialog", "Selected Option: " + which);
+            chooseGameModeDialogBuilder.setItems(new String[]{"New Game", "Load"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("TestDialog", "Selected Option: " + which);
 
-                newOrLoadSelected = options[which];
+                    newOrLoadSelected = options[which];
 
-                if (newOrLoadSelected.equalsIgnoreCase("New Game")) {
-                    createPlayer();
-                    art.homeScreen();
-                } else if (newOrLoadSelected.contentEquals("Load")) {
-                    //chooseLoadGame();
+                    if (newOrLoadSelected.equalsIgnoreCase("New Game")) {
+                        mainTextViewText = "";
+                        previousStageTextViewText = "";
+                        previousPreviousStageTextViewText = "";
+                        player = null;
+                        createPlayer();
+                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
+                        art.homeScreen();
+                    } else if (newOrLoadSelected.contentEquals("Load")) {
+                        //chooseLoadGame();
+                    }
+
                 }
+            });
+            chooseGameModeDialogBuilder.create().show();
 
-            }
-        });
-        chooseGameModeDialogBuilder.create().show();
+        } else {
 
+
+            AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseGameModeDialogBuilder.setCancelable(false);
+            chooseGameModeDialogBuilder.setTitle("Load a saved Game or start a new one?");
+
+//        final String[] options = {"Real life", "Movie quotes", "Both"};
+
+            chooseGameModeDialogBuilder.setItems(new String[]{"New Game", "Load"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("TestDialog", "Selected Option: " + which);
+
+                    newOrLoadSelected = options[which];
+
+                    if (newOrLoadSelected.equalsIgnoreCase("New Game")) {
+                        createPlayer();
+                        art.homeScreen();
+                    } else if (newOrLoadSelected.contentEquals("Load")) {
+                        //chooseLoadGame();
+                    }
+
+                }
+            });
+            chooseGameModeDialogBuilder.create().show();
+        }
 
     }
 
@@ -455,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
             System.out.println("userTextInput before player created " + userTextInput);
-            player = new Player(userTextInput);
+            player = new Player(userTextInput, this);
             System.out.println("userTextInput after player created " + userTextInput);
 
             System.out.println("New player name is " + player.getName());
@@ -508,6 +542,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
              //   addDelay(2000);
                 userSubmitButton.setEnabled(true);
 
+                previousStageTextViewText = previousStageTextViewText + " " + player.getName();
                 setPreviousAndMainText("You discover a chest. Would you like to open it?");
 
 
@@ -771,6 +806,25 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     startDelayedTask(200000, true);
 
                     break;
+
+            case "level6":
+
+                    System.out.println("\nYou discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                    setPreviousAndMainText("You discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
+
+                    enemy3 = userChoice;
+
+                    System.out.println("Before level 2 part 2 called");
+                    startDelayedTask(200000, true);
+                System.out.println("After level 2 part 2 called");
+
+                    break;
+
+
+            case "level7" :
+                setPreviousAndMainText("You have reached the end of the game");
+                userSubmitButton.setEnabled(false);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + progress);
 
@@ -778,43 +832,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //            break;
 
 
-          /*  case "level5":
-                while (player.getProgress().equalsIgnoreCase("level5")) {
-                    System.out.println("\nYou discover a door. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    doorOne = userChoice;
-                    while (true) {
-                        if (doorOne== 0) {
-                            addDelay(2000);
-                            System.out.println("You open the door to find some a leather jacket. You put it on.");
-                            Shirt leatherJacket = new Shirt("Leather Jacket", 3, 3);
-                            player.setShirt(leatherJacket);
-                            System.out.println(player);
-                            addDelay(2000);
-                            player.setProgress("level6");
-                            break;
-                        } else if (doorOne== 1) {
-                            System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
-                            Armour platedArmor = new Armour("Plated Armor", 7, 6);
-                            player.setArmour(platedArmor);
-                            System.out.println(player);
-                            player.setProgress("level6");
-                            break;
 
-                        } else if (doorOne== 2) {
-                            System.out.println("Please enter your save mainActivity name.");
-                            String savedFileName = userTextInputCollected;
-                            save(savedFileName);
-                            break;
-                        } else if (doorOne== 4) {
-                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
-                            System.exit(0);
-                            break;
-                        } else {
-                            // System.out.println("Please try again, your options are y or n to open the chest.");
-                            //  doorOne = userChoice;
-                        }
-                    }
-                } */
             /*case "level6":
                 while (player.getProgress().equalsIgnoreCase("level6")) {
                     System.out.println("\nYou discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
@@ -1190,7 +1208,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                   //                  String savedFileName = userTextInputCollected;
                   //                  save(savedFileName);
                                     player.setProgress("level5");
-                                    nextLevel();
                                     break;
 
                                 } else {
@@ -1252,8 +1269,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         player.setShirt(leatherJacket);
                         System.out.println(player);
                       //  addDelay(2000);
-                       // player.setProgress("level6");
-                       // nextLevel();
+                        player.setProgress("level6");
+                        nextLevel();
                         break;
                     } else if (doorOne== 1) {
                         System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
@@ -1261,8 +1278,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         Armour platedArmor = new Armour("Plated Armor", 7, 6);
                         player.setArmour(platedArmor);
                         System.out.println(player);
-                       // player.setProgress("level6");
-                        // nextLevel();
+                        player.setProgress("level6");
+                         nextLevel();
                         break;
 
                     } /* else if (doorOne== 2) {
@@ -1279,10 +1296,108 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             //  doorOne = userChoice;
                             startDelayedTask(200000, true);
                         }
-                       // nextLevel();
-                        break;
+                        nextLevel();
+                break;
             //        }
 
+                case "level6":
+
+                    enemy3 = userChoice;
+ //                   while (player.getHealth() > 0) {
+                        if (enemy3 == 0) {
+                            System.out.println("\nYou attack " + loki.getEnemyName());
+                            setPreviousAndMainText("You attack " + loki.getEnemyName());
+
+                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+                            int lokiHealth = loki.getEnemyHealth();
+
+                            while (player.getHealth() > 0) {
+
+                                if (currentWeaponDamage >= lokiHealth) {
+                       //             addDelay(2000);
+                                    lokiHealth -= currentWeaponDamage;
+
+                                    System.out.println("You have killed " + loki.getEnemyName() + " and taken no damage.");
+                                    setPreviousAndMainText("You have killed " + loki.getEnemyName() + " and taken no damage.");
+
+                            //        Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
+                                    Weapon flamingSword = new Weapon("Flaming Sword", 24);
+
+                                  //  System.out.println(loki.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of " + chainMailTrousers.getArmourName() + " and a " + flamingSword.getName() + ".");
+                                    setPreviousAndMainText(loki.getEnemyName() + " drops a key. You use it to open a chest. Inside is a " + flamingSword.getName() + ".");
+
+                                    player.setCurrentWeapon(flamingSword);
+                              //      player.setTrouser(chainMailTrousers);
+
+                                    System.out.println(player);
+                                    System.out.println("Please enter your save mainActivity name.");
+
+    //                                String savedFileName = userTextInputCollected;
+    //                                save(savedFileName);
+                                    System.out.println("Congratulations you have defeated the boss and completed the game. Well done!");
+                                    setPreviousAndMainText("Congratulations you have defeated the boss and completed the game. Well done!");
+                                    player.setProgress("level7");
+                                    //nextLevel();
+      //                              System.exit(1);
+                                    break;
+                                } else {
+                                //    addDelay(2000);
+                                    System.out.println("\nYou have damaged the " + loki.getEnemyName());
+                                    setPreviousAndMainText("You have damaged the \" + loki.getEnemyName()");
+                                    lokiHealth -= currentWeaponDamage;
+                                    System.out.println("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
+                                    setPreviousAndMainText("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
+                                    System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
+                                    setPreviousAndMainText(loki.getEnemyName() + " has attacked you with " + loki.getEnemyDamage() + " damage.");
+                                    player.getArmour().reduceDurability(loki.getReduceDurability());
+                                    player.getShirt().reduceDurability(loki.getReduceDurability());
+                                    player.getShoe().reduceDurability(loki.getReduceDurability());
+                                    player.getHelmet().reduceDurability(loki.getReduceDurability());
+                                    player.getTrouser().reduceDurability(loki.getReduceDurability());
+                                    System.out.println(player);
+                                    player.takeDamage(loki.getEnemyDamage());
+                                    setPreviousAndMainText("You now have " + player.getHealth() + " health left.");
+//                        break;
+
+                                }
+//                    break;
+                            }
+                            nextLevel();
+                            break;
+                        } else if (enemy3 == 1) {
+                            System.out.println("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
+                            setPreviousAndMainText("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
+                            player.takeDamage(loki.getEnemyDamage() / 2);
+                            setPreviousAndMainText("You now have " + player.getHealth() + " health left.");
+              //              player.setProgress("level7");
+                            System.out.println("Your cowardly actions have not gone unnoticed, the King has thrown you in jail and you journey is at an end. Better luck next time.");
+
+                            setPreviousAndMainText("Your cowardly actions have not gone unnoticed, the King has thrown you in jail and you journey is at an end. Better luck next time.");
+                            player.setProgress("level7");
+                            nextLevel();
+                        //    System.exit(0);
+                            break;
+
+                  /*      } else if (enemy3== 2) {
+                            System.out.println("Please enter your save mainActivity name.");
+                            String savedFileName = userTextInputCollected;
+                            save(savedFileName);
+                            break;
+
+                        } else if (enemy3== 4) {
+                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                            System.exit(0);
+                            break;
+                   */     } else {
+//                    progress = "level7";
+                            //    System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                            //    enemy2 = userChoice;
+                            startDelayedTask(200000, true);
+                        }
+ //                   }
+ //           }
+                nextLevel();
+                break;
                 default:
 
             }
