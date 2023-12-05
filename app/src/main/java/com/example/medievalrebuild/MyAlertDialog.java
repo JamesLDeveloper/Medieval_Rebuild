@@ -23,7 +23,7 @@ public class MyAlertDialog implements Serializable {
 
     private String enteredText;
 
-    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString){
+    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString, boolean save){
 
         this.callBack = callBack;
 
@@ -41,8 +41,16 @@ public class MyAlertDialog implements Serializable {
 
                 enteredText = input.getText().toString();
                System.out.println ("Testing "+ enteredText);
+
+
+               if (!save){
                callBack.onTextEnteredForPlayerName(enteredText);
-               callBack.onTextEnteredForOtherPurpose(enteredText);
+    }
+
+               if(save) {
+                callBack.onTextEnteredForOtherPurpose(enteredText);
+            }
+
                dialog.dismiss();
 
 

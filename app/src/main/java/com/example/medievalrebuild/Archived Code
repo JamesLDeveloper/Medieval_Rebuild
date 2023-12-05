@@ -468,3 +468,89 @@
             public void runGame() {
                 //art.homeScreen();
             }
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//                    while (waitingForAnswer == false) {
+//
+//                        if (chest == 0) {
+//                            System.out.println("You open the chest to find a helmet. You put it on.");
+//                            System.out.println("You choose option 0");
+//                            mainTextView.setText("You open the chest to find a helmet. You put it on.");
+//                            Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+//                            player.setHelmet(platedHelmet);
+//                            //System.out.println(player);
+//                            //addDelay(2000);
+//                            player.setProgress("level2");
+//                            //userChoice = -1;
+//                            //break;
+//                        } else if (chest == 1) {
+//                            System.out.println("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
+//                            System.out.println("You choose option 1");
+//                            mainTextView.setText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
+//                            Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
+//                            player.setShoe(leatherboots);
+//                            //System.out.println(player);
+//                            player.setProgress("level2");
+//                            //userChoice = -1;
+//                            //break;
+//                        } else if (chest == 2) {
+//                            System.out.println("You choose option 2");
+//
+//
+//                            //System.out.println("Please enter your save name.");
+//                            //String savedFileName = userTextInput;
+//                            //userChoice = -1;
+//
+//
+//                            //save(console);
+//                            //break;
+//                        } else if (chest == 3) {
+//                            System.out.println("You choose option 3");
+//                            //System.out.println("Please enter your save mainActivity name.");
+//                            //String savedFileName = userTextInput;
+//                            //userChoice = -1;
+//                            //save(console);
+//                            //break;
+//                        } else if (chest == 4) {
+//                            System.out.println("You choose option 4");
+//                            //System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+//                            //System.exit(0);
+//                            //userChoice = -1;
+//                            //break;
+//                        } else {
+//                            System.out.println("Please try again, your options are y or n to open the chest.");
+////                            break;
+//                            // chest = userChoice;
+//                        }
+//
+//                        waitingForAnswer = true;
+//                        //      }
+//                        // nextLevel();
+//                        // waitingForAnswer = false;
+//
+//                        userChoice = -1;
+//                    }
+//
+//
+//
+//
+//
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        waitingForAnswer = false;
+//                    }
+//                });
+
+//                }

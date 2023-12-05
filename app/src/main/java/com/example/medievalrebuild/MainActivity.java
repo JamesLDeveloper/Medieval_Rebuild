@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button switchToCharacter;
 
+    private Context context;
+
 //    private int time;
 
     private boolean waitingForAnswer = true;
@@ -133,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private Handler handlerDelayTask = new Handler(Looper.getMainLooper());
 
     //MainActivity mainActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -434,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player == null){
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name");
+            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name", false);
             }
 
         return player;
@@ -468,17 +469,17 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     }
 
-    private String save() {
+    private /*String*/ void save() {
         // Add save functionality here
 //        String fileName = player.getName() + ".svr";
 
         if (player != null) {
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialogSavePlayer = new MyAlertDialog(this, this, "Please enter your save name");
+            MyAlertDialog myAlertDialogSavePlayer = new MyAlertDialog(this, this, "Please enter your save name", true);
         }
 
-        return userTextInput;
+      //  return userTextInput;
     }
 
 
@@ -493,16 +494,25 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             String chosenName = userTextInput;
             String fileName = chosenName+".svr";
             try {
-                
-                FileOutputStream userSaveFile = new FileOutputStream(fileName);
-                ObjectOutputStream playerSaver = new ObjectOutputStream(userSaveFile);
+
+
+                File internalStorageDir = context.getFilesDir();
+                File saveFile = new File(internalStorageDir, fileName);
+
+                FileOutputStream fileOutputStreamSavePlayer = new FileOutputStream(saveFile);
+                ObjectOutputStream playerSaver = new ObjectOutputStream(fileOutputStreamSavePlayer);
+
                 playerSaver.writeObject(player);
+
+                playerSaver.close();
+                fileOutputStreamSavePlayer.close();
 //                playerSaver.writeObject(progress);
                 System.out.println("We've just saved your game with file name " + chosenName);
 
                 //return fileName;
             } catch (IOException e) {
-                String cannotSave = "Cannot Save";
+                e.printStackTrace();
+                String cannotSave = "Unable to save game.";
                 System.out.println(cannotSave);
 
                 //return cannotSave;
@@ -510,8 +520,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             // End of save
             // would be preferable to save as a console given name so different saves can be made and loaded when needed.
 
+            startDelayedTask(1000, true);
 
-
+        } else {
+            save();
         }
 
 
@@ -626,87 +638,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 startDelayedTask(200000, true);
 
 
-
-
-
-
-
-
-//
-//
-//                    while (waitingForAnswer == false) {
-//
-//                        if (chest == 0) {
-//                            System.out.println("You open the chest to find a helmet. You put it on.");
-//                            System.out.println("You choose option 0");
-//                            mainTextView.setText("You open the chest to find a helmet. You put it on.");
-//                            Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
-//                            player.setHelmet(platedHelmet);
-//                            //System.out.println(player);
-//                            //addDelay(2000);
-//                            player.setProgress("level2");
-//                            //userChoice = -1;
-//                            //break;
-//                        } else if (chest == 1) {
-//                            System.out.println("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
-//                            System.out.println("You choose option 1");
-//                            mainTextView.setText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
-//                            Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
-//                            player.setShoe(leatherboots);
-//                            //System.out.println(player);
-//                            player.setProgress("level2");
-//                            //userChoice = -1;
-//                            //break;
-//                        } else if (chest == 2) {
-//                            System.out.println("You choose option 2");
-//
-//
-//                            //System.out.println("Please enter your save name.");
-//                            //String savedFileName = userTextInput;
-//                            //userChoice = -1;
-//
-//
-//                            //save(console);
-//                            //break;
-//                        } else if (chest == 3) {
-//                            System.out.println("You choose option 3");
-//                            //System.out.println("Please enter your save mainActivity name.");
-//                            //String savedFileName = userTextInput;
-//                            //userChoice = -1;
-//                            //save(console);
-//                            //break;
-//                        } else if (chest == 4) {
-//                            System.out.println("You choose option 4");
-//                            //System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
-//                            //System.exit(0);
-//                            //userChoice = -1;
-//                            //break;
-//                        } else {
-//                            System.out.println("Please try again, your options are y or n to open the chest.");
-////                            break;
-//                            // chest = userChoice;
-//                        }
-//
-//                        waitingForAnswer = true;
-//                        //      }
-//                        // nextLevel();
-//                        // waitingForAnswer = false;
-//
-//                        userChoice = -1;
-//                    }
-//
-//
-//
-//
-//
-//                handler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        waitingForAnswer = false;
-//                    }
-//                });
-
-//                }
 
 
                 break;
@@ -1117,13 +1048,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             player.setProgress("level3");
                             nextLevel();
                             break;
-/*
+
                         } else if (zombie == 2) {
-                            System.out.println("Please enter your save game name.");
-                            String savedFileName = userTextInputCollected;
-                            save(userTextInputCollected);
+                            //System.out.println("Please enter your save game name.");
+                            //String savedFileName = userTextInputCollected;
+                            //save(userTextInputCollected);
+                            save();
                             break;
-                        } else if (zombie ==3) {
+ /*                       } else if (zombie ==3) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
                             break;
