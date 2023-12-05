@@ -1,5 +1,7 @@
 package com.example.medievalrebuild;
 
+import com.example.medievalrebuild.MainActivity;
+import com.example.medievalrebuild.Game.Player;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.widget.EditText;
@@ -17,16 +19,31 @@ public class MyAlertDialog implements Serializable {
         void onTextEnteredForOtherPurpose(String enteredText);
     }
 
-
-
+private  Context context;
+private MainActivity mainActivity;
     private DialogCallBack callBack;
 
     private String enteredText;
 
-    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString, boolean save){
+    private String setTitleString;
+
+    private boolean save;
+
+    private boolean playerCreationPending;
+
+
+    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString, boolean save/*, boolean playerCreationPending*/) {
 
         this.callBack = callBack;
+        this.context = context;
+        this.setTitleString = setTitleString;
+        this.save = save;
+ //       this.playerCreationPending = playerCreationPending;
 
+showAlertDialog();
+    }
+
+    private void showAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
 
@@ -44,10 +61,12 @@ public class MyAlertDialog implements Serializable {
 
 
                if (!save){
+                  // mainActivity.onTextEnteredForPlayerName(enteredText);
                callBack.onTextEnteredForPlayerName(enteredText);
     }
 
                if(save) {
+               //    mainActivity.onTextEnteredForOtherPurpose(enteredText);
                 callBack.onTextEnteredForOtherPurpose(enteredText);
             }
 
