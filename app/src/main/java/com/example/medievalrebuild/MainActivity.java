@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player == null){
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(context, this, "Please enter your character name", false);
+            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name", false);
             }
 
   //      return null;
@@ -542,7 +542,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
             // End of save
             // would be preferable to save as a console given name so different saves can be made and loaded when needed.
-
+            userChoice = -1;
             startDelayedTask(1000, true);
 
         } else {

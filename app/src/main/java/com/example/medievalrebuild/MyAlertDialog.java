@@ -61,12 +61,12 @@ showAlertDialog();
 
 
                if (!save){
-                  // mainActivity.onTextEnteredForPlayerName(enteredText);
+                   //mainActivity.onTextEnteredForPlayerName(enteredText);
                callBack.onTextEnteredForPlayerName(enteredText);
     }
 
                if(save) {
-               //    mainActivity.onTextEnteredForOtherPurpose(enteredText);
+                  // mainActivity.onTextEnteredForOtherPurpose(enteredText);
                 callBack.onTextEnteredForOtherPurpose(enteredText);
             }
 
