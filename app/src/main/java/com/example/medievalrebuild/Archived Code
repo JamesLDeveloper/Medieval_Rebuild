@@ -401,3 +401,70 @@
 
                     nextLevel();
                     break;
+
+
+
+
+
+
+
+    public Player createPlayer() {
+
+        if (player == null){
+            System.out.println("userTextInput before myAlertDialog created " + userTextInput);
+
+            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name");
+            }
+
+//        System.out.println("userTextInput after myAlertDialog created " + userTextInput);
+
+        //String userTextInputCollected = myAlertDialog.getEnteredText();
+
+        //System.out.println("Chosen player name is " + userTextInputCollected);
+        //String desiredPlayerName = userTextInputCollected;
+        //System.out.println("Desired Player Name " + desiredPlayerName);
+
+    //    onTextEntered(myAlertDialog.getEnteredText());
+    //    System.out.println("userTextInput " + userTextInput);
+
+//        System.out.println("userTextInput before player created " + userTextInput);
+//        player = new Player(userTextInput);
+//        System.out.println("userTextInput after player created " + userTextInput);
+//
+//        System.out.println("New player name is " + player.getName());
+        //characterActivity = new CharacterActivity();
+
+        return player;
+
+    }
+
+
+
+
+
+    //   private void typeText (String textEntered){
+    //       userTextInputCollected = textEntered;
+    //   }
+
+    public void onAnswerSubmission() {
+
+        System.out.println("onAnswerSubmission Called");
+        System.out.println("Valid Answer: " + validAnswer);
+        System.out.println("User Choice = " + userChoice);
+        userResponse0Button.setText("Yes");
+        userResponse1Button.setText("No");
+        userResponse2Button.setText("Save");
+        userResponse3Button.setText("Load");
+        userExitButton.setText("Exit");
+
+
+
+
+            public void startUp() {
+                // mainActivity = new MainActivity();
+                // runGame();
+            }
+
+            public void runGame() {
+                //art.homeScreen();
+            }

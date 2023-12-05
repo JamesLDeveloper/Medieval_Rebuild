@@ -36,6 +36,8 @@ import com.example.medievalrebuild.Game.Player;
 import com.example.medievalrebuild.Weapons.Weapon;
 
 import java.io.Serializable;
+import java.io.*;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -286,16 +288,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     }
 
 
-    public void startUp() {
-        // mainActivity = new MainActivity();
-        // runGame();
-    }
-
-    public void runGame() {
-        //art.homeScreen();
-    }
-
-
     public void chooseNewOrLoad() {
 
         if (player != null){
@@ -409,11 +401,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         }
     }
 
-
-    //   private void typeText (String textEntered){
-    //       userTextInputCollected = textEntered;
-    //   }
-
     public void onAnswerSubmission() {
 
         System.out.println("onAnswerSubmission Called");
@@ -447,35 +434,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player == null){
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialog = new MyAlertDialog(this, this, "Please enter your character name");
+            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name");
             }
 
-
-
-
-
-
-
-//        System.out.println("userTextInput after myAlertDialog created " + userTextInput);
-
-        //String userTextInputCollected = myAlertDialog.getEnteredText();
-
-        //System.out.println("Chosen player name is " + userTextInputCollected);
-        //String desiredPlayerName = userTextInputCollected;
-        //System.out.println("Desired Player Name " + desiredPlayerName);
-
-
-
-    //    onTextEntered(myAlertDialog.getEnteredText());
-    //    System.out.println("userTextInput " + userTextInput);
-
-//        System.out.println("userTextInput before player created " + userTextInput);
-//        player = new Player(userTextInput);
-//        System.out.println("userTextInput after player created " + userTextInput);
-//
-//        System.out.println("New player name is " + player.getName());
-        //characterActivity = new CharacterActivity();
-        //mainTextView.setText(player.toString());
         return player;
 
     }
@@ -507,9 +468,54 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     }
 
+    private String save() {
+        // Add save functionality here
+//        String fileName = player.getName() + ".svr";
+
+        if (player != null) {
+            System.out.println("userTextInput before myAlertDialog created " + userTextInput);
+
+            MyAlertDialog myAlertDialogSavePlayer = new MyAlertDialog(this, this, "Please enter your save name");
+        }
+
+        return userTextInput;
+    }
+
+
+
     @Override
     public void onTextEnteredForOtherPurpose(String enteredText){
-        userTextInput = enteredText;
+
+        if (!enteredText.equalsIgnoreCase("")){
+
+            userTextInput = enteredText;
+
+            String chosenName = userTextInput;
+            String fileName = chosenName+".svr";
+            try {
+                
+                FileOutputStream userSaveFile = new FileOutputStream(fileName);
+                ObjectOutputStream playerSaver = new ObjectOutputStream(userSaveFile);
+                playerSaver.writeObject(player);
+//                playerSaver.writeObject(progress);
+                System.out.println("We've just saved your game with file name " + chosenName);
+
+                //return fileName;
+            } catch (IOException e) {
+                String cannotSave = "Cannot Save";
+                System.out.println(cannotSave);
+
+                //return cannotSave;
+            }
+            // End of save
+            // would be preferable to save as a console given name so different saves can be made and loaded when needed.
+
+
+
+        }
+
+
+
     }
 
     public Player getPlayer() {
@@ -1449,6 +1455,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //    public void setTime(int time){
 //        this.time = time;
 //    }
+
+
+
+
+
 
 
 }
