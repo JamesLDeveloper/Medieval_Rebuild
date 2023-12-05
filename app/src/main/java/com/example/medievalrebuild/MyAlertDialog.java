@@ -4,9 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.widget.EditText;
 
+import java.io.Serializable;
+
+public class MyAlertDialog implements Serializable {
 
 
-public class MyAlertDialog {
+    private static final long serialVersionUID = 1L;
+
 
     public interface DialogCallBack {
         void onTextEnteredForPlayerName(String enteredText);

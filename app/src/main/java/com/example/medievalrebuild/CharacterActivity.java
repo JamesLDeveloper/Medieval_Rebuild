@@ -37,7 +37,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
     /* Instance Variables */
 
-    MainActivity mainActivity;
+    private transient MainActivity mainActivity;
     private Player player;
 
 

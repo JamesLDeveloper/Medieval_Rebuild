@@ -18,7 +18,7 @@ public class Player implements Serializable {
     private final String name;
     private double health;
 
-    private MainActivity mainActivity;
+    private transient MainActivity mainActivity;
 
     private Weapon currentWeapon;
 
