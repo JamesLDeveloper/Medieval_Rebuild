@@ -554,3 +554,44 @@
 //                });
 
 //                }
+
+
+
+
+//                while (waitingForAnswer == true) {
+//                    try {
+//                        Thread.sleep(100); // Add a small delay to avoid excessive CPU usage
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+
+            //    }
+
+              //  waitingForAnswer = false;
+
+
+//                    System.out.println("chest after waiting for answer while statement  " + chest);
+//                    if (chest == 0) {
+//                        System.out.println("chest int  " + chest);
+//                        System.out.println("You open the chest to find a helmet. You put it on.");
+//                        System.out.println("You choose option 0");
+//
+//                        setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
+//
+//                        //mainTextView.setText("You open the chest to find a helmet. You put it on.");
+//                        Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
+//                        player.setHelmet(platedHelmet);
+//                        //System.out.println(player);
+//                        //addDelay(2000);
+//                        player.setProgress("level2");
+//                      //  startDelayedTask(10000, true);
+//                       // removeDelay();
+//                    } else {
+//
+//                    }
+
+
+                 //   break;
+
+              //  }

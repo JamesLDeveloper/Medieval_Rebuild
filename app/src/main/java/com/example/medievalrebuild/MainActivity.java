@@ -59,6 +59,7 @@ import com.example.medievalrebuild.Weapons.Weapon;
 import java.io.Serializable;
 import java.io.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     final String[] options = {"New Game", "Load"};
     Enemy zombieKing = new Enemy("Zombie King", 20, 20);
 
-    BossEnemy loki = new BossEnemy("Loki God Of Mischeif", 35, 25, 4);
+    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 35, 25, 4);
 
     String userTextInput;
 
@@ -154,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private Runnable delayedTask;
 
     private Handler handlerDelayTask = new Handler(Looper.getMainLooper());
+
+    ArrayList<String> saveGames = new ArrayList<String>();
 
     //MainActivity mainActivity;
 
@@ -507,6 +510,39 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
+
+//    private Player load() {
+//        // Add load functionality here
+//
+//        Player loadedPlayer;
+//
+//        try {
+//
+//            FileInputStream loadedSaveFile = new FileInputStream(playerName);
+//            ObjectInputStream loadedObjectFile = new ObjectInputStream(loadedSaveFile);
+//            loadedPlayer = (Player) loadedObjectFile.readObject();
+//            //           this.progress = (String) loadedObjectFile.readObject();
+//
+//
+//            return loadedPlayer;
+//        } catch (IOException | ClassNotFoundException e) {
+//
+//            addDelay(2000);
+//            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
+//            addDelay(4000);
+//
+//            loadedPlayer = new Player(playerName);
+//
+//            return loadedPlayer;
+//            // End of load
+//        }
+//
+//    }
+
+
+
+
+
     @Override
     public void onTextEnteredForOtherPurpose(String enteredText){
 
@@ -531,6 +567,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 fileOutputStreamSavePlayer.close();
 //                playerSaver.writeObject(progress);
                 System.out.println("We've just saved your game with file name " + chosenName);
+
+                saveGames.add(chosenName);
+                System.out.println("Saved Games: " + saveGames.toString());
 
                 //return fileName;
             } catch (IOException e) {
@@ -613,49 +652,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 chest = 1;
                 System.out.println("chest int  " + chest);
-
-
-
-
-
-
-//                while (waitingForAnswer == true) {
-//                    try {
-//                        Thread.sleep(100); // Add a small delay to avoid excessive CPU usage
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-
-            //    }
-
-              //  waitingForAnswer = false;
-
-
-//                    System.out.println("chest after waiting for answer while statement  " + chest);
-//                    if (chest == 0) {
-//                        System.out.println("chest int  " + chest);
-//                        System.out.println("You open the chest to find a helmet. You put it on.");
-//                        System.out.println("You choose option 0");
-//
-//                        setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
-//
-//                        //mainTextView.setText("You open the chest to find a helmet. You put it on.");
-//                        Helmet platedHelmet = new Helmet("Plated ArmourFiles.Helmet", 5, 8);
-//                        player.setHelmet(platedHelmet);
-//                        //System.out.println(player);
-//                        //addDelay(2000);
-//                        player.setProgress("level2");
-//                      //  startDelayedTask(10000, true);
-//                       // removeDelay();
-//                    } else {
-//
-//                    }
-
-
-                 //   break;
-
-              //  }
 
 
                 startDelayedTask(200000, true);
@@ -769,8 +765,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
             case "level6":
 
-                    System.out.println("\nYou discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-                    setPreviousAndMainText("You discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
+                    System.out.println("\nYou discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                    setPreviousAndMainText("You discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
 
                     enemy3 = userChoice;
 
@@ -980,6 +976,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     player.setProgress("level2");
                     //userChoice = -1;
                     //break;
+                } else if (chest == 2) {
+                    //System.out.println("Please enter your save game name.");
+                    //String savedFileName = userTextInputCollected;
+                    //save(userTextInputCollected);
+                    save();
+                    break;
                 } else {
                     startDelayedTask(200000, true);
                 }
@@ -1125,6 +1127,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                            String savedFileName = userTextInputCollected;
 //                            save(savedFileName);
 //                            break;
+                        } else if (chestTwo == 2) {
+                            //System.out.println("Please enter your save game name.");
+                            //String savedFileName = userTextInputCollected;
+                            //save(userTextInputCollected);
+                            save();
+                            break;
 //                        } else if (chestTwo== 4) {
 //                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
 //                            System.exit(0);
@@ -1200,7 +1208,13 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             System.out.println("Please enter your save mainActivity name.");
                             String savedFileName = userTextInputCollected;
                             save(savedFileName);
-                            break;
+                            break; */
+                        } else if (enemy2 == 2) {
+                            //System.out.println("Please enter your save game name.");
+                            //String savedFileName = userTextInputCollected;
+                            //save(userTextInputCollected);
+                            save();
+                            break; /*
                         } else if (enemy2 == 3) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
@@ -1247,12 +1261,20 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             System.out.println("Please enter your save mainActivity name.");
                             String savedFileName = userTextInputCollected;
                             save(savedFileName);
-                            break;
+                            break; */
+
+                                             else if (doorOne == 2) {
+                    //System.out.println("Please enter your save game name.");
+                    //String savedFileName = userTextInputCollected;
+                    //save(userTextInputCollected);
+                    save();
+                    break; /*
+
                         } else if (doorOne== 4) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
                             break;
-                        }  */ else {
+                      */  } else {
                             // System.out.println("Please try again, your options are y or n to open the chest.");
                             //  doorOne = userChoice;
                             startDelayedTask(200000, true);
@@ -1343,13 +1365,20 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             System.out.println("Please enter your save mainActivity name.");
                             String savedFileName = userTextInputCollected;
                             save(savedFileName);
+                            break; */
+                        } else if (enemy3 == 2) {
+                            //System.out.println("Please enter your save game name.");
+                            //String savedFileName = userTextInputCollected;
+                            //save(userTextInputCollected);
+                            save();
                             break;
+
 
                         } else if (enemy3== 4) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
                             break;
-                   */     } else {
+                        } else {
 //                    progress = "level7";
                             //    System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             //    enemy2 = userChoice;

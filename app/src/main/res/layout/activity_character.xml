@@ -21,13 +21,22 @@
             android:layout_weight="35"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="56">
+
+
+
         <TextView
             android:id="@+id/tv_character_stats"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="56"
+            android:layout_height="match_parent"
             app:autoSizeTextType="uniform"
             android:text="TextView" />
+
+    </ScrollView>
 
         <Button
             android:id="@+id/btn_character_story"
