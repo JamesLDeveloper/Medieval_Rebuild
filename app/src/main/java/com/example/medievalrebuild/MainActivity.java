@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private String loadGameSelected;
 
     final String[] options = {"New Game", "Load"};
+
+    Enemy zombieOne = new Enemy("Zombie", 4, 2);
     Enemy zombieKing = new Enemy("Zombie King", 20, 20);
 
     BossEnemy loki = new BossEnemy("Loki God Of Mischief", 35, 25, 4);
@@ -343,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
                         art.homeScreen();
                     } else if (newOrLoadSelected.contentEquals("Load")) {
-                        //chooseLoadGame();
+                        load();
                     }
 
                 }
@@ -370,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         createPlayer();
                         art.homeScreen();
                     } else if (newOrLoadSelected.contentEquals("Load")) {
-                        //chooseLoadGame();
+                        load();
                     }
 
                 }
@@ -517,47 +519,49 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private void load() {
         // Add load functionality here
 
-        if (player != null) {
+        if (saveGames.size() > 0) {
 
-            AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-            chooseSavedGameDialogBuilder.setCancelable(false);
-            chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+            if (player != null) {
 
-            int saveGamesSize = saveGames.size();
+                AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                chooseSavedGameDialogBuilder.setCancelable(false);
+                chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
 
-            String[] savedGames = new String[saveGamesSize];
+                int saveGamesSize = saveGames.size();
 
-            for (int i = 0; i <saveGamesSize; i++) {
-                savedGames[i] = saveGames.get(i);
-            }
+                String[] savedGames = new String[saveGamesSize];
 
-
-            chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d("Test Dialog", "Saved Games: " + which);
-
-                    loadGameSelected = options[which-1] + ".svr";
-
-                    Player loadedPlayerSave;
-
-                    try {
-
-                        File internalStorageDir = context.getFilesDir();
-                        File loadFile = new File(internalStorageDir, loadGameSelected);
-
-                        FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
-                        ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
-                        loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
-
-                        player = loadedPlayerSave;
+                for (int i = 0; i < saveGamesSize; i++) {
+                    savedGames[i] = saveGames.get(i);
+                }
 
 
-                        userChoice = -1;
-                        nextLevel();
+                chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("Test Dialog", "Saved Games: " + which);
+
+                        loadGameSelected = savedGames[which] + ".svr";
+
+                        Player loadedPlayerSave;
+
+                        try {
+
+                            File internalStorageDir = context.getFilesDir();
+                            File loadFile = new File(internalStorageDir, loadGameSelected);
+
+                            FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
+                            ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
+                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
+
+                            player = loadedPlayerSave;
 
 
-                    } catch (IOException | ClassNotFoundException e) {
+                            userChoice = -1;
+                            nextLevel();
+
+
+                        } catch (IOException | ClassNotFoundException e) {
 //
 //            addDelay(2000);
 //            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
@@ -568,18 +572,27 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //            return loadedPlayer;
 //            // End of load
 
+                        }
+
                     }
+                });
 
+                if (saveGamesSize > 0) {
+
+                    chooseSavedGameDialogBuilder.create().show();
+                } else {
+                    userChoice = -1;
+                    createPlayer();
                 }
-            });
-            chooseSavedGameDialogBuilder.create().show();
 
+            }
 
+        } else {
+
+            userChoice = -1;
+            startDelayedTask(100, true);
         }
-
     }
-
-
 //        Player loadedPlayer;
 //
 //        try {
@@ -750,10 +763,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
    //                 @Override
    //                 public void run() {
 
+                Enemy zombieOne = new Enemy("Zombie",4,2);
 
-                   System.out.println("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                   System.out.println("\nYou discover a "+ zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
   //              mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-                        setPreviousAndMainText("You discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it?");
+                        setPreviousAndMainText("You discover a " + zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it?");
 
                     zombie = userChoice;
 
@@ -1064,6 +1078,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 case "level2":
                         zombie = userChoice;
+
+
+
+
                         if (zombie == 0) {
                             userSubmitButton.setEnabled(false);
                   //          addDelay(2000);
@@ -1074,28 +1092,34 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                             System.out.println("\nYou attack the zombie");
                             int currentWeaponDamage = player.getCurrentWeaponDamage();
+ //                           int currentWeaponDamage = player.getCurrentWeaponDamage();
+                            int zombieOneHealth = zombieOne.getEnemyHealth();
+                            int zombieOneDamage = zombieOne.getEnemyDamage();
+                            String zombieOneName = "zombie";
+
+
 
                             while (player.getHealth() > 0) {
-                                if (currentWeaponDamage >= zombieHealth) {
+                                if (currentWeaponDamage >= zombieOneHealth) {
                                     userSubmitButton.setEnabled(false);
                                 //    addDelay(2000);
                                     userSubmitButton.setEnabled(true);
-                                    zombieHealth -= currentWeaponDamage;
+                                    zombieOneHealth -= currentWeaponDamage;
                          //           mainTextView.setText("You have killed the Zombie and taken no damage.");
 
-                                    setPreviousAndMainText("You have killed the Zombie and taken no damage.");
+                                    setPreviousAndMainText("You have killed the " + zombieOneName +" and taken no damage.");
 
-                                    System.out.println("You have killed the Zombie and taken no damage.");
+                                    System.out.println("You have killed the " + zombieOneName +" and taken no damage.");
                                     Weapon longSword = new Weapon("Long Sword", 12);
                                     player.setCurrentWeapon(longSword);
                                     userSubmitButton.setEnabled(false);
                              //       addDelay(2000);
                                     userSubmitButton.setEnabled(true);
 
-                                    setPreviousAndMainText("The Zombie was carrying a Long Sword which you claim as your own.");
+                                    setPreviousAndMainText("The "+ zombieOneName +" was carrying a " + longSword.getName() + " which you claim as your own.");
 
                       //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
-                                    System.out.println("The Zombie was carrying a Long Sword which you claim as your own.");
+                                    System.out.println("The "+ zombieOneName +" was carrying a " + longSword.getName() + " which you claim as your own.");
                                     System.out.println(player);
                                     player.setProgress("level3");
                                     System.out.println("Player progress is: " + player.getProgress());
@@ -1109,26 +1133,26 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         //            userSubmitButton.setEnabled(true);
                                     System.out.println("\nYou have damaged the Zombie");
 
-                                    setPreviousAndMainText("You have damaged the Zombie");
+                                    setPreviousAndMainText("You have damaged the " + zombieOneName + ".");
 
                               //      mainTextView.setText("You have damaged the Zombie");
-                                    zombieHealth -= currentWeaponDamage;
+                                    zombieOneHealth -= currentWeaponDamage;
                          //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                           //          userSubmitButton.setEnabled(true);
-                                    System.out.println("The Zombie now has " + zombieHealth + " health.");
+                                    System.out.println("The " + zombieOneName + "now has " + zombieOneHealth + " health.");
 
-                                    setPreviousAndMainText("The Zombie now has " + zombieHealth + " health.");
+                                    setPreviousAndMainText("The " + zombieOneName + "now has " + zombieOneHealth + " health.");
 
                          //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
                          //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                          //           userSubmitButton.setEnabled(true);
 
-                                    setPreviousAndMainText("The Zombie has attacked you with " + zombieDamage + " damage.");
+                                    setPreviousAndMainText("The " + zombieOneName + "has attacked you with " + zombieDamage + " damage.");
 
                              //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-                                    System.out.println("\nThe Zombie has attacked you with " + zombieDamage + " damage.");
+                                    System.out.println("\nThe " + zombieOneName + "has attacked you with " + zombieDamage + " damage.");
                                     player.takeDamage(zombieDamage);
                                 }
                             }
