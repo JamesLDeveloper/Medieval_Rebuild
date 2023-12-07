@@ -59,6 +59,7 @@ import com.example.medievalrebuild.Weapons.Weapon;
 import java.io.Serializable;
 import java.io.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
@@ -139,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private boolean validAnswer = false;
 
     private String newOrLoadSelected;
+
+    private String loadGameSelected;
 
     final String[] options = {"New Game", "Load"};
     Enemy zombieKing = new Enemy("Zombie King", 20, 20);
@@ -511,9 +514,72 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-//    private Player load() {
-//        // Add load functionality here
+    private void load() {
+        // Add load functionality here
+
+        if (player != null) {
+
+            AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseSavedGameDialogBuilder.setCancelable(false);
+            chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+
+            int saveGamesSize = saveGames.size();
+
+            String[] savedGames = new String[saveGamesSize];
+
+            for (int i = 0; i <saveGamesSize; i++) {
+                savedGames[i] = saveGames.get(i);
+            }
+
+
+            chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("Test Dialog", "Saved Games: " + which);
+
+                    loadGameSelected = options[which-1] + ".svr";
+
+                    Player loadedPlayerSave;
+
+                    try {
+
+                        File internalStorageDir = context.getFilesDir();
+                        File loadFile = new File(internalStorageDir, loadGameSelected);
+
+                        FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
+                        ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
+                        loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
+
+                        player = loadedPlayerSave;
+
+
+                        userChoice = -1;
+                        nextLevel();
+
+
+                    } catch (IOException | ClassNotFoundException e) {
 //
+//            addDelay(2000);
+//            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
+//            addDelay(4000);
+//
+//            loadedPlayer = new Player(playerName);
+//
+//            return loadedPlayer;
+//            // End of load
+
+                    }
+
+                }
+            });
+            chooseSavedGameDialogBuilder.create().show();
+
+
+        }
+
+    }
+
+
 //        Player loadedPlayer;
 //
 //        try {
@@ -780,6 +846,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             case "level7" :
                 setPreviousAndMainText("You have reached the end of the game");
                 userSubmitButton.setEnabled(false);
+                chooseNewOrLoad();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + progress);
@@ -982,6 +1049,13 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     //save(userTextInputCollected);
                     save();
                     break;
+
+                } else if (chest == 3) {
+
+                    load();
+                    break;
+
+
                 } else {
                     startDelayedTask(200000, true);
                 }
@@ -1080,6 +1154,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             //save(userTextInputCollected);
                             save();
                             break;
+
+                        } else if (zombie == 3) {
+
+                            load();
+                            break;
+
  /*                       } else if (zombie ==3) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
@@ -1132,6 +1212,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             //String savedFileName = userTextInputCollected;
                             //save(userTextInputCollected);
                             save();
+                            break;
+                        } else if (chestTwo == 3) {
+
+                            load();
                             break;
 //                        } else if (chestTwo== 4) {
 //                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
@@ -1220,6 +1304,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             System.exit(0);
                             break;*/
 
+                        } else if (enemy2 == 3) {
+
+                            load();
+                            break;
+
                         } else {
                             // System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // enemy2 = userChoice;
@@ -1268,13 +1357,22 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     //String savedFileName = userTextInputCollected;
                     //save(userTextInputCollected);
                     save();
-                    break; /*
+                    break;
+
+                    /*
 
                         } else if (doorOne== 4) {
                             System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
                             System.exit(0);
-                            break;
-                      */  } else {
+                            break;  */
+
+
+                    } else if (doorOne == 3) {
+
+                        load();
+                        break;
+
+                        } else {
                             // System.out.println("Please try again, your options are y or n to open the chest.");
                             //  doorOne = userChoice;
                             startDelayedTask(200000, true);
@@ -1371,6 +1469,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             //String savedFileName = userTextInputCollected;
                             //save(userTextInputCollected);
                             save();
+                            break;
+
+                        } else if (enemy3 == 3) {
+
+                            load();
                             break;
 
 
