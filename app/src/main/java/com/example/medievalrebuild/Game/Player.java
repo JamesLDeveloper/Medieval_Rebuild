@@ -165,11 +165,11 @@ public class Player implements Serializable {
                 "Name: " + name + "\n" +
                 "Health: " + getHealth() + "\n" +
                 getCurrentWeapon() +
-                "Equipped Items: \n   Armour: " + armour +
-                "   Helmet: " + helmet +
-                "   Shirt: " + shirt +
-                "   Trousers: " + trouser +
-                "   Shoes: " + shoe +
+                "Equipped Items: \nArmour: " + armour +
+                "Helmet: " + helmet +
+                "Shirt: " + shirt +
+                "Trousers: " + trouser +
+                "Shoes: " + shoe +
                 "Level: " + progress;
     }
 }

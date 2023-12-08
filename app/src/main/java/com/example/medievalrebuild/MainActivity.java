@@ -345,7 +345,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
                         art.homeScreen();
                     } else if (newOrLoadSelected.contentEquals("Load")) {
-                        load();
+
+                            load();
+
                     }
 
                 }
@@ -587,8 +589,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
             }
 
+        } else if (player == null) {
+            System.out.println("Sorry no saved games found, so we're starting a new game");
+            userChoice = -1;
+            createPlayer();
         } else {
-
             userChoice = -1;
             startDelayedTask(100, true);
         }
@@ -679,6 +684,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public void nextLevel() {
 
+        userSubmitButton.setEnabled(true);
 //        delayTask = new DelayTask();
         System.out.println("nextLevel() called");
         String progress = player.getProgress();
@@ -689,7 +695,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         switch (progress) {
             case "level1":
-
            //    while (progress.equalsIgnoreCase("level1")) {
 
 
@@ -1156,7 +1161,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                     player.takeDamage(zombieDamage);
                                 }
                             }
-                            nextLevel();
+                            if (player.getHealth() >0) {
+                                nextLevel();
+                            } else {
+                                chooseNewOrLoad();
+                            }
                             break;
                         } else if (zombie == 1) {
                         //    userSubmitButton.setEnabled(false);
@@ -1169,7 +1178,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                             player.takeDamage(zombieDamage * 1.5);
                             player.setProgress("level3");
-                            nextLevel();
+                            if (player.getHealth() >0) {
+                                nextLevel();
+                            } else {
+                                chooseNewOrLoad();
+                            }
                             break;
 
                         } else if (zombie == 2) {
@@ -1303,7 +1316,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                     player.takeDamage(zombieKing.getEnemyDamage());
                                 }
                             }
-                            nextLevel();
+                            if (player.getHealth() >0) {
+                                nextLevel();
+                            } else {
+                                chooseNewOrLoad();
+                            }
                             break;
                         } else if (enemy2 == 1) {
                             setPreviousAndMainText("You choose not to attack the " + zombieKing.getEnemyName() + ". The Zombie attacks you in the back as you run away.");
@@ -1467,7 +1484,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 }
 //                    break;
                             }
-                            nextLevel();
+                            if (player.getHealth() >0) {
+                                nextLevel();
+                            } else {
+                                chooseNewOrLoad();
+                            }
                             break;
                         } else if (enemy3 == 1) {
                             System.out.println("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
