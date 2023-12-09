@@ -21,6 +21,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.AsyncTask;
+import java.io.File;
+import java.nio.file.FileVisitOption;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -161,9 +163,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Handler handlerDelayTask = new Handler(Looper.getMainLooper());
 
-    ArrayList<String> saveGames = new ArrayList<String>();
+    ArrayList<String> saveGamesAfterRestart = new ArrayList<>();
+
 
     //MainActivity mainActivity;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -313,8 +318,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userExitButton.setText("Exit");
         userSubmitButton.setText("Submit");
 
-
         chooseNewOrLoad();
+
+
 
     }
 
@@ -345,9 +351,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
                         art.homeScreen();
                     } else if (newOrLoadSelected.contentEquals("Load")) {
-
                             load();
-
                     }
 
                 }
@@ -521,49 +525,68 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private void load() {
         // Add load functionality here
 
+        File internalStorageDir = context.getFilesDir();
+        File[] files = internalStorageDir.listFiles();
+
+        ArrayList<String> saveGames = new ArrayList<>();
+
+        if (files != null){
+            for (File file : files) {
+                if (file.isFile()) {
+                    String fileName = file.getName();
+                    if (fileName.endsWith(".svr")) {
+                        saveGames.add(fileName.substring(0, fileName.length() -4));
+                    }
+                }
+            }
+        }
+
+
         if (saveGames.size() > 0) {
 
-            if (player != null) {
+            //         if (player != null) {
 
-                AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                chooseSavedGameDialogBuilder.setCancelable(false);
-                chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
-
-                int saveGamesSize = saveGames.size();
-
-                String[] savedGames = new String[saveGamesSize];
-
-                for (int i = 0; i < saveGamesSize; i++) {
-                    savedGames[i] = saveGames.get(i);
-                }
+            AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseSavedGameDialogBuilder.setCancelable(false);
+            chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
 
 
-                chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("Test Dialog", "Saved Games: " + which);
+            int saveGamesSize = saveGames.size();
 
-                        loadGameSelected = savedGames[which] + ".svr";
+            String[] savedGames = new String[saveGamesSize];
 
-                        Player loadedPlayerSave;
-
-                        try {
-
-                            File internalStorageDir = context.getFilesDir();
-                            File loadFile = new File(internalStorageDir, loadGameSelected);
-
-                            FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
-                            ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
-                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
-
-                            player = loadedPlayerSave;
+            for (int i = 0; i < saveGamesSize; i++) {
+                savedGames[i] = saveGames.get(i);
+            }
 
 
-                            userChoice = -1;
-                            nextLevel();
+            chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("Test Dialog", "Saved Games: " + which);
+                    loadGameSelected = savedGames[which] + ".svr";
+
+                    Player loadedPlayerSave;
+
+                    try {
 
 
-                        } catch (IOException | ClassNotFoundException e) {
+                        File loadFile = new File(internalStorageDir, loadGameSelected);
+
+                        FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
+                        ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
+                        loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
+
+                        player = loadedPlayerSave;
+
+
+                        previousPreviousStageTextViewText = "";
+                        previousStageTextViewText = "";
+                        userChoice = -1;
+                        nextLevel();
+
+
+                    } catch (IOException | ClassNotFoundException e) {
 //
 //            addDelay(2000);
 //            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
@@ -574,29 +597,34 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //            return loadedPlayer;
 //            // End of load
 
-                        }
-
                     }
-                });
 
-                if (saveGamesSize > 0) {
+                }
+            });
 
-                    chooseSavedGameDialogBuilder.create().show();
-                } else {
+            //        if (saveGamesSize > 0) {
+
+            chooseSavedGameDialogBuilder.create().show();
+                     } else if (player == null) {
+
+
                     userChoice = -1;
                     createPlayer();
-                }
+          //      }
 
-            }
-
-        } else if (player == null) {
-            System.out.println("Sorry no saved games found, so we're starting a new game");
+            } else {
             userChoice = -1;
-            createPlayer();
-        } else {
-            userChoice = -1;
-            startDelayedTask(100, true);
+            nextLevel();
         }
+
+ //       } else if (player == null) {
+ //           System.out.println("Sorry no saved games found, so we're starting a new game");
+ //           userChoice = -1;
+ //           createPlayer();
+ //       } else {
+ //           userChoice = -1;
+ //           startDelayedTask(100, true);
+ //       }
     }
 //        Player loadedPlayer;
 //
@@ -652,8 +680,37 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                playerSaver.writeObject(progress);
                 System.out.println("We've just saved your game with file name " + chosenName);
 
-                saveGames.add(chosenName);
-                System.out.println("Saved Games: " + saveGames.toString());
+                //saveGames.add(chosenName);
+                //System.out.println("Saved Games: " + saveGames.toString());
+
+                File[] files = internalStorageDir.listFiles();
+
+
+
+
+                if (files != null){
+                    for (File file : files) {
+                        if (file.isFile()) {
+                            String fileNameFound = file.getName();
+                            if (fileNameFound.endsWith(".svr")) {
+                                saveGamesAfterRestart.add(fileNameFound.substring(0, fileNameFound.length() -4));
+                            }
+                        }
+                    }
+                }
+
+
+                int saveGamesSize = saveGamesAfterRestart.size();
+
+                String[] savedGames = new String[saveGamesSize];
+
+                for (int i = 0; i < saveGamesSize; i++) {
+                    savedGames[i] = saveGamesAfterRestart.get(i);
+                }
+
+
+
+                System.out.println("Saved Games: " + savedGames.toString());
 
                 //return fileName;
             } catch (IOException e) {
