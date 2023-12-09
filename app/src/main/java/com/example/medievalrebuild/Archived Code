@@ -595,3 +595,85 @@
                  //   break;
 
               //  }
+
+
+
+
+            /*case "level6":
+                while (player.getProgress().equalsIgnoreCase("level6")) {
+                    System.out.println("\nYou discover " + loki.getEnemyName() + " .He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                    enemy3 = userChoice;
+
+                    while (true) {
+                        if (enemy3== 0) {
+                            System.out.println("\nYou attack " + loki.getEnemyName());
+                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+
+                            int lokiHealth = loki.getEnemyHealth();
+                            while (true) {
+
+                                if (currentWeaponDamage >= lokiHealth) {
+                                    addDelay(2000);
+                                    lokiHealth -= currentWeaponDamage;
+                                    System.out.println("You have killed " + loki.getEnemyName() + " and taken no damage.");
+                                    Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
+                                    Weapon flamingSword = new Weapon("Flaming Sword", 24);
+                                    System.out.println(loki.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of " + chainMailTrousers.getArmourName() + " and a " + flamingSword.getName() + ".");
+                                    player.setCurrentWeapon(flamingSword);
+                                    player.setTrouser(chainMailTrousers);
+                                    System.out.println(player);
+                                    System.out.println("Please enter your save mainActivity name.");
+                                    String savedFileName = userTextInputCollected;
+                                    save(savedFileName);
+                                    System.out.println("Congratulations you have defeated the boss and completed the  Well done!");
+                                    player.setProgress("level7");
+                                    System.exit(1);
+                                    break;
+                                } else {
+                                    addDelay(2000);
+                                    System.out.println("\nYou have damaged the " + loki.getEnemyName());
+                                    lokiHealth -= currentWeaponDamage;
+                                    System.out.println("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
+                                    System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
+                                    player.getArmour().reduceDurability(loki.getReduceDurability());
+                                    player.getShirt().reduceDurability(loki.getReduceDurability());
+                                    player.getShoe().reduceDurability(loki.getReduceDurability());
+                                    player.getHelmet().reduceDurability(loki.getReduceDurability());
+                                    player.getTrouser().reduceDurability(loki.getReduceDurability());
+                                    System.out.println(player);
+                                    player.takeDamage(loki.getEnemyDamage());
+//                        break;
+
+                                }
+//                    break;
+                            }
+                            break;
+                        } else if (enemy3== 1) {
+                            System.out.println("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
+                            player.takeDamage(loki.getEnemyDamage() / 2);
+                            player.setProgress("level7");
+                            System.out.println("Your cowardly actions have not gone unnoticed, the King has thrown you in jail and you journey is at an end. Better luck next time.");
+                            System.exit(0);
+                            break;
+
+                        } else if (enemy3== 2) {
+                            System.out.println("Please enter your save mainActivity name.");
+                            String savedFileName = userTextInputCollected;
+                            save(savedFileName);
+                            break;
+
+                        } else if (enemy3== 4) {
+                            System.out.println("Goodbye Traveller, return soon to conquer to hordes of evil!");
+                            System.exit(0);
+                            break;
+                        } else {
+//                    progress = "level7";
+                            //    System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
+                            //    enemy2 = userChoice;
+                        }
+                    }
+                }
+                break;
+
+*/
+     //   }
