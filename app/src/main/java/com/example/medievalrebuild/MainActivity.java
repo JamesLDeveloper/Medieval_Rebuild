@@ -318,6 +318,27 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userExitButton.setText("Exit");
         userSubmitButton.setText("Submit");
 
+
+
+
+        File internalStorageDirForPreviousSaves = context.getFilesDir();
+        File[] files = internalStorageDirForPreviousSaves.listFiles();
+
+        if (files != null){
+            for (File file : files) {
+                if (file.isFile()) {
+                    String fileName = file.getName();
+                    if (fileName.endsWith(".svr")) {
+                        saveGamesAfterRestart.add(fileName.substring(0, fileName.length() -4));
+                    }
+                }
+            }
+        }
+
+
+
+
+
         chooseNewOrLoad();
 
 
@@ -327,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public void chooseNewOrLoad() {
 
-        if (player != null){
+        if (player != null && saveGamesAfterRestart.size() > 0){
 
             AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
             chooseGameModeDialogBuilder.setCancelable(false);
@@ -358,8 +379,35 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             });
             chooseGameModeDialogBuilder.create().show();
 
-        } else {
+        } else if (player != null) {
+            AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseGameModeDialogBuilder.setCancelable(false);
+            chooseGameModeDialogBuilder.setTitle("You have Succumbed to the Enemy. Start a New Game");
 
+//        final String[] options = {"Real life", "Movie quotes", "Both"};
+
+            chooseGameModeDialogBuilder.setItems(new String[]{"New Game"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("TestDialog", "Selected Option: " + which);
+
+                    newOrLoadSelected = options[which];
+
+                        mainTextViewText = "Welcome to Medieval Marvels and Might!";
+                        previousStageTextViewText = "Welcome to Medieval Marvels and Might!";
+                        previousPreviousStageTextViewText = "";
+                        player = null;
+                        createPlayer();
+//                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
+                        art.homeScreen();
+
+
+
+                }
+            });
+            chooseGameModeDialogBuilder.create().show();
+
+        } else if (player == null && saveGamesAfterRestart.size() > 0) {
 
             AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
             chooseGameModeDialogBuilder.setCancelable(false);
@@ -380,6 +428,31 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     } else if (newOrLoadSelected.contentEquals("Load")) {
                         load();
                     }
+
+                }
+            });
+            chooseGameModeDialogBuilder.create().show();
+        } else {
+            AlertDialog.Builder chooseGameModeDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseGameModeDialogBuilder.setCancelable(false);
+            chooseGameModeDialogBuilder.setTitle("Start a New Game");
+
+//        final String[] options = {"Real life", "Movie quotes", "Both"};
+
+            chooseGameModeDialogBuilder.setItems(new String[]{"New Game"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("TestDialog", "Selected Option: " + which);
+
+                    newOrLoadSelected = options[which];
+
+                    mainTextViewText = "Welcome to Medieval Marvels and Might!";
+                    previousStageTextViewText = "Welcome to Medieval Marvels and Might!";
+                    previousPreviousStageTextViewText = "";
+                    player = null;
+                    createPlayer();
+//                        mainTextViewText = "Welcome to Medieval Marvels and Might" + player.getName();
+                    art.homeScreen();
 
                 }
             });
