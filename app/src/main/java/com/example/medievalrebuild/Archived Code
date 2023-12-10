@@ -677,3 +677,26 @@
 
 */
      //   }
+
+
+                         handler2.postDelayed(new Runnable() {
+                             @Override
+                             public void run() {
+
+                                 latch.countDown();
+                             }
+                         }, 5000);
+
+
+     try {
+         latch.await();
+         player.setProgress("level2");
+         userSubmitButton.setEnabled(false);
+         //      addDelay(10000);
+         userSubmitButton.setEnabled(true);
+         nextLevel();
+        break;
+
+     } catch (InterruptedException e) {
+         e.printStackTrace();
+     }

@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.UserHandle;
 import android.util.Log;
@@ -42,7 +43,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
+import java.util.concurrent.CountDownLatch;
+import android.os.CountDownTimer;
 import android.os.Looper;
+//import android.support.v7.app.AppCompatActivity;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -69,6 +76,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Art art;
 
     private Handler handler = new Handler();
+
+    private HandlerThread handlerThread;
+
+  //  private Handler handler2;
+
+ //   final CountDownLatch latch = new CountDownLatch(1);
+
+ //   private ScheduledExecutorService scheduledExecutorService;
 
     ImageView mainImageView;
 
@@ -182,6 +197,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         setContentView(R.layout.activity_main);
 
         context = this;
+
+        handlerThread = new HandlerThread("MyHandlerThread");
+        handlerThread.start();
+
+     //   handler2 = new Handler(handlerThread.getLooper());
+
+     //   scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+    //    scheduledExecutorService = Executors.newScheduledThreadPool(4);
 
         int autoSizeMinTextSize = 6;
         int autoSizeMaxTextSize = 30;
@@ -344,6 +367,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown()) {
+//            scheduledExecutorService.shutdown();
+//        }
+//
+//    }
 
 
     public void chooseNewOrLoad() {
@@ -906,18 +939,32 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 //previousStageTextViewText = previousStageTextViewText + " " + player.getName();
                 setPreviousAndMainText("Adventure awaits " + player.getName() + "!");
-                setPreviousAndMainText("You discover a chest. Would you like to open it?");
 
                 mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
 
+           //     scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+
+//                scheduledExecutorService.schedule(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Code to be executed after the delay
+//
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+                                setPreviousAndMainText("You discover a chest. Would you like to open it?");
+
+                                // Update UI or perform other tasks on the main thread
+//                            }
+//                        });
 
 
-                    System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    //                  String chest = console.next().toLowerCase();
+                        System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+                        //                  String chest = console.next().toLowerCase();
 
-                    userChoice = -1;
+                        userChoice = -1;
 
-                System.out.println(userChoice);
+                        System.out.println(userChoice);
 
 //                waitingForAnswer = true;
 //                while (waitingForAnswer) {
@@ -928,20 +975,23 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                    }
 //                }
 
-                waitingForAnswer = true;
-                System.out.println("waiting for answer " + waitingForAnswer);
+                        waitingForAnswer = true;
+                        System.out.println("waiting for answer " + waitingForAnswer);
 
-                int chest = userChoice;
-                System.out.println("chest int  " + chest);
-
-
-                chest = 1;
-                System.out.println("chest int  " + chest);
+                        int chest = userChoice;
+                        System.out.println("chest int  " + chest);
 
 
-                startDelayedTask(200000, true);
+                        chest = 1;
+                        System.out.println("chest int  " + chest);
 
 
+                        startDelayedTask(200000, true);
+
+//                    }
+//                }, 1, TimeUnit.SECONDS);
+ //               scheduledExecutorService.shutdown();
+//onDestroy();
 
 
                 break;
@@ -985,6 +1035,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
+
+
+
                 startDelayedTask(200000, true);
 
 
@@ -999,23 +1052,41 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
          //           handler.postDelayed(new Runnable() {
          //                                   @Override
          //                                   public void run() {
+         //       scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+//                scheduledExecutorService.schedule(new Runnable() {
+//                    @Override
+//                    public void run() {
 
-                    System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    setPreviousAndMainText("You discover a chest. Would you like to open it?");
-
-                    mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
+                        mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
 
 
-                    chestTwo = userChoice;
+                        // Code to be executed after the delay
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+                                setPreviousAndMainText("You discover a chest. Would you like to open it?");
 
-         //                                   }
-         //           }, 5000);
 
-                    startDelayedTask(200000, true);
+                                // Update UI or perform other tasks on the main thread
+//                            }
+//                        });
+
+                        System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+
+                        chestTwo = userChoice;
+
+                        //                                   }
+                        //           }, 5000);
+
+                        startDelayedTask(200000, true);
+
+//                    }
+//                }, 5, TimeUnit.SECONDS);
+  //              scheduledExecutorService.shutdown();
+ //               onDestroy();
+
 
      //   }
-
-
                 break;
 
             case "level4":
@@ -1120,7 +1191,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private void startDelayedTask(int time, boolean applyDelay) {
      //   if (applyDelay) {
-            cancelDelayedTask(); // Cancel any existing tasks
+
+//        if (isFinishing()) {
+//            return;
+//        }
+
+         //   cancelDelayedTask(); // Cancel any existing tasks
     //    }
 
         System.out.println("Delayed Task Due to run");
@@ -1136,6 +1212,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             switch(player.getProgress()) {
 
                 case "level1":
+
                     chest = userChoice;
                 if (chest == 0) {
 
@@ -1144,43 +1221,57 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
       //              handler.postDelayed(new Runnable() {
       //                  @Override
       //                  public void run() {
+//                    scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+//                    scheduledExecutorService.schedule(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // Code to be executed after the delay
+
+                            System.out.println("Chest is: " + chest);
 
 
+                            System.out.println("chest int  " + chest);
+                            System.out.println("You open the chest to find a helmet. You put it on.");
+
+                            userSubmitButton.setEnabled(false);
+                            //       addDelay(2000);
+                            userSubmitButton.setEnabled(true);
+                            System.out.println("You choose option 0");
+                            //          mainTextView.setText("You open the chest to find a helmet. You put it on.");
 
 
-                    System.out.println("Chest is: " + chest);
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+                                    // Update UI or perform other tasks on the main thread
+                                    setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
 
+//                                }
+//                            });
 
-                    System.out.println("chest int  " + chest);
-                    System.out.println("You open the chest to find a helmet. You put it on.");
+                            Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8);
+                            player.setHelmet(platedHelmet);
 
-                    userSubmitButton.setEnabled(false);
-             //       addDelay(2000);
-                    userSubmitButton.setEnabled(true);
-                    System.out.println("You choose option 0");
-          //          mainTextView.setText("You open the chest to find a helmet. You put it on.");
+                            //                 }
+                            //              }, 5000);
 
-                            setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
+                            //System.out.println(player);
+                            // addDelay(2000);
 
+                            player.setProgress("level2");
+                            userSubmitButton.setEnabled(false);
+                            //      addDelay(10000);
+                            userSubmitButton.setEnabled(true);
+                            nextLevel();
 
-                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8);
-                    player.setHelmet(platedHelmet);
+//                        }
+//                    }, 5, TimeUnit.SECONDS);
+//                    scheduledExecutorService.shutdown();
+ //                   onDestroy();
+   // break;
 
-       //                 }
-      //              }, 5000);
-
-                    //System.out.println(player);
-                   // addDelay(2000);
-                    player.setProgress("level2");
-                    userSubmitButton.setEnabled(false);
-              //      addDelay(10000);
-                    userSubmitButton.setEnabled(true);
-
-
-
-
-
-
+                    break;
+                     // not sure if break here is needed
                 } else if (chest == 1) {
                     System.out.println("Chest is : " + chest);
                     System.out.println("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
@@ -1209,6 +1300,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
                 } else {
+                    previousStageTextViewText = "";
                     startDelayedTask(200000, true);
                 }
                 nextLevel();
@@ -1341,6 +1433,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
  */                       } else {
                             //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // zombie = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
 
@@ -1350,18 +1443,45 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 case "level3":
      //               while (true) {
 
+
+
                     chestTwo = userChoice;
                         if (chestTwo== 0) {
                             //addDelay(2000);
 
-                            setPreviousAndMainText("You open the chest to find some chain mail. You put it on.");
-                            System.out.println("You open the chest to find some chain mail. You put it on.");
-                            Armour chainMail = new Armour("Chain Mail", 10, 10);
-                            player.setArmour(chainMail);
-                            System.out.println(player);
-                            //addDelay(2000);
-                            player.setProgress("level4");
-                            nextLevel();
+       //                     scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+//                            scheduledExecutorService.schedule(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    // Code to be executed after the delay
+
+                                    Armour chainMail = new Armour("Chain Mail", 10, 10);
+
+//
+//                                    runOnUiThread(new Runnable() {
+//                                                      @Override
+//                                                      public void run() {
+//                                                          // Update UI or perform other tasks on the main thread
+                                                          setPreviousAndMainText("You open the chest to find some " + chainMail + ". You put it on.");
+//                                                      }
+//                                                  });
+
+
+                                    System.out.println("You open the chest to find some chain mail. You put it on.");
+
+                                    player.setArmour(chainMail);
+                                    System.out.println(player);
+                                    //addDelay(2000);
+                                    player.setProgress("level4");
+                                    nextLevel();
+
+//                                }
+//                            }, 5, TimeUnit.SECONDS);
+    //                        scheduledExecutorService.shutdown();
+//                            onDestroy();
+
+
+
                             break;
                         } else if (chestTwo== 1) {
                             setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
@@ -1394,6 +1514,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         } else {
                             // System.out.println("Please try again, your options are y or n to open the chest.");
                             //  chestTwo = console.next().toLowerCase();
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
            //         }
@@ -1486,6 +1607,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         } else {
                             // System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // enemy2 = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
 
                         }
@@ -1549,6 +1671,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         } else {
                             // System.out.println("Please try again, your options are y or n to open the chest.");
                             //  doorOne = userChoice;
+                        previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
                         nextLevel();
@@ -1562,6 +1685,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         if (enemy3 == 0) {
                             System.out.println("\nYou attack " + loki.getEnemyName());
                             setPreviousAndMainText("You attack " + loki.getEnemyName());
+
+                   //         handlerThread.start();
 
                             int currentWeaponDamage = player.getCurrentWeaponDamage();
                             int lokiHealth = loki.getEnemyHealth();
@@ -1597,13 +1722,65 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                     break;
                                 } else {
                                 //    addDelay(2000);
+
+
                                     System.out.println("\nYou have damaged the " + loki.getEnemyName());
+
+//                                    handler2.postDelayed(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+
                                     setPreviousAndMainText("You have damaged the \" + loki.getEnemyName()");
+
+//                                    latch.countDown();
+
+//                                        }
+//                                    }, 2000);
+
+
+//                                    try {
+//                                        latch.await();
+//                                    }   catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                        }
+
+
+
                                     lokiHealth -= currentWeaponDamage;
                                     System.out.println("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
                                     setPreviousAndMainText("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
+
+
+
+
+
                                     System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
+
+//                                    handler2.postDelayed(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+
+
+
+
+
+
+
                                     setPreviousAndMainText(loki.getEnemyName() + " has attacked you with " + loki.getEnemyDamage() + " damage.");
+
+//                                    latch.countDown();
+//
+//                                        }
+//                                    }, 2000);
+//
+//
+//                                    try {
+//                                        latch.await();
+//                                    }   catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
+
+
                                     player.getArmour().reduceDurability(loki.getReduceDurability());
                                     player.getShirt().reduceDurability(loki.getReduceDurability());
                                     player.getShoe().reduceDurability(loki.getReduceDurability());
@@ -1611,7 +1788,24 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                     player.getTrouser().reduceDurability(loki.getReduceDurability());
                                     System.out.println(player);
                                     player.takeDamage(loki.getEnemyDamage());
+
+//                                    handler2.postDelayed(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+
                                     setPreviousAndMainText("You now have " + player.getHealth() + " health left.");
+
+//                                    latch.countDown();
+//
+//                                        }
+//                                    }, 2000);
+//
+//
+//                                    try {
+//                                        latch.await();
+//                                    }   catch (InterruptedException e) {
+//                                        e.printStackTrace();
+//                                    }
 //                        break;
 
                                 }
@@ -1663,6 +1857,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                    progress = "level7";
                             //    System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             //    enemy2 = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
  //                   }
@@ -1683,6 +1878,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         } else {
             handler.post(delayedTask);
         }
+
+//        if (applyDelay) {
+//            scheduledExecutorService.schedule(delayedTask, 10, TimeUnit.SECONDS);
+//
+//        } else {
+//            scheduledExecutorService.execute(delayedTask);
+//
+//        }
+
     }
 
     private void removeDelay() {
@@ -1707,24 +1911,23 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         }
     }
 
+    private void setPreviousAndMainText(final String newMainText){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainTextViewText = newMainText;
+                previousPreviousStageTextView.setText(previousPreviousStageTextViewText);
+                previousStageTextView.setText(previousStageTextViewText);
+                mainTextView.setText(mainTextViewText);
+                previousPreviousStageTextViewText = previousStageTextViewText;
+                previousStageTextViewText = mainTextViewText;
+            }
+        });
 
-    private void setPreviousAndMainText(String newMainText){
-        mainTextViewText = newMainText;
-        previousPreviousStageTextView.setText(previousPreviousStageTextViewText);
-        previousStageTextView.setText(previousStageTextViewText);
-        mainTextView.setText(mainTextViewText);
-        previousPreviousStageTextViewText = previousStageTextViewText;
-        previousStageTextViewText = mainTextViewText;
     }
 
 //    public void setTime(int time){
 //        this.time = time;
 //    }
-
-
-
-
-
-
 
 }
