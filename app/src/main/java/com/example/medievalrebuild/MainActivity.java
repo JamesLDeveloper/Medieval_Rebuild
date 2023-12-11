@@ -161,7 +161,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Runnable delayedTask;
 
+    private Runnable delayedMessage;
+
     private Handler handlerDelayTask = new Handler(Looper.getMainLooper());
+
+
+    private Handler handlerDelayMessage = new Handler(Looper.getMainLooper());
 
     ArrayList<String> saveGamesAfterRestart = new ArrayList<>();
 
@@ -902,22 +907,52 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                    mainActivity.addDelay(2000);
                 userSubmitButton.setEnabled(false);
              //   addDelay(2000);
-                userSubmitButton.setEnabled(true);
+//                userSubmitButton.setEnabled(true);
 
                 //previousStageTextViewText = previousStageTextViewText + " " + player.getName();
-                setPreviousAndMainText("Adventure awaits " + player.getName() + "!");
-                setPreviousAndMainText("You discover a chest. Would you like to open it?");
-
-                mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
 
 
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    //                  String chest = console.next().toLowerCase();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("Adventure awaits " + player.getName() + "!");
+                            }
+                        });
 
-                    userChoice = -1;
+//userSubmitButton.setEnabled(true);
 
-                System.out.println(userChoice);
+
+                    }
+                },3000);
+
+
+
+
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("You discover a chest. Would you like to open it?");
+
+
+                                mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
+                            }
+                        });
+
+
+                        System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+                        //                  String chest = console.next().toLowerCase();
+
+                        userChoice = -1;
+
+                        System.out.println(userChoice);
 
 //                waitingForAnswer = true;
 //                while (waitingForAnswer) {
@@ -928,18 +963,24 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                    }
 //                }
 
-                waitingForAnswer = true;
-                System.out.println("waiting for answer " + waitingForAnswer);
+                        waitingForAnswer = true;
+                        System.out.println("waiting for answer " + waitingForAnswer);
 
-                int chest = userChoice;
-                System.out.println("chest int  " + chest);
-
-
-                chest = 1;
-                System.out.println("chest int  " + chest);
+                        int chest = userChoice;
+                        System.out.println("chest int  " + chest);
 
 
-                startDelayedTask(200000, true);
+                        chest = 1;
+                        System.out.println("chest int  " + chest);
+
+
+                        startDelayedTask(200000, true);
+
+                        userSubmitButton.setEnabled(true);
+
+
+                    }
+                },6000);
 
 
 
@@ -999,19 +1040,43 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
          //           handler.postDelayed(new Runnable() {
          //                                   @Override
          //                                   public void run() {
+                userSubmitButton.setEnabled(false);
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        userSubmitButton.setEnabled(true);
 
-                    System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    setPreviousAndMainText("You discover a chest. Would you like to open it?");
-
-                    mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
 
 
-                    chestTwo = userChoice;
+                        System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
 
-         //                                   }
-         //           }, 5000);
 
-                    startDelayedTask(200000, true);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("You discover a chest. Would you like to open it?");
+
+                                mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
+                            }
+                        });
+
+//                        setPreviousAndMainText("You discover a chest. Would you like to open it?");
+//
+//                        mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
+
+
+                        chestTwo = userChoice;
+
+                        //                                   }
+                        //           }, 5000);
+                        userSubmitButton.setEnabled(true);
+                        startDelayedTask(200000, true);
+
+                    }
+                },10000);
+
+
+
 
      //   }
 
@@ -1209,6 +1274,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
                 } else {
+                    previousStageTextViewText = "";
                     startDelayedTask(200000, true);
                 }
                 nextLevel();
@@ -1341,6 +1407,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
  */                       } else {
                             //System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // zombie = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
 
@@ -1353,21 +1420,21 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     chestTwo = userChoice;
                         if (chestTwo== 0) {
                             //addDelay(2000);
-
-                            setPreviousAndMainText("You open the chest to find some chain mail. You put it on.");
-                            System.out.println("You open the chest to find some chain mail. You put it on.");
                             Armour chainMail = new Armour("Chain Mail", 10, 10);
                             player.setArmour(chainMail);
+                            setPreviousAndMainText("You open the chest to find some " + chainMail.getArmourName() + ". You put it on.");
+                            System.out.println("You open the chest to find some chain mail. You put it on.");
+
                             System.out.println(player);
                             //addDelay(2000);
                             player.setProgress("level4");
                             nextLevel();
                             break;
                         } else if (chestTwo== 1) {
-                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
-                            System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                             Armour platedArmor = new Armour("Plated Armor", 7, 6);
                             player.setArmour(platedArmor);
+                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getArmourName() + "armor behind.");
+                            System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                             System.out.println(player);
                             player.setProgress("level4");
                             nextLevel();
@@ -1394,6 +1461,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         } else {
                             // System.out.println("Please try again, your options are y or n to open the chest.");
                             //  chestTwo = console.next().toLowerCase();
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
            //         }
@@ -1486,6 +1554,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         } else {
                             // System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             // enemy2 = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
 
                         }
@@ -1663,6 +1732,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //                    progress = "level7";
                             //    System.out.println("Please try again, your options are y or n to attack the Zombie, s to Save or x to exit");
                             //    enemy2 = userChoice;
+                            previousStageTextViewText = "";
                             startDelayedTask(200000, true);
                         }
  //                   }
@@ -1706,6 +1776,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             Log.d("DelayedTask", "Task cancelled");
         }
     }
+
+
+
 
 
     private void setPreviousAndMainText(String newMainText){
