@@ -677,3 +677,29 @@
 
 */
      //   }
+
+
+                         userSubmitButton.setEnabled(false);
+                         handlerDelayMessage.postDelayed(new Runnable() {
+                             @Override
+                             public void run() {
+
+
+
+                                 runOnUiThread(new Runnable() {
+                                     @Override
+                                     public void run() {
+
+
+
+
+                                     }
+                                 });
+
+
+
+
+                                 userSubmitButton.setEnabled(true);
+                                 nextLevel();
+                             }
+                         },3000);
