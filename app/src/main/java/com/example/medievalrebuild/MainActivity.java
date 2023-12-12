@@ -987,9 +987,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 break;
             case "level2":
-                userSubmitButton.setEnabled(false);
+//                userSubmitButton.setEnabled(false);
              //   addDelay(5000);
-                userSubmitButton.setEnabled(true);
+//                userSubmitButton.setEnabled(true);
          //       mainTextView.setText("You have reached the start of level 2");
              //   System.out.println("You have reached the start of level 2");
 
@@ -1001,7 +1001,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 userSubmitButton.setEnabled(false);
            //     addDelay(5000);
-                userSubmitButton.setEnabled(true);
+//                userSubmitButton.setEnabled(true);
 
 
 
@@ -1012,21 +1012,38 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 Enemy zombieOne = new Enemy("Zombie",4,2);
 
-                   System.out.println("\nYou discover a "+ zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-  //              mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-                        setPreviousAndMainText("You discover a " + zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it?");
 
-                        mainImageView.setImageResource(R.drawable.workzombie);
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    zombie = userChoice;
+                        System.out.println("\nYou discover a "+ zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                        //              mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("You discover a " + zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it?");
+                                mainImageView.setImageResource(R.drawable.workzombie);
 
 
-   //                 }
-   //                 }, 5000);
+
+
+                            }
+                        });
 
 
 
-                startDelayedTask(200000, true);
+                        zombie = userChoice;
+
+                        //                 }
+                        //                 }, 5000);
+
+                        startDelayedTask(200000, true);
+                        userSubmitButton.setEnabled(true);
+                    }
+                },3000);
+
+
 
 
 
@@ -1044,7 +1061,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        userSubmitButton.setEnabled(true);
+                 //       userSubmitButton.setEnabled(true);
 
 
 
@@ -1073,7 +1090,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         startDelayedTask(200000, true);
 
                     }
-                },10000);
+                },3000);
 
 
 
@@ -1089,20 +1106,36 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
        //                 @Override
        //                 public void run() {
 
-
+userSubmitButton.setEnabled(false);
          //       while (player.getProgress().equalsIgnoreCase("level4")) {
-                    System.out.println("\nYou discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
 
-                   setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it?");
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                   mainImageView.setImageResource(R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
+                        System.out.println("\nYou discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
 
-                    enemy2 = userChoice;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it?");
 
-     //                   }
-    //                }, 5000);
+                                mainImageView.setImageResource(R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
+                            }
+                        });
 
-                    startDelayedTask(200000, true);
+//userSubmitButton.setEnabled(true);
+
+                        enemy2 = userChoice;
+
+                        //                   }
+                        //                }, 5000);
+
+                        startDelayedTask(200000, true);
+                        userSubmitButton.setEnabled(true);
+
+                    }
+                },3000);
 
 
                     break;
@@ -1111,42 +1144,97 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
             case "level5":
 
+userSubmitButton.setEnabled(false);
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    System.out.println("\nYou discover a door. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
-                    setPreviousAndMainText("You discover a door. Would you like to open it?");
+                        System.out.println("\nYou discover a door. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
-                    mainImageView.setImageResource(R.drawable.victorian_4_panel_solid_oak_door);
+                                setPreviousAndMainText("You discover a door. Would you like to open it?");
 
-                    doorOne = userChoice;
+                                mainImageView.setImageResource(R.drawable.victorian_4_panel_solid_oak_door);
 
-                    startDelayedTask(200000, true);
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+
+                        doorOne = userChoice;
+
+                        startDelayedTask(200000, true);
+                        userSubmitButton.setEnabled(true);
+
+                    }
+                },3000);
 
                     break;
 
             case "level6":
 
-                    System.out.println("\nYou discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
-                    setPreviousAndMainText("You discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
 
-                    mainImageView.setImageResource(R.drawable.loki_1556801363);
+                userSubmitButton.setEnabled(false);
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("\nYou discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
+
+                                mainImageView.setImageResource(R.drawable.loki_1556801363);
+
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+                        enemy3 = userChoice;
 
 
-                    enemy3 = userChoice;
+                        startDelayedTask(200000, true);
+                        userSubmitButton.setEnabled(true);
 
-                    System.out.println("Before level 2 part 2 called");
-                    startDelayedTask(200000, true);
-                System.out.println("After level 2 part 2 called");
+                    }
+                },3000);
 
                     break;
 
 
             case "level7" :
-                setPreviousAndMainText("You have reached the end of the game");
-
-                mainImageView.setImageResource(R.drawable.s_l1600);
 
                 userSubmitButton.setEnabled(false);
-                chooseNewOrLoad();
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                setPreviousAndMainText("You have reached the end of the game");
+                                mainImageView.setImageResource(R.drawable.s_l1600);
+
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+                        userSubmitButton.setEnabled(false);
+                        chooseNewOrLoad();
+
+                    }
+                },3000);
+
+
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + progress);
