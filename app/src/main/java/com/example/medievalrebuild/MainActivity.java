@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Handler handlerDelayMessageSixteen = new Handler(Looper.getMainLooper());
 
+    private Handler handlerDelayMessageSeventeen = new Handler(Looper.getMainLooper());
 
     ArrayList<String> saveGamesAfterRestart = new ArrayList<>();
 
@@ -1465,8 +1466,6 @@ userSubmitButton.setEnabled(false);
                                 @Override
                                 public void run() {
 
-
-
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -1477,10 +1476,9 @@ userSubmitButton.setEnabled(false);
                                         }
                                     });
 
-
-
-
                                     userSubmitButton.setEnabled(true);
+                                    System.out.println("Level2 Part 1");
+                                    System.out.println("HandlerDelayMessageEleven 3000ms delay");
                            //         nextLevel();
                                 }
                             },3000);
@@ -1491,6 +1489,7 @@ userSubmitButton.setEnabled(false);
                                 @Override
                                 public void run() {
 
+
                                     while (player.getHealth() > 0) {
                                       //  int zombieOneHealthWhile = zombieOneHealth;
                                         if (currentWeaponDamage >= zombieOne.getEnemyHealth()) {
@@ -1500,28 +1499,32 @@ userSubmitButton.setEnabled(false);
                                             zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
                                             //           mainTextView.setText("You have killed the Zombie and taken no damage.");
 
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
 
-                                                    setPreviousAndMainText("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
-
-                                                }
-                                            });
-
-
-
-                                            System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
-                                            Weapon longSword = new Weapon("Long Sword", 12);
-                                            player.setCurrentWeapon(longSword);
                                             userSubmitButton.setEnabled(false);
+
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+
+                                                            setPreviousAndMainText("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
+
+
+                                                        }
+                                                    });
+
+                                                    System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
+                                                    userSubmitButton.setEnabled(false);
+          //                                          System.out.println("HandlerDelayMessageSeventeen 3000ms delay");
+
+
                                             //       addDelay(2000);
 
                                             handlerDelayMessageThirteen.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
 
-
+                                                    Weapon longSword = new Weapon("Long Sword", 12);
+                                                    player.setCurrentWeapon(longSword);
 
                                                     runOnUiThread(new Runnable() {
                                                         @Override
@@ -1546,20 +1549,27 @@ userSubmitButton.setEnabled(false);
 
 
                                                     userSubmitButton.setEnabled(true);
+
+                                                    System.out.println("Level2 Part 3 - should happen after zombie dies");
+                                                    System.out.println("HandlerDelayMessageThirteen 6000ms delay");
+
                                                     nextLevel();
+
                                                 }
-                                            },3000);
+                                            },6000);
 
                                             break;
                                         } else {
 
                                             userSubmitButton.setEnabled(false);
 
-                                            zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
+
 
                                             handlerDelayMessageFourteen.postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
+
+                                                    zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
 
                                                     System.out.println("\nYou have damaged the Zombie");
 
@@ -1580,6 +1590,8 @@ userSubmitButton.setEnabled(false);
 
                                                     userSubmitButton.setEnabled(true);
                                                    // nextLevel();
+
+                                                    System.out.println("HandlerDelayMessageFourteen delay 3000ms");
                                                 }
                                             },3000);
 
@@ -1601,6 +1613,7 @@ userSubmitButton.setEnabled(false);
                                                     });
 
                                                     System.out.println("The " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
+                                                    System.out.println("HandlerDelayMessageFifteen 6000ms delay");
 
                                                     userSubmitButton.setEnabled(true);
                                                    // nextLevel();
@@ -1656,6 +1669,7 @@ userSubmitButton.setEnabled(false);
                                                     player.takeDamage(zombieOne.getEnemyDamage());
 
                                                     userSubmitButton.setEnabled(true);
+                                                    System.out.println("HandlerDelayMessageSixteen 9000ms delay");
                                                     //nextLevel();
                                                 }
                                             },9000);
@@ -1677,6 +1691,10 @@ userSubmitButton.setEnabled(false);
 
                                    // userSubmitButton.setEnabled(true);
                                    // nextLevel();
+                                    System.out.println("Level2 Part 2 - Should happen after while statement");
+                                    System.out.println("HandlerDelayMessageTwelve delay 6000ms");
+
+
                                 }
                             },6000);
 
@@ -1707,11 +1725,13 @@ break;
                             //String savedFileName = userTextInputCollected;
                             //save(userTextInputCollected);
                             save();
+        //                    nextLevel();
                             break;
 
                         } else if (zombie == 3) {
 
                             load();
+       //                     nextLevel();
                             break;
 
  /*                       } else if (zombie ==3) {
