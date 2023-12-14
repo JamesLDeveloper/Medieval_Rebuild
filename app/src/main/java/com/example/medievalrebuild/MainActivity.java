@@ -198,6 +198,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Handler handlerDelayMessageSixteen = new Handler(Looper.getMainLooper());
 
+    private Handler handlerDelayMessageSeventeen = new Handler(Looper.getMainLooper());
+
+    private Handler handlerDelayMessageEighteen = new Handler(Looper.getMainLooper());
+
 
     ArrayList<String> saveGamesAfterRestart = new ArrayList<>();
 
@@ -1450,10 +1454,10 @@ userSubmitButton.setEnabled(false);
 
 
                             System.out.println("\nYou attack the zombie");
-                            int currentWeaponDamage = player.getCurrentWeaponDamage();
+                       //     int currentWeaponDamage = player.getCurrentWeaponDamage();
                             //                           int currentWeaponDamage = player.getCurrentWeaponDamage();
                          //  final int zombieOneHealth = zombieOne.getEnemyHealth();
-                            int zombieOneDamage = zombieOne.getEnemyDamage();
+                      //      int zombieOneDamage = zombieOne.getEnemyDamage();
                          //   String zombieOneName = "zombie";
 
 
@@ -1487,198 +1491,20 @@ userSubmitButton.setEnabled(false);
 
 
                             userSubmitButton.setEnabled(false);
-                            handlerDelayMessageTwelve.postDelayed(new Runnable() {
+
+
+                            handlerDelayMessageEighteen.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
 
-                                    while (player.getHealth() > 0) {
-                                      //  int zombieOneHealthWhile = zombieOneHealth;
-                                        if (currentWeaponDamage >= zombieOne.getEnemyHealth()) {
-                                            //   userSubmitButton.setEnabled(false);
-                                            //    addDelay(2000);
-                                            //    userSubmitButton.setEnabled(true);
-                                            zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
-                                            //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+                                    battle(zombieOne, "level3");
 
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-                                                    setPreviousAndMainText("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
-
-                                                }
-                                            });
-
-
-
-                                            System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
-                                            Weapon longSword = new Weapon("Long Sword", 12);
-                                            player.setCurrentWeapon(longSword);
-                                            userSubmitButton.setEnabled(false);
-                                            //       addDelay(2000);
-
-                                            handlerDelayMessageThirteen.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-
-
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-
-
-
-                                                            setPreviousAndMainText("The "+ zombieOne.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
-
-
-                                                        }
-                                                    });
-
-                                                    System.out.println("The "+ zombieOne.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
-
-
-
-                                                    System.out.println(player);
-                                                    player.setProgress("level3");
-                                                    System.out.println("Player progress is: " + player.getProgress());
-                                                    System.out.println("Please enter your save game name.");
-
-
-                                                    userSubmitButton.setEnabled(true);
-                                                    nextLevel();
-                                                }
-                                            },3000);
-
-                                            break;
-                                        } else {
-
-                                            userSubmitButton.setEnabled(false);
-
-                                            zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
-
-                                            handlerDelayMessageFourteen.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-                                                    System.out.println("\nYou have damaged the Zombie");
-
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-
-                                                            setPreviousAndMainText("You have damaged the " + zombieOne.getEnemyName() + ". The " + zombieOne.getEnemyName() + "now has " + zombieOne.getEnemyHealth() + " health.");
-
-                                                        }
-                                                    });
-
-
-
-                                                    System.out.println("The " + zombieOne.getEnemyHealth() + "now has " + zombieOne.getEnemyHealth() + " health.");
-
-
-
-                                                    userSubmitButton.setEnabled(true);
-                                                   // nextLevel();
-                                                }
-                                            },3000);
-
-                                            userSubmitButton.setEnabled(false);
-                                            handlerDelayMessageFifteen.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-
-
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-
-                                                            setPreviousAndMainText("The " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
-
-
-                                                        }
-                                                    });
-
-                                                    System.out.println("The " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
-
-                                                    userSubmitButton.setEnabled(true);
-                                                   // nextLevel();
-                                                }
-                                            },6000);
-
-
-                                            //            userSubmitButton.setEnabled(false);
-                                            //             addDelay(2000);
-                                            //            userSubmitButton.setEnabled(true);
-
-
-
-
-                                            //      mainTextView.setText("You have damaged the Zombie");
-
-                                            //           userSubmitButton.setEnabled(false);
-                                            //           addDelay(2000);
-                                            //          userSubmitButton.setEnabled(true);
-
-
-       //                                     setPreviousAndMainText();
-
-                                            //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
-                                            //           userSubmitButton.setEnabled(false);
-                                            //           addDelay(2000);
-                                            //           userSubmitButton.setEnabled(true);
-
-
-
-                                            //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-
-
-
-                                            userSubmitButton.setEnabled(false);
-                                            handlerDelayMessageSixteen.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-
-
-                                                    runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-
-
-
-
-                                                        }
-                                                    });
-
-
-                                                    player.takeDamage(zombieOne.getEnemyDamage());
-
-                                                    userSubmitButton.setEnabled(true);
-                                                    //nextLevel();
-                                                }
-                                            },9000);
-
-
-                                        }
-                                    }
-                                    if (player.getHealth() >0) {
-                                        nextLevel();
-                                    } else {
-                                        chooseNewOrLoad();
-                                    }
- //                                   break;
-
-
-
-
-
-
-                                   // userSubmitButton.setEnabled(true);
-                                   // nextLevel();
                                 }
-                            },6000);
+                            }, 6000);
+
+
+
+
 
 break;
 
@@ -1693,7 +1519,7 @@ break;
 
                             setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
 
-                            player.takeDamage(zombieDamage * 1.5);
+                            player.takeDamage(zombieOne.getEnemyDamage() * 1.5);
                             player.setProgress("level3");
                             if (player.getHealth() >0) {
                                 nextLevel();
@@ -1707,6 +1533,7 @@ break;
                             //String savedFileName = userTextInputCollected;
                             //save(userTextInputCollected);
                             save();
+                         //   nextLevel();
                             break;
 
                         } else if (zombie == 3) {
@@ -2113,7 +1940,129 @@ break;
 //    }
 
 
+private void battle(Enemy enemy, String progressAfterBattle){
 
+    while (player.getHealth() > 0) {
+        //  int zombieOneHealthWhile = zombieOneHealth;
+        if (player.getCurrentWeaponDamage() >= enemy.getEnemyHealth()) {
+            //   userSubmitButton.setEnabled(false);
+            //    addDelay(2000);
+            //    userSubmitButton.setEnabled(true);
+            enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+            //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+
+                    setPreviousAndMainText("You have killed the " + enemy.getEnemyName() +" and taken no damage.");
+
+            System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
+            Weapon longSword = new Weapon("Long Sword", 12);
+            player.setCurrentWeapon(longSword);
+            userSubmitButton.setEnabled(false);
+            //       addDelay(2000);
+
+
+                            setPreviousAndMainText("The "+ enemy.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
+
+
+                    System.out.println("The "+ enemy.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
+
+
+
+                    System.out.println(player);
+                    player.setProgress(progressAfterBattle);
+                    System.out.println("Player progress is: " + player.getProgress());
+                    System.out.println("Please enter your save game name.");
+
+
+                    userSubmitButton.setEnabled(true);
+                 //   nextLevel();
+
+
+            break;
+        } else {
+
+            userSubmitButton.setEnabled(false);
+
+            enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                    System.out.println("\nYou have damaged the Zombie");
+
+
+
+                            setPreviousAndMainText("You have damaged the " + enemy.getEnemyName() + ". The " + enemy.getEnemyName() + "now has " + enemy.getEnemyHealth() + " health.");
+
+
+
+
+                    System.out.println("The " + enemy.getEnemyHealth() + "now has " + enemy.getEnemyHealth() + " health.");
+
+
+
+                    userSubmitButton.setEnabled(true);
+                    // nextLevel();
+
+
+            userSubmitButton.setEnabled(false);
+
+
+                            setPreviousAndMainText("The " + enemy.getEnemyName() + "has attacked you with " + enemy.getEnemyDamage() + " damage.");
+
+
+
+                    System.out.println("The " + enemy.getEnemyName() + "has attacked you with " + enemy.getEnemyDamage() + " damage.");
+
+                    userSubmitButton.setEnabled(true);
+                    // nextLevel();
+
+
+
+            //            userSubmitButton.setEnabled(false);
+            //             addDelay(2000);
+            //            userSubmitButton.setEnabled(true);
+
+
+
+
+            //      mainTextView.setText("You have damaged the Zombie");
+
+            //           userSubmitButton.setEnabled(false);
+            //           addDelay(2000);
+            //          userSubmitButton.setEnabled(true);
+
+
+            //                                     setPreviousAndMainText();
+
+            //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+            //           userSubmitButton.setEnabled(false);
+            //           addDelay(2000);
+            //           userSubmitButton.setEnabled(true);
+
+
+
+            //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+
+
+
+            userSubmitButton.setEnabled(false);
+
+
+                    player.takeDamage(enemy.getEnemyDamage());
+
+                    userSubmitButton.setEnabled(true);
+                    //nextLevel();
+
+        }
+    }
+    if (player.getHealth() >0) {
+      //  nextLevel();
+    } else {
+        chooseNewOrLoad();
+    }
+    //                                   break;
+
+    // userSubmitButton.setEnabled(true);
+    // nextLevel();
+
+}
 
 
 
