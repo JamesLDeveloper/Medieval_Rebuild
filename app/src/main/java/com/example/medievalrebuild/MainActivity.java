@@ -134,8 +134,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private int enemy2;
 
     private int enemy3;
-    private int zombieHealth = 4;
-    private int zombieDamage = 2;
+
+//    private int zombieHealth = 4;
+//    private int zombieDamage = 2;
 
 //    private String userTextInputCollected;
 
@@ -809,7 +810,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userTextInput = enteredText;
 
             String chosenName = userTextInput;
-            String fileName = chosenName+".svr";
+            String fileName = chosenName+": " + player.getProgress() + " .svr";
             try {
 
 
@@ -1441,11 +1442,11 @@ userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                          //           userSubmitButton.setEnabled(true);
 
-                                    setPreviousAndMainText("The " + zombieOneName + "has attacked you with " + zombieDamage + " damage.");
+                                    setPreviousAndMainText("The " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
 
                              //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-                                    System.out.println("\nThe " + zombieOneName + "has attacked you with " + zombieDamage + " damage.");
-                                    player.takeDamage(zombieDamage);
+                                    System.out.println("\nThe " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
+                                    player.takeDamage(zombieOne.getEnemyDamage());
                                 }
                             }
                             if (player.getHealth() >0) {
@@ -1463,7 +1464,7 @@ userSubmitButton.setEnabled(false);
 
                             setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
 
-                            player.takeDamage(zombieDamage * 1.5);
+                            player.takeDamage(zombieOne.getEnemyDamage() * 1.5);
                             player.setProgress("level3");
                             if (player.getHealth() >0) {
                                 nextLevel();

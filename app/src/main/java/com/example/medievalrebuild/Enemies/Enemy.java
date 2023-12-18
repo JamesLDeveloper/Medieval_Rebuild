@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Enemy implements Serializable {
 
     private final String name;
-    private final int damage;
-    private final int health;
+    private int damage;
+    private int health;
 
 
     public Enemy(String name, int health, int damage){
