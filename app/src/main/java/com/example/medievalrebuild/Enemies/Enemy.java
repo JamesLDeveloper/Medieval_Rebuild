@@ -14,8 +14,6 @@ public class Enemy implements Serializable {
         this.name = name;
         this.damage = damage;
         this.health = health;
-
-
     }
 
     public String getEnemyName(){
@@ -27,9 +25,19 @@ public class Enemy implements Serializable {
 
     }
 
+    public void enemyTakeDamage(int damage){
+        this.health -= damage;
+   //     return (this.health);
+    }
+
     public int getEnemyHealth(){
         return this.health;
 
+    }
+
+    public void updateEnemy(Enemy newEnemy){
+        this.health = newEnemy.getEnemyHealth();
+        this.damage = newEnemy.getEnemyDamage();
     }
 
 }

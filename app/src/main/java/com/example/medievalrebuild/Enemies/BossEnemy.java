@@ -23,4 +23,12 @@ public class BossEnemy extends Enemy implements Serializable {
 
     }
 
+    @Override
+    public void updateEnemy(Enemy newEnemy) {
+        super.updateEnemy(newEnemy);
+        if (newEnemy instanceof BossEnemy) {
+            this.reduceDurability = ((BossEnemy) newEnemy).reduceDurability;
+        }
+    }
+
 }
