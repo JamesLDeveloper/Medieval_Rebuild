@@ -293,7 +293,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectOption(4);
+ //               selectOption(4);
+                delete();
             }
 
         });
@@ -669,7 +670,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-    private void load() {
+    private void delete() {
         // Add load functionality here
 
         File internalStorageDir = context.getFilesDir();
@@ -677,12 +678,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         ArrayList<String> saveGames = new ArrayList<>();
 
-        if (files != null){
+        if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
                     String fileName = file.getName();
                     if (fileName.endsWith(".svr")) {
-                        saveGames.add(fileName.substring(0, fileName.length() -4));
+                        saveGames.add(fileName.substring(0, fileName.length() - 4));
                     }
                 }
             }
@@ -693,9 +694,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
             //         if (player != null) {
 
-            AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-            chooseSavedGameDialogBuilder.setCancelable(false);
-            chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+            AlertDialog.Builder chooseSavedGameToDeleteDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            chooseSavedGameToDeleteDialogBuilder.setCancelable(false);
+            chooseSavedGameToDeleteDialogBuilder.setTitle("Please choose your game to delete");
 
 
             int saveGamesSize = saveGames.size();
@@ -707,33 +708,154 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
 
 
-            chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
+            chooseSavedGameToDeleteDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("Test Dialog", "Saved Games: " + which);
-                    loadGameSelected = savedGames[which] + ".svr";
+                    String deleteGameSelected = savedGames[which] + ".svr";
+                    confirmDelete(deleteGameSelected);
+                }
+            });
 
-                    Player loadedPlayerSave;
+            chooseSavedGameToDeleteDialogBuilder.create().show();
 
-                    try {
-
-
-                        File loadFile = new File(internalStorageDir, loadGameSelected);
-
-                        FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
-                        ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
-                        loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
-
-                        player = loadedPlayerSave;
-
+        } else {
 
                         previousPreviousStageTextViewText = "";
                         previousStageTextViewText = "";
                         userChoice = -1;
                         nextLevel();
 
+                    }
 
-                    } catch (IOException | ClassNotFoundException e) {
+                }
+
+                private void confirmDelete(final String deleteGameSelected) {
+        AlertDialog.Builder confirmDeleteDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        confirmDeleteDialogBuilder.setCancelable(false);
+        confirmDeleteDialogBuilder.setTitle("Confirm Delete");
+        confirmDeleteDialogBuilder.setMessage("Are you sure you want to delete : " + deleteGameSelected + "?");
+
+        confirmDeleteDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteSavedGame(deleteGameSelected);
+            }
+        });
+
+        confirmDeleteDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                previousPreviousStageTextViewText = "";
+                previousStageTextViewText = "";
+                userChoice = -1;
+                nextLevel();
+            }
+        });
+
+        confirmDeleteDialogBuilder.create().show();
+                }
+
+       private void deleteSavedGame(String deleteGameSelected) {
+        File internalStorageDir = context.getFilesDir();
+        File deleteFile = new File(internalStorageDir, deleteGameSelected);
+
+        if (deleteFile.exists()) {
+            if (deleteFile.delete()){
+                System.out.println(deleteGameSelected + " : successfully deleted");
+            } else {
+                System.out.println("Failed to delete " + deleteGameSelected);
+            }
+        } else {
+            System.out.println("Error " + deleteGameSelected + " not found");
+        }
+
+       }
+//            });
+//
+//            //        if (saveGamesSize > 0) {
+//
+//            chooseSavedGameToDeleteDialogBuilder.create().show();
+//        } else if (player == null) {
+//
+//
+//            userChoice = -1;
+//            createPlayer();
+//            //      }
+//
+//        } else {
+//            userChoice = -1;
+//            nextLevel();
+//        }
+//    }
+
+
+
+        private void load() {
+            // Add load functionality here
+
+            File internalStorageDir = context.getFilesDir();
+            File[] files = internalStorageDir.listFiles();
+
+            ArrayList<String> saveGames = new ArrayList<>();
+
+            if (files != null){
+                for (File file : files) {
+                    if (file.isFile()) {
+                        String fileName = file.getName();
+                        if (fileName.endsWith(".svr")) {
+                            saveGames.add(fileName.substring(0, fileName.length() -4));
+                        }
+                    }
+                }
+            }
+
+
+            if (saveGames.size() > 0) {
+
+                //         if (player != null) {
+
+                AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                chooseSavedGameDialogBuilder.setCancelable(false);
+                chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+
+
+                int saveGamesSize = saveGames.size();
+
+                String[] savedGames = new String[saveGamesSize];
+
+                for (int i = 0; i < saveGamesSize; i++) {
+                    savedGames[i] = saveGames.get(i);
+                }
+
+
+                chooseSavedGameDialogBuilder.setItems(savedGames, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("Test Dialog", "Saved Games: " + which);
+                        loadGameSelected = savedGames[which] + ".svr";
+
+                        Player loadedPlayerSave;
+
+                        try {
+
+
+                            File loadFile = new File(internalStorageDir, loadGameSelected);
+
+                            FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
+                            ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
+                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
+
+                            player = loadedPlayerSave;
+
+
+                            previousPreviousStageTextViewText = "";
+                            previousStageTextViewText = "";
+                            userChoice = -1;
+                            nextLevel();
+
+
+                        } catch (IOException | ClassNotFoundException e) {
 //
 //            addDelay(2000);
 //            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
@@ -744,25 +866,28 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //            return loadedPlayer;
 //            // End of load
 
+                        }
+
                     }
+                });
 
-                }
-            });
+                //        if (saveGamesSize > 0) {
 
-            //        if (saveGamesSize > 0) {
-
-            chooseSavedGameDialogBuilder.create().show();
-                     } else if (player == null) {
+                chooseSavedGameDialogBuilder.create().show();
+            } else if (player == null) {
 
 
-                    userChoice = -1;
-                    createPlayer();
-          //      }
+                userChoice = -1;
+                createPlayer();
+                //      }
 
             } else {
-            userChoice = -1;
-            nextLevel();
-        }
+                userChoice = -1;
+                nextLevel();
+            }
+
+
+
 
  //       } else if (player == null) {
  //           System.out.println("Sorry no saved games found, so we're starting a new game");
@@ -797,6 +922,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //        }
 //
 //    }
+
+
 
 
 
