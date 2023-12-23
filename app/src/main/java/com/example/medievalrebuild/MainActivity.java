@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button userResponse3Button;
 
-    Button userExitButton;
+    Button userExitButton; // has been turned into a delete button instead
 
     Button userSubmitButton;
 
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userResponse1Button.setText("No");
         userResponse2Button.setText("Save");
         userResponse3Button.setText("Load");
-        userExitButton.setText("Exit");
+        userExitButton.setText("Delete");
         userSubmitButton.setText("Submit");
 
 
@@ -548,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userResponse1Button.setText("No");
             userResponse2Button.setText("Save");
             userResponse3Button.setText("Load");
-            userExitButton.setText("Exit");
+            userExitButton.setText("Delete");
             validAnswer = true;
         } else if (answerSelection == 1) {
             System.out.println("Answer Selection = " + answerSelection);
@@ -556,7 +556,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userResponse1Button.setText("✔" + "No");
             userResponse2Button.setText("Save");
             userResponse3Button.setText("Load");
-            userExitButton.setText("Exit");
+            userExitButton.setText("Delete");
             validAnswer = true;
         } else if (answerSelection == 2) {
             System.out.println("Answer Selection = " + answerSelection);
@@ -564,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userResponse1Button.setText("No");
             userResponse2Button.setText("✔ " + "Save");
             userResponse3Button.setText("Load");
-            userExitButton.setText("Exit");
+            userExitButton.setText("Delete");
             validAnswer = true;
         } else if (answerSelection == 3) {
             System.out.println("Answer Selection = " + answerSelection);
@@ -572,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userResponse1Button.setText("No");
             userResponse2Button.setText("Save");
             userResponse3Button.setText("✔ " + "Load");
-            userExitButton.setText("Exit");
+            userExitButton.setText("Delete");
             validAnswer = true;
         } else if (answerSelection == 4) {
             System.out.println("Answer Selection = " + answerSelection);
@@ -580,7 +580,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             userResponse1Button.setText("No");
             userResponse2Button.setText("Save");
             userResponse3Button.setText("Load");
-            userExitButton.setText("✔ " + "Exit");
+            userExitButton.setText("✔ " + "Delete");
             validAnswer = true;
         } else {
             System.out.println("Answer Selection = " + answerSelection);
@@ -597,7 +597,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userResponse1Button.setText("No");
         userResponse2Button.setText("Save");
         userResponse3Button.setText("Load");
-        userExitButton.setText("Exit");
+        userExitButton.setText("Delete");
 
 
 
@@ -1531,7 +1531,8 @@ userSubmitButton.setEnabled(false);
                                     userSubmitButton.setEnabled(true);
                                     zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-
+                                    enemies.remove(zombieOne);
+                                    enemies.add(zombieOne);
 
 
                          //           mainTextView.setText("You have killed the Zombie and taken no damage.");
@@ -1566,6 +1567,8 @@ userSubmitButton.setEnabled(false);
 
                               //      mainTextView.setText("You have damaged the Zombie");
                                     zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
+                                    enemies.remove(zombieOne);
+                                    enemies.add(zombieOne);
                          //           userSubmitButton.setEnabled(false);
                          //           addDelay(2000);
                           //          userSubmitButton.setEnabled(true);
@@ -1700,14 +1703,14 @@ userSubmitButton.setEnabled(false);
 
                             setPreviousAndMainText("You attack the " + zombieKing.getEnemyName());
 
-                            int currentWeaponDamage = player.getCurrentWeaponDamage();
-                            int zombieKingHealth = zombieKing.getEnemyHealth();
+                           // int currentWeaponDamage = player.getCurrentWeaponDamage();
+                           // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
                             while (player.getHealth() > 0) {
-                                if (currentWeaponDamage >= zombieKingHealth) {
+                                if (player.getCurrentWeaponDamage() >= zombieKing.getEnemyHealth()) {
                                   //  addDelay(2000);
-                                    zombieKingHealth -= currentWeaponDamage;
+                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
 
                                     setPreviousAndMainText("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
 
@@ -1731,10 +1734,13 @@ userSubmitButton.setEnabled(false);
 
                                     setPreviousAndMainText("You have damaged the " + zombieKing.getEnemyName());
                                     System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
-                                    zombieKingHealth -= currentWeaponDamage;
+                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKingHealth + " health.");
-                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKingHealth + " health.");
+                                    enemies.remove(zombieKing);
+                                    enemies.add(zombieKing);
+
+                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
+                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
 
                                     setPreviousAndMainText("The Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
                                     System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
@@ -1857,14 +1863,17 @@ userSubmitButton.setEnabled(false);
                             System.out.println("\nYou attack " + loki.getEnemyName());
                             setPreviousAndMainText("You attack " + loki.getEnemyName());
 
-                            int currentWeaponDamage = player.getCurrentWeaponDamage();
-                            int lokiHealth = loki.getEnemyHealth();
+                           // int currentWeaponDamage = player.getCurrentWeaponDamage();
+                          //  int lokiHealth = loki.getEnemyHealth();
 
                             while (player.getHealth() > 0) {
 
-                                if (currentWeaponDamage >= lokiHealth) {
+                                if (player.getCurrentWeaponDamage() >= loki.getEnemyHealth()) {
                        //             addDelay(2000);
-                                    lokiHealth -= currentWeaponDamage;
+                                    loki.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                                    enemies.remove(loki);
+                                    enemies.add(loki);
 
                                     System.out.println("You have killed " + loki.getEnemyName() + " and taken no damage.");
                                     setPreviousAndMainText("You have killed " + loki.getEnemyName() + " and taken no damage.");
@@ -1891,11 +1900,13 @@ userSubmitButton.setEnabled(false);
                                     break;
                                 } else {
                                 //    addDelay(2000);
-                                    System.out.println("\nYou have damaged the " + loki.getEnemyName());
-                                    setPreviousAndMainText("You have damaged the \" + loki.getEnemyName()");
-                                    lokiHealth -= currentWeaponDamage;
-                                    System.out.println("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
-                                    setPreviousAndMainText("The " + loki.getEnemyName() + " now has " + lokiHealth + " health.");
+                                    System.out.println("\nYou have damaged " + loki.getEnemyName());
+                                    setPreviousAndMainText("You have damaged " + loki.getEnemyName());
+                                    loki.enemyTakeDamage(player.getCurrentWeaponDamage());
+                                    enemies.remove(loki);
+                                    enemies.add(loki);
+                                    System.out.println(loki.getEnemyName() + " now has " + loki.getEnemyHealth()+ " health.");
+                                    setPreviousAndMainText(loki.getEnemyName() + " now has " + loki.getEnemyHealth() + " health.");
                                     System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
                                     setPreviousAndMainText(loki.getEnemyName() + " has attacked you with " + loki.getEnemyDamage() + " damage.");
                                     player.getArmour().reduceDurability(loki.getReduceDurability());
