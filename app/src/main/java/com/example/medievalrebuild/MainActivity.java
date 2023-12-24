@@ -63,6 +63,7 @@ import java.io.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -838,6 +839,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         loadGameSelected = savedGames[which] + ".svr";
 
                         Player loadedPlayerSave;
+                        ArrayList<Enemy> loadedEnemiesSave;
 
                         try {
 
@@ -846,9 +848,40 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                             FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
                             ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
-                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
 
+                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
                             player = loadedPlayerSave;
+
+                            loadedEnemiesSave = (ArrayList<Enemy>) loadedObjectPlayerFile.readObject();
+
+//                            for (Enemy loadedEnemy : loadedEnemiesSave){
+//                               for (Enemy currentEnemy: enemies) {
+//                                   if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
+//                                       currentEnemy.updateEnemy(loadedEnemy);
+//                                       // enemies.removeAll(Enemy);
+//
+//                                       break;
+//                                   }
+//                               }
+//                            }
+
+                            Iterator<Enemy> iterator = enemies.iterator();
+                            while (iterator.hasNext()) {
+                                Enemy currentEnemy = iterator.next();
+                                for (Enemy loadedEnemy : loadedEnemiesSave) {
+                                    if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
+
+                                        currentEnemy.updateEnemy(loadedEnemy);
+                                        System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
+                                        System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
+                                        iterator.remove(); // Remove the currentEnemy using the iterator
+                                        break;
+                                    }
+                                }
+                            }
+
+// Now add the loadedEnemiesSave to the enemies list
+                            enemies.addAll(loadedEnemiesSave);
 
 
                             previousPreviousStageTextViewText = "";
@@ -856,7 +889,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                             userChoice = -1;
                             nextLevel();
 
-
+                            loadedObjectPlayerFile.close();
                         } catch (IOException | ClassNotFoundException e) {
 //
 //            addDelay(2000);
@@ -951,6 +984,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 playerSaver.writeObject(player);
 
+                playerSaver.writeObject(enemies);
+
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
 //                playerSaver.writeObject(progress);
@@ -1030,9 +1065,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             case "level1":
            //    while (progress.equalsIgnoreCase("level1")) {
 
-                enemies.add(zombieOne);
-                enemies.add(zombieKing);
-                enemies.add(loki);
+                enemies = Enemy.getAllEnemies();
+
+//                enemies.add(zombieOne);
+//                enemies.add(zombieKing);
+//                enemies.add(loki);
 
 //        boolean level1InProgress = true;
                     //while (progress.equalsIgnoreCase("level1")) {

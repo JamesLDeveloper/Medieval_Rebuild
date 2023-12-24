@@ -1,6 +1,7 @@
 package com.example.medievalrebuild.Enemies;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Enemy implements Serializable {
 
@@ -8,12 +9,19 @@ public class Enemy implements Serializable {
     private int damage;
     private int health;
 
+    private static ArrayList<Enemy> enemiesCreated = new ArrayList<>();
+
 
     public Enemy(String name, int health, int damage){
 
         this.name = name;
         this.damage = damage;
         this.health = health;
+        enemiesCreated.add(this);
+    }
+
+    public static ArrayList<Enemy> getAllEnemies() {
+        return enemiesCreated;
     }
 
     public String getEnemyName(){
