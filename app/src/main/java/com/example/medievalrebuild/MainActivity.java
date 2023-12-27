@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button userResponse1Button;
 
-    Button userResponse2Button;
+    Button userResponse2Button; // save button
 
-    Button userResponse3Button;
+    Button userResponse3Button; // load button
 
     Button userExitButton; // has been turned into a delete button instead
 
@@ -263,14 +263,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userResponse2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectOption(2);
+         //       selectOption(2);
+                save();
             }
         });
 
         userResponse3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectOption(3);
+               // selectOption(3);
+                load();
             }
 
         });
@@ -622,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player == null){
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name", false);
+            MyAlertDialog myAlertDialogCreatePlayer = new MyAlertDialog(this, this, "Please enter your character name", false, false);
             }
 
   //      return null;
@@ -664,7 +666,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         if (player != null) {
             System.out.println("userTextInput before myAlertDialog created " + userTextInput);
 
-            MyAlertDialog myAlertDialogSavePlayer = new MyAlertDialog(this, this, "Please enter your save name", true);
+            MyAlertDialog myAlertDialogSavePlayer = new MyAlertDialog(this, this, "Please enter your save name", true, true);
         }
 
       //  return userTextInput;
@@ -680,6 +682,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         File[] files = internalStorageDir.listFiles();
 
         ArrayList<String> saveGames = new ArrayList<>();
+
+        saveGames.add(0, "Cancel Delete Game");
 
         if (files != null) {
             for (File file : files) {
@@ -698,7 +702,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             //         if (player != null) {
 
             AlertDialog.Builder chooseSavedGameToDeleteDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-            chooseSavedGameToDeleteDialogBuilder.setCancelable(false);
+          //  chooseSavedGameToDeleteDialogBuilder.setCancelable(false);
             chooseSavedGameToDeleteDialogBuilder.setTitle("Please choose your game to delete");
 
 
@@ -716,7 +720,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("Test Dialog", "Saved Games: " + which);
                     String deleteGameSelected = savedGames[which] + ".svr";
-                    confirmDelete(deleteGameSelected);
+
+                    if (which > 0) {
+
+                        confirmDelete(deleteGameSelected);
+                    } else {
+                        dialog.dismiss();
+                    }
+
                 }
             });
 
@@ -797,10 +808,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         private void load() {
             // Add load functionality here
 
+   //         change to dialog box rather choose and submit?
+
             File internalStorageDir = context.getFilesDir();
             File[] files = internalStorageDir.listFiles();
 
             ArrayList<String> saveGames = new ArrayList<>();
+
+            saveGames.add(0, "Cancel Load Game");
 
             if (files != null){
                 for (File file : files) {
@@ -819,7 +834,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 //         if (player != null) {
 
                 AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                chooseSavedGameDialogBuilder.setCancelable(false);
+                chooseSavedGameDialogBuilder.setCancelable(true);
                 chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
 
 
@@ -841,67 +856,60 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         Player loadedPlayerSave;
                         ArrayList<Enemy> loadedEnemiesSave;
 
-                        try {
+                        if (which > 0) {
+
+                            try {
 
 
-                            File loadFile = new File(internalStorageDir, loadGameSelected);
+                                File loadFile = new File(internalStorageDir, loadGameSelected);
 
-                            FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
-                            ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
+                                FileInputStream loadedSavePlayerFile = new FileInputStream(loadFile);
+                                ObjectInputStream loadedObjectPlayerFile = new ObjectInputStream(loadedSavePlayerFile);
 
-                            loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
-                            player = loadedPlayerSave;
+                                loadedPlayerSave = (Player) loadedObjectPlayerFile.readObject();
+                                player = loadedPlayerSave;
 
-                            loadedEnemiesSave = (ArrayList<Enemy>) loadedObjectPlayerFile.readObject();
+                                loadedEnemiesSave = (ArrayList<Enemy>) loadedObjectPlayerFile.readObject();
 
-//                            for (Enemy loadedEnemy : loadedEnemiesSave){
-//                               for (Enemy currentEnemy: enemies) {
-//                                   if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
-//                                       currentEnemy.updateEnemy(loadedEnemy);
-//                                       // enemies.removeAll(Enemy);
-//
-//                                       break;
-//                                   }
-//                               }
-//                            }
 
-                            Iterator<Enemy> iterator = enemies.iterator();
-                            while (iterator.hasNext()) {
-                                Enemy currentEnemy = iterator.next();
-                                for (Enemy loadedEnemy : loadedEnemiesSave) {
-                                    if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
+                                Iterator<Enemy> iterator = enemies.iterator();
+                                while (iterator.hasNext()) {
+                                    Enemy currentEnemy = iterator.next();
+                                    for (Enemy loadedEnemy : loadedEnemiesSave) {
+                                        if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
 
-                                        currentEnemy.updateEnemy(loadedEnemy);
-                                        System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
-                                        System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
-                                        iterator.remove(); // Remove the currentEnemy using the iterator
-                                        break;
+                                            currentEnemy.updateEnemy(loadedEnemy);
+                                            System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
+                                            System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
+                                            iterator.remove(); // Remove the currentEnemy using the iterator
+                                            break;
+                                        }
                                     }
                                 }
-                            }
 
 // Now add the loadedEnemiesSave to the enemies list
-                            enemies.addAll(loadedEnemiesSave);
+                                enemies.addAll(loadedEnemiesSave);
 
 
-                            previousPreviousStageTextViewText = "";
-                            previousStageTextViewText = "";
-                            userChoice = -1;
-                            nextLevel();
+                                previousPreviousStageTextViewText = "";
+                                previousStageTextViewText = "";
+                                userChoice = -1;
+                                nextLevel();
 
-                            loadedObjectPlayerFile.close();
-                        } catch (IOException | ClassNotFoundException e) {
-//
-//            addDelay(2000);
-//            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
-//            addDelay(4000);
-//
-//            loadedPlayer = new Player(playerName);
-//
-//            return loadedPlayer;
-//            // End of load
+                                loadedObjectPlayerFile.close();
+                            } catch (IOException | ClassNotFoundException e) {
 
+
+                            }
+
+                        } else if (which == 0 && player != null) {
+                            dialog.dismiss();
+                        } else {
+                            dialog.dismiss();
+                            chooseNewOrLoad();
                         }
+
+
 
                     }
                 });
@@ -924,45 +932,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
- //       } else if (player == null) {
- //           System.out.println("Sorry no saved games found, so we're starting a new game");
- //           userChoice = -1;
- //           createPlayer();
- //       } else {
- //           userChoice = -1;
- //           startDelayedTask(100, true);
- //       }
+
     }
-//        Player loadedPlayer;
-//
-//        try {
-//
-//            FileInputStream loadedSaveFile = new FileInputStream(playerName);
-//            ObjectInputStream loadedObjectFile = new ObjectInputStream(loadedSaveFile);
-//            loadedPlayer = (Player) loadedObjectFile.readObject();
-//            //           this.progress = (String) loadedObjectFile.readObject();
-//
-//
-//            return loadedPlayer;
-//        } catch (IOException | ClassNotFoundException e) {
-//
-//            addDelay(2000);
-//            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
-//            addDelay(4000);
-//
-//            loadedPlayer = new Player(playerName);
-//
-//            return loadedPlayer;
-//            // End of load
-//        }
-//
-//    }
-
-
-
-
-
-
 
     @Override
     public void onTextEnteredForOtherPurpose(String enteredText){

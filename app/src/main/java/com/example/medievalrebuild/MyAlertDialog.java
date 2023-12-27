@@ -32,7 +32,7 @@ private MainActivity mainActivity;
     private boolean playerCreationPending;
 
 
-    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString, boolean save/*, boolean playerCreationPending*/) {
+    public MyAlertDialog(Context context, DialogCallBack callBack, String setTitleString, boolean save/*, boolean playerCreationPending*/, boolean cancellable) {
 
         this.callBack = callBack;
         this.context = context;
@@ -40,12 +40,12 @@ private MainActivity mainActivity;
         this.save = save;
  //       this.playerCreationPending = playerCreationPending;
 
-showAlertDialog();
+showAlertDialog(cancellable);
     }
 
-    private void showAlertDialog(){
+    private void showAlertDialog(boolean cancellable){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
+        builder.setCancelable(cancellable);
 
 
         builder.setTitle(setTitleString);
@@ -79,6 +79,7 @@ showAlertDialog();
         dialog.show();
 
     }
+
 
     public String getEnteredText(){
         return enteredText;

@@ -677,3 +677,60 @@
 
 */
      //   }
+
+
+     //                            for (Enemy loadedEnemy : loadedEnemiesSave){
+     //                               for (Enemy currentEnemy: enemies) {
+     //                                   if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())) {
+     //                                       currentEnemy.updateEnemy(loadedEnemy);
+     //                                       // enemies.removeAll(Enemy);
+     //
+     //                                       break;
+     //                                   }
+     //                               }
+     //                            }
+
+
+     //
+     //            addDelay(2000);
+     //            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
+     //            addDelay(4000);
+     //
+     //            loadedPlayer = new Player(playerName);
+     //
+     //            return loadedPlayer;
+     //            // End of load
+
+      //       } else if (player == null) {
+      //           System.out.println("Sorry no saved games found, so we're starting a new game");
+      //           userChoice = -1;
+      //           createPlayer();
+      //       } else {
+      //           userChoice = -1;
+      //           startDelayedTask(100, true);
+      //       }
+
+      //        Player loadedPlayer;
+      //
+      //        try {
+      //
+      //            FileInputStream loadedSaveFile = new FileInputStream(playerName);
+      //            ObjectInputStream loadedObjectFile = new ObjectInputStream(loadedSaveFile);
+      //            loadedPlayer = (Player) loadedObjectFile.readObject();
+      //            //           this.progress = (String) loadedObjectFile.readObject();
+      //
+      //
+      //            return loadedPlayer;
+      //        } catch (IOException | ClassNotFoundException e) {
+      //
+      //            addDelay(2000);
+      //            System.out.println("Unable to load file. We have created a new player with the name you have entered " + playerName + ".");
+      //            addDelay(4000);
+      //
+      //            loadedPlayer = new Player(playerName);
+      //
+      //            return loadedPlayer;
+      //            // End of load
+      //        }
+      //
+      //    }
