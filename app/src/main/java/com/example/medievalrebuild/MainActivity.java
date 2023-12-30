@@ -1465,22 +1465,22 @@ userSubmitButton.setEnabled(false);
 
 
                             userSubmitButton.setEnabled(false);
-                            handlerDelayMessageEleven.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+//                            handlerDelayMessageEleven.postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
 
 
 
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
+//                                    runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
 
                                             setPreviousAndMainText("You attack the zombie");
                                             battle(zombieOne, "level3");
                                             System.out.println("battle() should be called during runOnUiThread ");
 
-                                        }
-                                    });
+//                                        }
+//                                    });
 
 
                                    // battle(zombieOne, "level3");
@@ -1488,8 +1488,8 @@ userSubmitButton.setEnabled(false);
 
                                     userSubmitButton.setEnabled(true);
                            //         nextLevel();
-                                }
-                            },3000);
+//                                }
+//                            },3000);
 
 
                             userSubmitButton.setEnabled(false);
@@ -1944,169 +1944,155 @@ break;
 //    }
 
 
-private void battle(Enemy enemy, String progressAfterBattle){
+    private void battle(final Enemy enemy, final String progressAfterBattle) {
 
         userSubmitButton.setEnabled(false);
 
         System.out.println("battle called");
 
-    while (player.getHealth() > 0) {
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (player.getHealth() > 0) {
+                    System.out.println("battle while statement started");
+
+                    if (player.getCurrentWeaponDamage() >= enemy.getEnemyHealth()) {
+                        System.out.println("battle player.getCurrentWeaponDamage() >= enemy.getEnemyHealth() called");
+
+                        enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
 
 
-        System.out.println("battle while statement started");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setPreviousAndMainText("You have killed the " + enemy.getEnemyName() + " and taken no damage.");
+                                    }
+                                });
 
-        //  int zombieOneHealthWhile = zombieOneHealth;
-        if (player.getCurrentWeaponDamage() >= enemy.getEnemyHealth()) {
+                            }
+                        });
 
-            System.out.println("battle player.getCurrentWeaponDamage() >= enemy.getEnemyHealth() called");
-            //   userSubmitButton.setEnabled(false);
-            //    addDelay(2000);
-            //    userSubmitButton.setEnabled(true);
-            enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
-            //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+                        System.out.println("You have killed the " + enemy.getEnemyName() + " and taken no damage.");
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                        Weapon longSword = new Weapon("Long Sword", 12);
+                        player.setCurrentWeapon(longSword);
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setPreviousAndMainText("The " + enemy.getEnemyName() + " was carrying a " + longSword.getName() + " which you claim as your own.");
+                                    }
+                                });
 
 
-                    setPreviousAndMainText("You have killed the " + enemy.getEnemyName() +" and taken no damage.");
 
+                            }
+                        }, 1500); // 1.5 seconds delay
+
+                        System.out.println("The " + enemy.getEnemyName() + " was carrying a " + longSword.getName() + " which you claim as your own.");
+
+                        System.out.println(player);
+                        player.setProgress(progressAfterBattle);
+                        System.out.println("Player progress is: " + player.getProgress());
+                        System.out.println("Please enter your save game name.");
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        userSubmitButton.setEnabled(true);
+                                    }
+                                });
+
+
+                                // nextLevel();
+                            }
+                        });
+
+                        break;
+                    } else {
+                        System.out.println("battle player.getCurrentWeaponDamage() >= enemy.getEnemyHealth() else called");
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                userSubmitButton.setEnabled(false);
+                            }
+                        });
+
+
+                        enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                        System.out.println("You have damaged the Zombie");
+                        System.out.println("The " + enemy.getEnemyHealth() + " now has " + enemy.getEnemyHealth() + " health.");
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setPreviousAndMainText("You have damaged the " + enemy.getEnemyName() + ". The " + enemy.getEnemyName() + " now has " + enemy.getEnemyHealth() + " health.");
+                                    }
+                                });
+
+
+
+                            }
+                        }, 1500); // 1.5 seconds delay
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setPreviousAndMainText("The " + enemy.getEnemyName() + " has attacked you with " + enemy.getEnemyDamage() + " damage.");
+                                    }
+                                });
+
+
+                            }
+                        }, 3000); // 3 seconds delay
+
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                player.takeDamage(enemy.getEnemyDamage());
+                                userSubmitButton.setEnabled(true);
+                            }
+                        }, 6000); // 6 seconds delay
+                    }
                 }
-            });
 
-
-
-            System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
-            Weapon longSword = new Weapon("Long Sword", 12);
-            player.setCurrentWeapon(longSword);
-            userSubmitButton.setEnabled(false);
-            //       addDelay(2000);
-
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setPreviousAndMainText("The "+ enemy.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
-                }
-            });
-
-
-                    System.out.println("The "+ enemy.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
-
-
-
-                    System.out.println(player);
-                    player.setProgress(progressAfterBattle);
-                    System.out.println("Player progress is: " + player.getProgress());
-                    System.out.println("Please enter your save game name.");
-
-
-                    userSubmitButton.setEnabled(true);
-                 //   nextLevel();
-
-
-            break;
-        } else {
-
-            System.out.println("battle player.getCurrentWeaponDamage() >= enemy.getEnemyHealth() else called");
-
-            userSubmitButton.setEnabled(false);
-
-      //      add delay here next
-
-
-//                    handlerDelayMessageTwelve.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-
-                            enemy.enemyTakeDamage(player.getCurrentWeaponDamage());
-
-                            System.out.println("You have damaged the Zombie");
-                            System.out.println("The " + enemy.getEnemyHealth() + "now has " + enemy.getEnemyHealth() + " health.");
-
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-
-                                    setPreviousAndMainText("You have damaged the " + enemy.getEnemyName() + ". The " + enemy.getEnemyName() + "now has " + enemy.getEnemyHealth() + " health.");
-
-//                                }
-//                            });
-
-
-             //               userSubmitButton.setEnabled(true);
-
-//                        }
-//                    }, 3000);
-
-
-
-                    // nextLevel();
-
-
-      //      userSubmitButton.setEnabled(false);
-
-
-            handlerDelayMessageThirteen.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setPreviousAndMainText("The " + enemy.getEnemyName() + "has attacked you with " + enemy.getEnemyDamage() + " damage.");
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (player.getHealth() > 0) {
+                            nextLevel();
+                        } else {
+                            chooseNewOrLoad();
                         }
-                    });
-
-                    System.out.println("The " + enemy.getEnemyName() + "has attacked you with " + enemy.getEnemyDamage() + " damage.");
-
-                    userSubmitButton.setEnabled(true);
-                }
-
-
-
-            }, 6000);
-
-
-            handlerDelayMessageFifteen.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    player.takeDamage(enemy.getEnemyDamage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-
-                    userSubmitButton.setEnabled(true);
-
-                }
-            }, 9000);
-
-                    //nextLevel();
-        }
+                    }
+                });
+            }
+        }).start();
     }
-
-
-
-
-
-
-    if (player.getHealth() >0) {
-       nextLevel();
-    } else {
-        chooseNewOrLoad();
-    }
-    //                                   break;
-
-    // userSubmitButton.setEnabled(true);
-    // nextLevel();
-
-}
 
 
 
