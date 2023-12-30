@@ -1,6 +1,7 @@
 package com.example.medievalrebuild.Game;
 
 import com.example.medievalrebuild.ArmourFiles.*;
+import com.example.medievalrebuild.Equipable.Equipable;
 import com.example.medievalrebuild.MainActivity;
 import com.example.medievalrebuild.Weapons.Weapon;
 import com.example.medievalrebuild.MyAlertDialog;
@@ -20,13 +21,13 @@ public class Player implements Serializable {
 
     private transient MainActivity mainActivity;
 
-    private Weapon currentWeapon;
+    private Equipable currentWeapon;
 
-    private Armour armour;
-    private Helmet helmet;
-    private Shirt shirt;
-    private Trouser trouser;
-    private Shoe shoe;
+    private Equipable armour;
+    private Equipable helmet;
+    private Equipable shirt;
+    private Equipable trouser;
+    private Equipable shoe;
 
     private String progress;
 
@@ -99,7 +100,7 @@ public class Player implements Serializable {
                 " damage.\n";
     }
 
-    public void setCurrentWeapon(Weapon currentWeapon) {
+    public void setCurrentWeapon(Equipable currentWeapon) {
         this.currentWeapon = currentWeapon;
     }
 
@@ -116,38 +117,38 @@ public class Player implements Serializable {
                 shoe.getDefenseRating();
     }
 
-    public Helmet getHelmet() {
+    public Equipable getHelmet() {
         return helmet;
     }
 
-    public Armour getArmour() {        return armour;    }
-    public void setHelmet(Helmet helmet) {
+    public Equipable getArmour() {        return armour;    }
+    public void setHelmet(Equipable helmet) {
         this.helmet = helmet;
     }
 
-    public void setArmour(Armour armour) {this.armour = armour;
+    public void setArmour(Equipable armour) {this.armour = armour;
     }
-    public Shirt getShirt() {
+    public Equipable getShirt() {
         return shirt;
     }
 
-    public void setShirt(Shirt shirt) {
+    public void setShirt(Equipable shirt) {
         this.shirt = shirt;
     }
 
-    public Trouser getTrouser() {
+    public Equipable getTrouser() {
         return trouser;
     }
 
-    public void setTrouser(Trouser trouser) {
+    public void setTrouser(Equipable trouser) {
         this.trouser = trouser;
     }
 
-    public Shoe getShoe() {
+    public Equipable getShoe() {
         return shoe;
     }
 
-    public void setShoe(Shoe shoe) {
+    public void setShoe(Equipable shoe) {
         this.shoe = shoe;
     }
 
@@ -157,6 +158,10 @@ public class Player implements Serializable {
 
     public void setProgress(String progress) {
         this.progress = progress;
+    }
+
+    public void equipItem(Equipable item) {
+
     }
 
     @Override

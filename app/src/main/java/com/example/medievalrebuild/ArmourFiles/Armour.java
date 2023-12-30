@@ -1,8 +1,10 @@
 package com.example.medievalrebuild.ArmourFiles;
 
+import com.example.medievalrebuild.Equipable.Equipable;
+
 import java.io.Serializable;
 
-public class Armour implements Serializable {
+public class Armour implements Equipable, Serializable {
 
     /* Class Variables */
 
@@ -13,14 +15,18 @@ public class Armour implements Serializable {
     private int durability;
     private int defenseRating;
 
+    private int damage;
+
     /* Constructors */
     public Armour(String name, int durability, int defenseRating) {
         this.name = name;
         this.durability = durability;
         this.defenseRating = defenseRating;
+        this.damage = 0;
     }
 
     /* Instance Methods */
+    @Override
     public void reduceDurability(int reduction) {
         if (durability > 0) {
             durability -= reduction;
@@ -32,7 +38,7 @@ public class Armour implements Serializable {
         }
     }
 
-    public String getArmourName(){
+    public String getName(){
         return this.name;
     }
 
@@ -45,6 +51,7 @@ public class Armour implements Serializable {
     }
 
     /* Getters & Setters */
+    @Override
     public int getDefenseRating() {
         return (int) (defenseRating * (durability / 100.0)) ;
     }
@@ -59,8 +66,17 @@ public class Armour implements Serializable {
         }
         return name + ". \nDurability: " + durability + ", Defense Rating: " + defenseRating + "\n";
     }
-
+@Override
     public int getDurability() {
         return this.durability;
     }
+
+
+    @Override
+    public int getDamage(){
+    return damage;
+}
+
+
+
 }
