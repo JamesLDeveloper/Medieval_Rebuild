@@ -65,6 +65,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -157,7 +158,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Weapon longSword = new Weapon("Long Sword", 12);
 
-    ArrayList<Enemy> enemies = new ArrayList<>();
+    ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
+
+    ArrayList<Enemy> enemiesVariableStats = new ArrayList<>();
+
+    ArrayList<Enemy> copiedEnemiesStartingStats;
+
 
     String userTextInput;
 
@@ -353,6 +359,35 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
+//        enemies = Enemy.getAllEnemies();
+//
+//        ArrayList<Enemy>enemiesStartingStatsNewList = new ArrayList<>();
+//        Iterator<Enemy> iteratorStartingStats = enemies.iterator();
+//        while (iteratorStartingStats.hasNext()) {
+//            Enemy enemy = iteratorStartingStats.next();
+//            enemiesStartingStatsNewList.add(new Enemy(enemy.getEnemyName(), enemy.getEnemyHealth(), enemy.getEnemyDamage()));
+//        }
+
+        enemiesStartingStats = Enemy.getEnemiesOriginalStats();
+
+        for (Enemy enemy : enemiesStartingStats) {
+            System.out.println("enemiesStartingStats: " + enemy.toString());
+        }
+
+      copiedEnemiesStartingStats = new ArrayList<>(enemiesStartingStats);
+
+        for (Enemy enemy : copiedEnemiesStartingStats) {
+            System.out.println("copiedEnemiesStartingStats" + enemy.toString());
+        }
+
+        for (Enemy enemy : copiedEnemiesStartingStats) {
+            enemiesVariableStats.add(new Enemy(enemy.getEnemyName(), enemy.getEnemyHealth(), enemy.getEnemyDamage()));
+
+        }
+
+        for (Enemy enemy : enemiesVariableStats) {
+            System.out.println("enemiesVariableStats" + enemy.toString());
+        }
 
         chooseNewOrLoad();
 
@@ -875,7 +910,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 loadedEnemiesSave = (ArrayList<Enemy>) loadedObjectPlayerFile.readObject();
 
 
-                                Iterator<Enemy> iterator = enemies.iterator();
+                                Iterator<Enemy> iterator = enemiesVariableStats.iterator();
                                 while (iterator.hasNext()) {
                                     Enemy currentEnemy = iterator.next();
                                     for (Enemy loadedEnemy : loadedEnemiesSave) {
@@ -891,7 +926,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 }
 
 // Now add the loadedEnemiesSave to the enemies list
-                                enemies.addAll(loadedEnemiesSave);
+                                enemiesVariableStats.addAll(loadedEnemiesSave);
 
 
                                 previousPreviousStageTextViewText = "";
@@ -958,7 +993,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 playerSaver.writeObject(player);
 
-                playerSaver.writeObject(enemies);
+                playerSaver.writeObject(enemiesVariableStats);
 
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
@@ -1039,7 +1074,52 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             case "level1":
            //    while (progress.equalsIgnoreCase("level1")) {
 
-                enemies = Enemy.getAllEnemies();
+ //               enemies = Enemy.getAllEnemies();
+
+
+//                for (Enemy enemy : enemies) {
+//
+//                    enemiesStartingStats.add(new Enemy(enemy.getEnemyName(), enemy.getEnemyHealth(), enemy.getEnemyDamage()));
+//
+//                }
+
+   //         enemiesStartingStats = enemiesStartingStatsNewList;
+
+
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
+
+                for (Enemy enemy : copiedEnemiesStartingStats) {
+                    System.out.println("copiedEnemiesStartingStats" + enemy.toString());
+                }
+
+
+                for (Enemy enemy : enemiesVariableStats) {
+                    System.out.println("enemiesVariableStats" + enemy.toString());
+                }
+
+
+
+
+
+                Iterator<Enemy> iterator = enemiesVariableStats.iterator();
+                while (iterator.hasNext()) {
+                    Enemy currentEnemy = iterator.next();
+                    for (Enemy startingEnemy : enemiesStartingStats) {
+                        if (currentEnemy.getEnemyName().equalsIgnoreCase(startingEnemy.getEnemyName())) {
+
+                            currentEnemy.updateEnemy(startingEnemy);
+                            System.out.println("Enemy: " + currentEnemy.getEnemyName() + " health has been set to " + currentEnemy.getEnemyHealth());
+                            System.out.println("Enemy: " + currentEnemy.getEnemyName() + " damage has been set to " + currentEnemy.getEnemyDamage());
+                            //iterator.remove(); // Remove the currentEnemy using the iterator
+                            break;
+                        }
+                    }
+                }
+
+
 
 //                enemies.add(zombieOne);
 //                enemies.add(zombieKing);
@@ -1154,7 +1234,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
    //                 @Override
    //                 public void run() {
 
-                Enemy zombieOne = new Enemy("Zombie",4,2);
+//                Enemy zombieOne = new Enemy("Zombie",4,2);
 
 
                 handlerDelayMessage.postDelayed(new Runnable() {
@@ -1186,6 +1266,21 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         userSubmitButton.setEnabled(true);
                     }
                 },1500);
+
+
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
+
+                for (Enemy enemy : copiedEnemiesStartingStats) {
+                    System.out.println("copiedEnemiesStartingStats" + enemy.toString());
+                }
+
+
+                for (Enemy enemy : enemiesVariableStats) {
+                    System.out.println("enemiesVariableStats" + enemy.toString());
+                }
 
 
 
@@ -1373,6 +1468,7 @@ userSubmitButton.setEnabled(false);
 //userSubmitButton.setEnabled(true);
 
                         userSubmitButton.setEnabled(false);
+                        player = null;
                         chooseNewOrLoad();
 
                     }
@@ -1533,7 +1629,23 @@ userSubmitButton.setEnabled(false);
                           //  int zombieOneDamage = zombieOne.getEnemyDamage();
                           //  String zombieOneName = "zombie";
 
-                                battle(zombieOne, longSword);
+
+                            for (Enemy enemy : enemiesStartingStats) {
+                                System.out.println("enemiesStartingStats: " + enemy.toString());
+                            }
+
+
+                            for (Enemy enemy : copiedEnemiesStartingStats) {
+                                System.out.println("copiedEnemiesStartingStats" + enemy.toString());
+                            }
+
+
+                            for (Enemy enemy : enemiesVariableStats) {
+                                System.out.println("enemiesVariableStats" + enemy.toString());
+                            }
+
+
+                                battle(getEnemyForBattle(enemiesVariableStats, zombieOne), longSword);
 
 //                            while (player.getHealth() > 0) {
 //                                if (player.getCurrentWeaponDamage() >= zombieOne.getEnemyHealth()) {
@@ -1722,6 +1834,8 @@ userSubmitButton.setEnabled(false);
                            // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
+
+
                             while (player.getHealth() > 0) {
                                 if (player.getCurrentWeaponDamage() >= zombieKing.getEnemyHealth()) {
                                   //  addDelay(2000);
@@ -1751,14 +1865,16 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
                                     zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-                                    enemies.remove(zombieKing);
-                                    enemies.add(zombieKing);
+                                    enemiesVariableStats.remove(zombieKing);
+                                    enemiesVariableStats.add(zombieKing);
 
                                     setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
                                     System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
 
                                     setPreviousAndMainText("The Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
                                     System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
+
+                                    System.out.println("The Original" + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyName() + " has " + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyHealth() + " health.");
 
                                     player.takeDamage(zombieKing.getEnemyDamage());
                                 }
@@ -1887,8 +2003,8 @@ userSubmitButton.setEnabled(false);
                        //             addDelay(2000);
                                     loki.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-                                    enemies.remove(loki);
-                                    enemies.add(loki);
+                                    enemiesVariableStats.remove(loki);
+                                    enemiesVariableStats.add(loki);
 
                                     System.out.println("You have killed " + loki.getEnemyName() + " and taken no damage.");
                                     setPreviousAndMainText("You have killed " + loki.getEnemyName() + " and taken no damage.");
@@ -1918,8 +2034,8 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("\nYou have damaged " + loki.getEnemyName());
                                     setPreviousAndMainText("You have damaged " + loki.getEnemyName());
                                     loki.enemyTakeDamage(player.getCurrentWeaponDamage());
-                                    enemies.remove(loki);
-                                    enemies.add(loki);
+                                    enemiesVariableStats.remove(loki);
+                                    enemiesVariableStats.add(loki);
                                     System.out.println(loki.getEnemyName() + " now has " + loki.getEnemyHealth()+ " health.");
                                     setPreviousAndMainText(loki.getEnemyName() + " now has " + loki.getEnemyHealth() + " health.");
                                     System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
@@ -2045,38 +2161,38 @@ userSubmitButton.setEnabled(false);
 //        this.time = time;
 //    }
 
-private void battle (Enemy currentEnemy, Equipable reward){
+private void battle (Enemy levelEnemy, Equipable reward){
 
     while (player.getHealth() > 0) {
 
 
 
-        if (player.getCurrentWeaponDamage() >= currentEnemy.getEnemyHealth()) {
+        if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
             userSubmitButton.setEnabled(false);
             //addDelay(2000);
             userSubmitButton.setEnabled(true);
-            currentEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+            levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-            enemies.remove(currentEnemy);
-            enemies.add(currentEnemy);
+            enemiesVariableStats.remove(levelEnemy);
+            enemiesVariableStats.add(levelEnemy);
 
-
+            System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
 
             //           mainTextView.setText("You have killed the Zombie and taken no damage.");
 
-            setPreviousAndMainText("You have killed the " + currentEnemy.getEnemyName() +" and taken no damage.");
+            setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
 
-            System.out.println("You have killed the " + currentEnemy.getEnemyName() +" and taken no damage.");
+            System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
           //  Weapon longSword = new Weapon("Long Sword", 12);
             player.setCurrentWeapon(reward);
             userSubmitButton.setEnabled(false);
             //    addDelay(2000);
             userSubmitButton.setEnabled(true);
 
-            setPreviousAndMainText("The "+ currentEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
 
             //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
-            System.out.println("The "+ currentEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+            System.out.println("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
             System.out.println(player);
             player.setProgress("level3");
             System.out.println("Player progress is: " + player.getProgress());
@@ -2090,18 +2206,23 @@ private void battle (Enemy currentEnemy, Equipable reward){
             //            userSubmitButton.setEnabled(true);
             System.out.println("\nYou have damaged the Zombie");
 
-            setPreviousAndMainText("You have damaged the " + currentEnemy.getEnemyName() + ".");
+            setPreviousAndMainText("You have damaged the " + levelEnemy.getEnemyName() + ".");
 
             //      mainTextView.setText("You have damaged the Zombie");
-            zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
-            enemies.remove(currentEnemy);
-            enemies.add(currentEnemy);
+            levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+            enemiesVariableStats.remove(levelEnemy);
+            enemiesVariableStats.add(levelEnemy);
             //           userSubmitButton.setEnabled(false);
             //        addDelay(2000);
             //          userSubmitButton.setEnabled(true);
-            System.out.println("The " + currentEnemy.getEnemyName() + "now has " + currentEnemy.getEnemyHealth() + " health.");
+ //           System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+            System.out.println("The Original Final " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats,*/ levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats, */levelEnemy).getEnemyHealth() + " health.");
 
-            setPreviousAndMainText("The " + currentEnemy.getEnemyName() + "now has " + currentEnemy.getEnemyHealth() + " health.");
+            System.out.println(enemiesStartingStats.toString());
+
+            System.out.println("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+
+            setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
 
             //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
             //           userSubmitButton.setEnabled(false);
@@ -2115,17 +2236,33 @@ private void battle (Enemy currentEnemy, Equipable reward){
 
 
 
-            setPreviousAndMainText("The " + currentEnemy.getEnemyName() + "has attacked you with " + currentEnemy.getEnemyDamage() + " damage.");
+            setPreviousAndMainText("The " + levelEnemy.getEnemyName() + "has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
 
             //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-            System.out.println("\nThe " + currentEnemy.getEnemyName() + "has attacked you with " + currentEnemy.getEnemyDamage() + " damage.");
-            player.takeDamage(currentEnemy.getEnemyDamage());
+            System.out.println("\nThe " + levelEnemy.getEnemyName() + "has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+            player.takeDamage(levelEnemy.getEnemyDamage());
         }
     }
 
 }
 
+public Enemy getOriginalEnemyStat (ArrayList<Enemy> originalEnemyStats, Enemy currentEnemy) {
 
+        int index = originalEnemyStats.indexOf(currentEnemy);
+
+        Enemy currentEnemyOriginalStats = originalEnemyStats.get(index);
+
+        return currentEnemyOriginalStats;
+}
+
+public Enemy getEnemyForBattle(ArrayList<Enemy> enemiesVariableStats, Enemy currentEnemy) {
+        int index = enemiesVariableStats.indexOf(currentEnemy);
+
+        Enemy currentEnemyVariableStats = enemiesVariableStats.get(index);
+
+        return currentEnemyVariableStats;
+
+}
 
 
 

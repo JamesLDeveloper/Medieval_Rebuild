@@ -9,7 +9,9 @@ public class Enemy implements Serializable {
     private int damage;
     private int health;
 
-    private static ArrayList<Enemy> enemiesCreated = new ArrayList<>();
+//    private static ArrayList<Enemy> enemiesCreated = new ArrayList<>();
+
+     private static final ArrayList<Enemy> enemiesOriginalStats = new ArrayList<>();
 
 
     public Enemy(String name, int health, int damage){
@@ -17,11 +19,17 @@ public class Enemy implements Serializable {
         this.name = name;
         this.damage = damage;
         this.health = health;
-        enemiesCreated.add(this);
+        enemiesOriginalStats.add(this);
+//        enemiesCreated.add(this);
+//        enemiesCreatedFinal.add(clone());
     }
 
-    public static ArrayList<Enemy> getAllEnemies() {
-        return enemiesCreated;
+//    public static ArrayList<Enemy> getAllEnemies() {
+//        return enemiesCreated;
+//    }
+
+    public static ArrayList<Enemy> getEnemiesOriginalStats() {
+        return enemiesOriginalStats;
     }
 
     public String getEnemyName(){
@@ -47,5 +55,25 @@ public class Enemy implements Serializable {
         this.health = newEnemy.getEnemyHealth();
         this.damage = newEnemy.getEnemyDamage();
     }
+
+//    public static Enemy getOriginalEnemy(Enemy enemyName){
+//        int index = enemiesCreated.indexOf(enemyName);
+//        return enemiesCreated.get(index);
+//    }
+
+    public Enemy getOriginalEnemyStats(Enemy enemyName){
+        int index = enemiesOriginalStats.indexOf(enemyName);
+        return enemiesOriginalStats.get(index);
+    }
+
+
+    @Override
+   public String toString(){
+        return "Name: " + getEnemyName() + ". Health: " + getEnemyHealth() + ". Damage: " + getEnemyDamage() + ".";
+    }
+
+//    public Enemy clone() {
+//        return new Enemy(this.name, this.health, this.damage);
+//    }
 
 }
