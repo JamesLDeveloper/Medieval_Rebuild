@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Enemy implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private final String name;
     private int damage;
     private int health;

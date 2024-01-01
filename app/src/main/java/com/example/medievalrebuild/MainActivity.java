@@ -57,6 +57,8 @@ import com.example.medievalrebuild.Enemies.Enemy;
 import com.example.medievalrebuild.Equipable.Equipable;
 import com.example.medievalrebuild.Game.Art;
 import com.example.medievalrebuild.Game.Player;
+import com.example.medievalrebuild.Item.Item;
+import com.example.medievalrebuild.Item.UpgradeItem;
 import com.example.medievalrebuild.Weapons.Weapon;
 
 import java.io.Serializable;
@@ -100,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button userSubmitButton;
 
+    Button useItemButton;
+
     Button switchToCharacter;
 
     private Context context;
@@ -126,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Enemy enemy;
 
+    private UpgradeItem upgradeItem;
+
 //    private String progress;
 
     private int chest;
@@ -149,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private String loadGameSelected;
 
+    private Item itemSelected;
+
     final String[] options = {"New Game", "Load"};
 
     Enemy zombieOne = new Enemy("Zombie", 4, 2, true);
@@ -159,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Weapon longSword = new Weapon("Long Sword", 12);
 
     ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
+
+    ArrayList<Item> itemList = new ArrayList<Item>();
 
 //    ArrayList<Enemy> enemiesVariableStats = new ArrayList<>();
 
@@ -239,6 +249,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 userExitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
+
+        useItemButton = findViewById(R.id.btn_main_item);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                useItemButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
         userSubmitButton = findViewById(R.id.btn_main_submit);
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 userSubmitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
@@ -303,6 +318,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
         });
 
+        useItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                useItem();
+            }
+        });
 
         userExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
 
         });
+
 
         switchToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2354,6 +2376,86 @@ private void battle (Enemy levelEnemy, Equipable reward){
             player.takeDamage(levelEnemy.getEnemyDamage());
         }
     }
+
+}
+
+private void useItem(){
+
+    AlertDialog.Builder chooseItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+    chooseItemDialogBuilder.setCancelable(true);
+    chooseItemDialogBuilder.setTitle("Which Item would you like to use?");
+
+
+    int itemListSize = itemList.size();
+
+    String[] itemsInList = new String[itemListSize];
+
+    for (int i = 0; i < itemListSize; i++) {
+        itemsInList[i] = itemList.get(i).getItemName();
+    }
+
+
+    chooseItemDialogBuilder.setItems(itemList, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.d("Test Dialog", "Item List: " + which);
+            itemSelected = itemList.get(which);
+
+            Item itemChosen;
+
+            if (which > 0) {
+
+                try {
+
+                    itemChosen = itemList.get(which);
+
+
+
+                    Iterator<Enemy> iterator = enemiesStartingStats.iterator();
+                    while (iterator.hasNext()) {
+                        Enemy currentEnemy = iterator.next();
+                        for (Enemy loadedEnemy : loadedEnemiesSave) {
+                            if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())/* && loadedEnemy.getIsOriginal() == false */) {
+
+                                currentEnemy.updateEnemy(loadedEnemy);
+                                System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
+                                System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
+                                // iterator.remove(); // Remove the currentEnemy using the iterator
+                                break;
+                            }
+                        }
+                    }
+
+// Now add the loadedEnemiesSave to the enemies list
+                    //                          enemiesStartingStats.addAll(loadedEnemiesSave);
+
+
+                    previousPreviousStageTextViewText = "";
+                    previousStageTextViewText = "";
+                    userChoice = -1;
+                    nextLevel();
+
+                    loadedObjectPlayerFile.close();
+                } catch (IOException | ClassNotFoundException e) {
+
+
+                }
+
+            } else if (which == 0 && player != null) {
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+                chooseNewOrLoad();
+            }
+
+
+
+        }
+    });
+
+    //        if (saveGamesSize > 0) {
+
+    chooseSavedGameDialogBuilder.create().show();
 
 }
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public interface Equipable extends Serializable {
 
+
 //    String getName();
 
 //    public void equipItem();
