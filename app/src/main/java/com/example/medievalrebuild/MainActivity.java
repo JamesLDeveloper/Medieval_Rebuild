@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         useItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                useItem();
+                chooseItem();
             }
         });
 
@@ -2379,7 +2379,7 @@ private void battle (Enemy levelEnemy, Equipable reward){
 
 }
 
-private void useItem(){
+private void chooseItem(){
 
     AlertDialog.Builder chooseItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
     chooseItemDialogBuilder.setCancelable(true);
@@ -2395,7 +2395,7 @@ private void useItem(){
     }
 
 
-    chooseItemDialogBuilder.setItems(itemList, new DialogInterface.OnClickListener() {
+    chooseItemDialogBuilder.setItems(itemsInList, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             Log.d("Test Dialog", "Item List: " + which);
@@ -2405,41 +2405,20 @@ private void useItem(){
 
             if (which > 0) {
 
-                try {
+//                try {
 
                     itemChosen = itemList.get(which);
 
 
 
-                    Iterator<Enemy> iterator = enemiesStartingStats.iterator();
-                    while (iterator.hasNext()) {
-                        Enemy currentEnemy = iterator.next();
-                        for (Enemy loadedEnemy : loadedEnemiesSave) {
-                            if (currentEnemy.getEnemyName().equalsIgnoreCase(loadedEnemy.getEnemyName())/* && loadedEnemy.getIsOriginal() == false */) {
-
-                                currentEnemy.updateEnemy(loadedEnemy);
-                                System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
-                                System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
-                                // iterator.remove(); // Remove the currentEnemy using the iterator
-                                break;
-                            }
-                        }
-                    }
-
-// Now add the loadedEnemiesSave to the enemies list
-                    //                          enemiesStartingStats.addAll(loadedEnemiesSave);
-
-
                     previousPreviousStageTextViewText = "";
                     previousStageTextViewText = "";
                     userChoice = -1;
-                    nextLevel();
 
-                    loadedObjectPlayerFile.close();
-                } catch (IOException | ClassNotFoundException e) {
-
-
-                }
+//                } catch (IOException | ClassNotFoundException e) {
+//
+//
+//                }
 
             } else if (which == 0 && player != null) {
                 dialog.dismiss();
@@ -2455,7 +2434,7 @@ private void useItem(){
 
     //        if (saveGamesSize > 0) {
 
-    chooseSavedGameDialogBuilder.create().show();
+    chooseItemDialogBuilder.create().show();
 
 }
 
