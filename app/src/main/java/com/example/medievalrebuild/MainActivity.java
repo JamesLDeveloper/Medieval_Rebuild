@@ -929,14 +929,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                             currentEnemy.updateEnemy(loadedEnemy);
                                             System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " health has been set to " + loadedEnemy.getEnemyHealth());
                                             System.out.println("Enemy: " + loadedEnemy.getEnemyName() + " damage has been set to " + loadedEnemy.getEnemyDamage());
-                                            iterator.remove(); // Remove the currentEnemy using the iterator
+                                           // iterator.remove(); // Remove the currentEnemy using the iterator
                                             break;
                                         }
                                     }
                                 }
 
 // Now add the loadedEnemiesSave to the enemies list
-                                enemiesStartingStats.addAll(loadedEnemiesSave);
+      //                          enemiesStartingStats.addAll(loadedEnemiesSave);
 
 
                                 previousPreviousStageTextViewText = "";
@@ -1385,7 +1385,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 },1500);
 
 
-
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
 
      //   }
 
@@ -1430,6 +1432,10 @@ userSubmitButton.setEnabled(false);
                 },1500);
 
 
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
                     break;
       //          }
 
@@ -1464,6 +1470,10 @@ userSubmitButton.setEnabled(false);
                     }
                 },1500);
 
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
                     break;
 
             case "level6":
@@ -1496,6 +1506,10 @@ userSubmitButton.setEnabled(false);
                     }
                 },1500);
 
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
                     break;
 
 
@@ -1526,6 +1540,10 @@ userSubmitButton.setEnabled(false);
 
                     }
                 },1500);
+
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
 
 
                 break;
@@ -1827,6 +1845,10 @@ userSubmitButton.setEnabled(false);
                 case "level3":
      //               while (true) {
 
+                    for (Enemy enemy : enemiesStartingStats) {
+                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                    }
+
                     chestTwo = userChoice;
                         if (chestTwo== 0) {
                             //addDelay(2000);
@@ -1879,6 +1901,11 @@ userSubmitButton.setEnabled(false);
                 break;
 
                 case "level4":
+
+                    for (Enemy enemy : enemiesStartingStats) {
+                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                    }
+
                         enemy2 = userChoice;
                         if (enemy2 == 0 ) {
                             System.out.println("\nYou attack the " + zombieKing.getEnemyName());
@@ -1920,8 +1947,8 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
                                     zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-                                    enemiesStartingStats.remove(zombieKing);
-                                    enemiesStartingStats.add(zombieKing);
+                            //        enemiesStartingStats.remove(zombieKing);
+                            //        enemiesStartingStats.add(zombieKing);
 
                                     setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
                                     System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
@@ -1932,6 +1959,11 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("The Original" + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyName() + " has " + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyHealth() + " health.");
 
                                     player.takeDamage(zombieKing.getEnemyDamage());
+
+                                    for (Enemy enemy : enemiesStartingStats) {
+                                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                                    }
+
                                 }
                             }
                             if (player.getHealth() >0) {
@@ -1983,6 +2015,10 @@ userSubmitButton.setEnabled(false);
 
                 case "level5":
                     //                  while (true) {
+
+                    for (Enemy enemy : enemiesStartingStats) {
+                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                    }
 
                     doorOne = userChoice;
                     if (doorOne== 0) {
@@ -2043,6 +2079,10 @@ userSubmitButton.setEnabled(false);
 
                 case "level6":
 
+                    for (Enemy enemy : enemiesStartingStats) {
+                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                    }
+
                     enemy3 = userChoice;
  //                   while (player.getHealth() > 0) {
                         if (enemy3 == 0) {
@@ -2058,8 +2098,8 @@ userSubmitButton.setEnabled(false);
                        //             addDelay(2000);
                                     loki.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-                                    enemiesStartingStats.remove(loki);
-                                    enemiesStartingStats.add(loki);
+                        //            enemiesStartingStats.remove(loki);
+                        //            enemiesStartingStats.add(loki);
 
                                     System.out.println("You have killed " + loki.getEnemyName() + " and taken no damage.");
                                     setPreviousAndMainText("You have killed " + loki.getEnemyName() + " and taken no damage.");
@@ -2081,6 +2121,11 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("Congratulations you have defeated the boss and completed the game. Well done!");
                                     setPreviousAndMainText("Congratulations you have defeated the boss and completed the game. Well done!");
                                     player.setProgress("level7");
+
+                                    for (Enemy enemy : enemiesStartingStats) {
+                                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                                    }
+
                                     //nextLevel();
       //                              System.exit(1);
                                     break;
@@ -2089,8 +2134,8 @@ userSubmitButton.setEnabled(false);
                                     System.out.println("\nYou have damaged " + loki.getEnemyName());
                                     setPreviousAndMainText("You have damaged " + loki.getEnemyName());
                                     loki.enemyTakeDamage(player.getCurrentWeaponDamage());
-                                    enemiesStartingStats.remove(loki);
-                                    enemiesStartingStats.add(loki);
+                           //         enemiesStartingStats.remove(loki);
+                          //          enemiesStartingStats.add(loki);
                                     System.out.println(loki.getEnemyName() + " now has " + loki.getEnemyHealth()+ " health.");
                                     setPreviousAndMainText(loki.getEnemyName() + " now has " + loki.getEnemyHealth() + " health.");
                                     System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
@@ -2124,6 +2169,11 @@ userSubmitButton.setEnabled(false);
 
                             setPreviousAndMainText("Your cowardly actions have not gone unnoticed, the King has thrown you in jail and you journey is at an end. Better luck next time.");
                             player.setProgress("level7");
+
+                            for (Enemy enemy : enemiesStartingStats) {
+                                System.out.println("enemiesStartingStats: " + enemy.toString());
+                            }
+
                             nextLevel();
                         //    System.exit(0);
                             break;
@@ -2228,8 +2278,8 @@ private void battle (Enemy levelEnemy, Equipable reward){
             userSubmitButton.setEnabled(true);
             levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
 
-            enemiesStartingStats.remove(levelEnemy);
-            enemiesStartingStats.add(levelEnemy);
+        //    enemiesStartingStats.remove(levelEnemy);
+        //    enemiesStartingStats.add(levelEnemy);
 
             System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
 
@@ -2252,6 +2302,12 @@ private void battle (Enemy levelEnemy, Equipable reward){
             player.setProgress("level3");
             System.out.println("Player progress is: " + player.getProgress());
             System.out.println("Please enter your save game name.");
+
+
+            for (Enemy enemy : enemiesStartingStats) {
+                System.out.println("enemiesStartingStats: " + enemy.toString());
+            }
+
             //                                    //String savedFileName = userTextInputCollected;
             //save(userTextInputCollected);
             break;
@@ -2265,8 +2321,8 @@ private void battle (Enemy levelEnemy, Equipable reward){
 
             //      mainTextView.setText("You have damaged the Zombie");
             levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
-            enemiesStartingStats.remove(levelEnemy);
-            enemiesStartingStats.add(levelEnemy);
+        //    enemiesStartingStats.remove(levelEnemy);
+        //    enemiesStartingStats.add(levelEnemy);
             //           userSubmitButton.setEnabled(false);
             //        addDelay(2000);
             //          userSubmitButton.setEnabled(true);
