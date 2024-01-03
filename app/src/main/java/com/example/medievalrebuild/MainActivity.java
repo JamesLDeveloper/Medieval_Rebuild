@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     final String[] options = {"New Game", "Load"};
 
+    UpgradeItem potion = new UpgradeItem("Heal Potion", 0,0,0, 40);
+
     Enemy zombieOne = new Enemy("Zombie", 4, 2, true);
     Enemy zombieKing = new Enemy("Zombie King", 20, 20, true);
 
@@ -358,6 +360,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userResponse1Button.setText("No");
         userResponse2Button.setText("Save");
         userResponse3Button.setText("Load");
+        useItemButton.setText("Item");
         userExitButton.setText("Delete");
         userSubmitButton.setText("Submit");
 
@@ -1878,7 +1881,7 @@ userSubmitButton.setEnabled(false);
                             player.setArmour(chainMail);
                             setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ". You put it on.");
                             System.out.println("You open the chest to find some chain mail. You put it on.");
-
+                            itemList.add(potion);
                             System.out.println(player);
                             //addDelay(2000);
                             player.setProgress("level4");
@@ -2381,17 +2384,72 @@ private void battle (Enemy levelEnemy, Equipable reward){
 
 private void chooseItem(){
 
-    AlertDialog.Builder chooseItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+//
+//
+//    ArrayList<String> saveGames = new ArrayList<>();
+//
+//    saveGames.add(0, "Cancel Load Game");
+//
+//    if (files != null){
+//        for (File file : files) {
+//            if (file.isFile()) {
+//                String fileName = file.getName();
+//                if (fileName.endsWith(".svr")) {
+//                    saveGames.add(fileName.substring(0, fileName.length() -4));
+//                }
+//            }
+//        }
+//    }
+//
+//
+//    if (saveGames.size() > 0) {
+//
+//        //         if (player != null) {
+//
+//        AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//        chooseSavedGameDialogBuilder.setCancelable(true);
+//        chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+//
+//
+//        int saveGamesSize = saveGames.size();
+//
+//        String[] savedGames = new String[saveGamesSize];
+//
+//        for (int i = 0; i < saveGamesSize; i++) {
+//            savedGames[i] = saveGames.get(i);
+//        }
+
+
+
+
+ArrayList<String> itemNames = new ArrayList<>();
+
+    itemNames.add(0, "Cancel Item Use");
+
+//        if (Item != null){
+            for (Item item : itemList){
+                itemNames.add(item.getItemName());
+            }
+
+ //       }
+
+
+
+
+        AlertDialog.Builder chooseItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
     chooseItemDialogBuilder.setCancelable(true);
     chooseItemDialogBuilder.setTitle("Which Item would you like to use?");
 
 
-    int itemListSize = itemList.size();
+    int itemListSize = itemNames.size();
 
     String[] itemsInList = new String[itemListSize];
 
+//        itemsInList[0] = "Cancel Item Use";
+
     for (int i = 0; i < itemListSize; i++) {
-        itemsInList[i] = itemList.get(i).getItemName();
+        itemsInList[i] = itemNames.get(i);
     }
 
 
@@ -2399,7 +2457,7 @@ private void chooseItem(){
         @Override
         public void onClick(DialogInterface dialog, int which) {
             Log.d("Test Dialog", "Item List: " + which);
-            itemSelected = itemList.get(which);
+//            itemSelected = itemList.get(which-1);
 
             Item itemChosen;
 
@@ -2407,9 +2465,9 @@ private void chooseItem(){
 
 //                try {
 
-                    itemChosen = itemList.get(which);
+                    itemChosen = itemList.get(which-1);
 
-
+                    System.out.println("You have chosen to use " + itemList.get(which-1).getItemName());
 
                     previousPreviousStageTextViewText = "";
                     previousStageTextViewText = "";
@@ -2420,11 +2478,13 @@ private void chooseItem(){
 //
 //                }
 
-            } else if (which == 0 && player != null) {
+                useItem(itemChosen);
+
+            } else /*if (which == 0 && player != null)*/ {
                 dialog.dismiss();
-            } else {
-                dialog.dismiss();
-                chooseNewOrLoad();
+    //        } else {
+    //            dialog.dismiss();
+    //            chooseNewOrLoad();
             }
 
 
@@ -2435,6 +2495,17 @@ private void chooseItem(){
     //        if (saveGamesSize > 0) {
 
     chooseItemDialogBuilder.create().show();
+
+}
+
+public void useItem(Item itemChosen){
+
+        if (itemChosen.getHealAmount() > 0){
+            player.heal(itemChosen.getHealAmount());
+            itemList.remove(itemChosen);
+
+        }
+
 
 }
 
@@ -2455,6 +2526,8 @@ public Enemy getEnemyForBattle(ArrayList<Enemy> enemiesVariableStats, Enemy curr
         return currentEnemyVariableStats;
 
 }
+
+
 
 
 
