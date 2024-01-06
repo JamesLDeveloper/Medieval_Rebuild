@@ -9,9 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_main_image"
@@ -21,6 +27,7 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <ScrollView
+            android:id="@+id/sv_previous_stage_user_text_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="23">
@@ -36,17 +43,18 @@
 
 
         <ScrollView
+            android:id="@+id/sv_main_user_text_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="19">
 
-        <TextView
-            android:id="@+id/tv_main_user_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="19"
-            android:text="TextView"
-            app:autoSizeTextType="uniform" />
+            <TextView
+                android:id="@+id/tv_main_user_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="19"
+                android:text="TextView"
+                app:autoSizeTextType="uniform" />
 
         </ScrollView>
 
@@ -128,20 +136,20 @@
 
         </LinearLayout>
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="10">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="10">-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/ett_main_user_text"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:ems="10"-->
-<!--                android:hint="..."-->
-<!--                android:inputType="text" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <EditText-->
+        <!--                android:id="@+id/ett_main_user_text"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:ems="10"-->
+        <!--                android:hint="..."-->
+        <!--                android:inputType="text" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

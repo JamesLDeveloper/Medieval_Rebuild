@@ -39,6 +39,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +70,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -110,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Button useItemButton;
 
     Button switchToCharacter;
+
+    ScrollView mainTextScrollView;
+
+    ScrollView storySoFarScrollView;
 
     private Context context;
 
@@ -218,12 +225,18 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         context = this;
 
-        int autoSizeMinTextSize = 6;
-        int autoSizeMaxTextSize = 30;
+        int autoSizeMinTextSize = 8;
+        int autoSizeMaxTextSize = 10;
         int autoSizeStepGranularity = 1;
         int unit = TypedValue.COMPLEX_UNIT_SP;
 
         mainImageView = findViewById(R.id.iv_main_image);
+
+        mainTextScrollView = findViewById(R.id.sv_main_user_text_container);
+
+        storySoFarScrollView = findViewById(R.id.sv_previous_stage_user_text_container);
+
+
 
 //        previousPreviousStageTextView = findViewById(R.id.tv_previous_previous_stage_user_text);
         previousStageTextView = findViewById(R.id.tv_previous_stage_user_text);
@@ -266,7 +279,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 userSubmitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
 
-        previousStageTextViewText = "";
+        storySoFar = "";
+        storyUpdate = "";
+//        mainTextViewText = "";
+//        previousStageTextViewText = "";
+//        previousPreviousStageTextViewText = "";
         setPreviousAndMainText("Welcome to Medieval Marvels!");
 
 //        userTextInput = findViewById(R.id.ett_main_user_text);
@@ -936,6 +953,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         Player loadedPlayerSave;
                         ArrayList<Enemy> loadedEnemiesSave;
                         ArrayList<Item> loadedItemList;
+                        String loadedStorySoFar;
 
 
 
@@ -956,6 +974,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                                 loadedItemList = (ArrayList<Item>) loadedObjectPlayerFile.readObject();
 
+                                loadedStorySoFar = (String) loadedObjectPlayerFile.readObject();
+
 
                                 Iterator<Enemy> iterator = enemiesStartingStats.iterator();
                                 while (iterator.hasNext()) {
@@ -973,13 +993,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 }
 
                                 itemList = loadedItemList;
+                                storySoFar = loadedStorySoFar;
+
+
 
 // Now add the loadedEnemiesSave to the enemies list
       //                          enemiesStartingStats.addAll(loadedEnemiesSave);
 
 
-                                previousPreviousStageTextViewText = "";
-                                previousStageTextViewText = "";
+//                                previousPreviousStageTextViewText = "";
+//                                previousStageTextViewText = "";
                                 userChoice = -1;
                                 System.out.println("Next Level about to be called");
                                 nextLevel();
@@ -1050,6 +1073,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 playerSaver.writeObject(itemList);
 
+                playerSaver.writeObject(storySoFar);
+
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
 //                playerSaver.writeObject(progress);
@@ -1097,8 +1122,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
             // End of save
             // would be preferable to save as a console given name so different saves can be made and loaded when needed.
-            userChoice = -1;
-            startDelayedTask(1000, true);
+           // userChoice = -1;
+           // startDelayedTask(1000, true);
 
         } else {
             save();
@@ -1127,6 +1152,13 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         switch (progress) {
             case "level1":
+
+ //               setPreviousAndMainText("");
+
+                previousStageTextView.setText("");
+                mainTextView.setText("");
+
+                setPreviousAndMainText("Welcome to Medieval Marvels!");
 
 
                 if (!itemList.isEmpty()) {
@@ -1690,9 +1722,9 @@ userSubmitButton.setEnabled(false);
 
                             //    battle(getEnemyForBattle(enemiesStartingStats, zombieOne), longSword);
 
-                            battle(zombieOne, longSword);
+                            String levelOneVictory = "The %s was carrying a %s which you claim as your own.";
 
-
+                            battle(zombieOne, longSword, levelOneVictory, "level3");
 
 
 
@@ -1824,56 +1856,63 @@ userSubmitButton.setEnabled(false);
                            // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
+                            Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
 
+                            String levelFourVictory = "The %s drops a key. You use it to open a chest. Inside is a pair of %s.";
 
-                            while (player.getHealth() > 0) {
-                                if (player.getCurrentWeaponDamage() >= zombieKing.getEnemyHealth()) {
-                                  //  addDelay(2000);
-                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
+                            battle(zombieKing, chainMailTrousers, levelFourVictory, "level5");
 
-                                    setPreviousAndMainText("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
-
-                                    System.out.println("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
-
-                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
-                                    System.out.println("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
-
-                                    Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
-                                    player.setTrouser(chainMailTrousers);
-                                    System.out.println(player);
-                  //                  player.setProgress("level5");
-                  //                  System.out.println("Please enter your save game name.");
-                  //                  String savedFileName = userTextInputCollected;
-                  //                  save(savedFileName);
-                                    player.setProgress("level5");
-                                    break;
-
-                                } else {
-                                  //  addDelay(2000);
-
-                                    setPreviousAndMainText("You have damaged the " + zombieKing.getEnemyName());
-                                    System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
-                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
-
-                            //        enemiesStartingStats.remove(zombieKing);
-                            //        enemiesStartingStats.add(zombieKing);
-
-                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
-                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
-
-                                    setPreviousAndMainText("The Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
-                                    System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
-
-                                    System.out.println("The Original" + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyName() + " has " + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyHealth() + " health.");
-
-                                    player.takeDamage(zombieKing.getEnemyDamage());
-
-                                    for (Enemy enemy : enemiesStartingStats) {
-                                        System.out.println("enemiesStartingStats: " + enemy.toString());
-                                    }
-
-                                }
-                            }
+//
+//
+//                            while (player.getHealth() > 0) {
+//                                if (player.getCurrentWeaponDamage() >= zombieKing.getEnemyHealth()) {
+//                                  //  addDelay(2000);
+//                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
+//
+//                                    setPreviousAndMainText("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
+//
+//                                    System.out.println("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
+//
+////                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
+//                                    setPreviousAndMainText();
+//                                    System.out.println("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
+//
+//
+//                                    player.setTrouser(chainMailTrousers);
+//                                    System.out.println(player);
+//                  //                  player.setProgress("level5");
+//                  //                  System.out.println("Please enter your save game name.");
+//                  //                  String savedFileName = userTextInputCollected;
+//                  //                  save(savedFileName);
+//                                    player.setProgress("level5");
+//                                    break;
+//
+//                                } else {
+//                                  //  addDelay(2000);
+//
+//                                    setPreviousAndMainText("You have damaged the " + zombieKing.getEnemyName());
+//                                    System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
+//                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
+//
+//                            //        enemiesStartingStats.remove(zombieKing);
+//                            //        enemiesStartingStats.add(zombieKing);
+//
+//                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
+//                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
+//
+//                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
+//                                    System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
+//
+//                                    System.out.println("The Original" + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyName() + " has " + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyHealth() + " health.");
+//
+//                                    player.takeDamage(zombieKing.getEnemyDamage());
+//
+//                                    for (Enemy enemy : enemiesStartingStats) {
+//                                        System.out.println("enemiesStartingStats: " + enemy.toString());
+//                                    }
+//
+//                                }
+//                            }
                             if (player.getHealth() >0) {
                                 nextLevel();
                             } else {
@@ -2046,7 +2085,7 @@ userSubmitButton.setEnabled(false);
                           //          enemiesStartingStats.add(loki);
                                     System.out.println(loki.getEnemyName() + " now has " + loki.getEnemyHealth()+ " health.");
                                     setPreviousAndMainText(loki.getEnemyName() + " now has " + loki.getEnemyHealth() + " health.");
-                                    System.out.println("\n" + loki.getEnemyName() + "has attacked you with " + loki.getEnemyDamage() + " damage.");
+                                    System.out.println("\n" + loki.getEnemyName() + " has attacked you with " + loki.getEnemyDamage() + " damage.");
                                     setPreviousAndMainText(loki.getEnemyName() + " has attacked you with " + loki.getEnemyDamage() + " damage.");
                                     player.getArmour().reduceDurability(loki.getReduceDurability());
                                     player.getShirt().reduceDurability(loki.getReduceDurability());
@@ -2179,15 +2218,35 @@ userSubmitButton.setEnabled(false);
 
             private void setPreviousAndMainText(String updateToStory){
 
-        String updatedStorySoFar = storySoFar.concat("\n " + updateToStory);
+//        String updatedStorySoFar = storySoFar.concat("\n " + updateToStory);
+//
+//        storyUpdate = updateToStory;
+//        storySoFar = updatedStorySoFar;
+//
+//        mainTextViewText = storyUpdate;
+//        previousStageTextViewText = storySoFar;
 
-        storySoFar = updatedStorySoFar;
+                storyUpdate = "\n" + updateToStory;
 
-        mainTextViewText = storyUpdate;
-        previousStageTextViewText = storySoFar;
+                //addDelay(2000);
 
-        previousStageTextView.setText(storySoFar);
-        mainTextView.setText(storyUpdate);
+                mainTextViewText = storyUpdate;
+                mainTextView.setText(mainTextViewText);
+
+                previousStageTextViewText = storySoFar;
+                previousStageTextView.setText(previousStageTextViewText);
+
+                String updatedStorySoFar = storySoFar.concat("\n\n" + updateToStory);
+
+                storySoFar = updatedStorySoFar;
+
+                storySoFarScrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        storySoFarScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    }
+                });
+
     }
 
 
@@ -2195,10 +2254,12 @@ userSubmitButton.setEnabled(false);
 //        this.time = time;
 //    }
 
-private void battle (Enemy levelEnemy, Equipable reward){
+private void battle (Enemy levelEnemy, Equipable reward, String rewardText, String progress){
+
+        String formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), reward.getName());
+
 
     while (player.getHealth() > 0) {
-
 
 
         if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
@@ -2218,17 +2279,34 @@ private void battle (Enemy levelEnemy, Equipable reward){
 
             System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
           //  Weapon longSword = new Weapon("Long Sword", 12);
-            player.setCurrentWeapon(reward);
-            userSubmitButton.setEnabled(false);
-            //    addDelay(2000);
-            userSubmitButton.setEnabled(true);
 
-            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+
+            if (reward instanceof Weapon) {
+                player.setCurrentWeapon(reward);
+            } else if (reward instanceof Helmet) {
+                player.setHelmet(reward);
+            } else if (reward instanceof Armour) {
+                player.setArmour(reward);
+            } else if (reward instanceof Shirt) {
+                player.setShirt(reward);
+            } else if (reward instanceof Shoe) {
+                player.setShoe(reward);
+            } else if (reward instanceof Trouser) {
+                player.setTrouser(reward);
+            }
+
+
+//            userSubmitButton.setEnabled(false);
+            //    addDelay(2000);
+//            userSubmitButton.setEnabled(true);
+
+//            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+            setPreviousAndMainText(formattedRewardText);
 
             //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
             System.out.println("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
             System.out.println(player);
-            player.setProgress("level3");
+            player.setProgress(progress);
             System.out.println("Player progress is: " + player.getProgress());
             System.out.println("Please enter your save game name.");
 
@@ -2276,15 +2354,126 @@ private void battle (Enemy levelEnemy, Equipable reward){
 
 
 
-            setPreviousAndMainText("The " + levelEnemy.getEnemyName() + "has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+            setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
 
             //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-            System.out.println("\nThe " + levelEnemy.getEnemyName() + "has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+            System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
             player.takeDamage(levelEnemy.getEnemyDamage());
         }
     }
 
 }
+
+    private void bossBattle (Enemy levelEnemy, Equipable reward, String rewardText, String progress){
+
+        String formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), reward.getName());
+
+
+        while (player.getHealth() > 0) {
+
+
+            if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
+                userSubmitButton.setEnabled(false);
+                //addDelay(2000);
+                userSubmitButton.setEnabled(true);
+                levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                //    enemiesStartingStats.remove(levelEnemy);
+                //    enemiesStartingStats.add(levelEnemy);
+
+                System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+
+                //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+
+                setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+
+                System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+                //  Weapon longSword = new Weapon("Long Sword", 12);
+
+
+                if (reward instanceof Weapon) {
+                    player.setCurrentWeapon(reward);
+                } else if (reward instanceof Helmet) {
+                    player.setHelmet(reward);
+                } else if (reward instanceof Armour) {
+                    player.setArmour(reward);
+                } else if (reward instanceof Shirt) {
+                    player.setShirt(reward);
+                } else if (reward instanceof Shoe) {
+                    player.setShoe(reward);
+                } else if (reward instanceof Trouser) {
+                    player.setTrouser(reward);
+                }
+
+
+//            userSubmitButton.setEnabled(false);
+                //    addDelay(2000);
+//            userSubmitButton.setEnabled(true);
+
+//            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+                setPreviousAndMainText(formattedRewardText);
+
+                //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+                System.out.println("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+                System.out.println(player);
+                player.setProgress(progress);
+                System.out.println("Player progress is: " + player.getProgress());
+                System.out.println("Please enter your save game name.");
+
+
+                for (Enemy enemy : enemiesStartingStats) {
+                    System.out.println("enemiesStartingStats: " + enemy.toString());
+                }
+
+                //                                    //String savedFileName = userTextInputCollected;
+                //save(userTextInputCollected);
+                break;
+            } else {
+                //            userSubmitButton.setEnabled(false);
+//            addDelay(2000);
+                //            userSubmitButton.setEnabled(true);
+                System.out.println("\nYou have damaged the Zombie");
+
+                setPreviousAndMainText("You have damaged the " + levelEnemy.getEnemyName() + ".");
+
+                //      mainTextView.setText("You have damaged the Zombie");
+                levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+                //    enemiesStartingStats.remove(levelEnemy);
+                //    enemiesStartingStats.add(levelEnemy);
+                //           userSubmitButton.setEnabled(false);
+                //        addDelay(2000);
+                //          userSubmitButton.setEnabled(true);
+                //           System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+                System.out.println("The Original Final " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats,*/ levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats, */levelEnemy).getEnemyHealth() + " health.");
+
+                System.out.println(enemiesStartingStats.toString());
+
+                System.out.println("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+
+                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+
+                //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+                //           userSubmitButton.setEnabled(false);
+                //           addDelay(2000);
+                //           userSubmitButton.setEnabled(true);
+
+
+
+
+
+
+
+
+                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+
+                //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+                System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+                player.takeDamage(levelEnemy.getEnemyDamage());
+            }
+        }
+
+    }
+
 
 private void chooseItem(){
 
@@ -2336,8 +2525,8 @@ ArrayList<String> itemNames = new ArrayList<>();
 
                     System.out.println("You have chosen to use " + itemList.get(which-1).getItemName());
 
-                    previousPreviousStageTextViewText = "";
-                    previousStageTextViewText = "";
+//                    previousPreviousStageTextViewText = "";
+//                    previousStageTextViewText = "";
                     userChoice = -1;
 
 //                } catch (IOException | ClassNotFoundException e) {
