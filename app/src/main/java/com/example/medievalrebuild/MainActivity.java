@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private Handler handler = new Handler();
 
+    String storySoFar;
+
+    String storyUpdate;
+
+
     ImageView mainImageView;
 
     TextView mainTextView;
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         mainImageView = findViewById(R.id.iv_main_image);
 
-        previousPreviousStageTextView = findViewById(R.id.tv_previous_previous_stage_user_text);
+//        previousPreviousStageTextView = findViewById(R.id.tv_previous_previous_stage_user_text);
         previousStageTextView = findViewById(R.id.tv_previous_stage_user_text);
         mainTextView = findViewById(R.id.tv_main_user_text);
 
@@ -2156,14 +2161,35 @@ userSubmitButton.setEnabled(false);
 
 
 
-    private void setPreviousAndMainText(String newMainText){
-        mainTextViewText = newMainText;
-        previousPreviousStageTextView.setText(previousPreviousStageTextViewText);
-        previousStageTextView.setText(previousStageTextViewText);
-        mainTextView.setText(mainTextViewText);
-        previousPreviousStageTextViewText = previousStageTextViewText;
-        previousStageTextViewText = mainTextViewText;
+//    private void setPreviousAndMainText(String newMainText){
+//        mainTextViewText = newMainText;
+//        previousStageTextViewText = mainTextViewText;
+//        previousPreviousStageTextViewText = previousStageTextViewText;
+//
+//
+//        previousPreviousStageTextView.setText(previousPreviousStageTextViewText);
+//        previousStageTextView.setText(previousStageTextViewText);
+//        mainTextView.setText(mainTextViewText);
+//
+//
+//    }
+
+
+//    public void updatestorySoFar(String updateToStory) {
+
+            private void setPreviousAndMainText(String updateToStory){
+
+        String updatedStorySoFar = storySoFar.concat("\n " + updateToStory);
+
+        storySoFar = updatedStorySoFar;
+
+        mainTextViewText = storyUpdate;
+        previousStageTextViewText = storySoFar;
+
+        previousStageTextView.setText(storySoFar);
+        mainTextView.setText(storyUpdate);
     }
+
 
 //    public void setTime(int time){
 //        this.time = time;
@@ -2367,9 +2393,5 @@ public Enemy getEnemyForBattle(ArrayList<Enemy> enemiesVariableStats, Enemy curr
         return currentEnemyVariableStats;
 
 }
-
-
-
-
 
 }
