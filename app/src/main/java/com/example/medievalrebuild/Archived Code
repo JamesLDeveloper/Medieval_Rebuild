@@ -734,3 +734,188 @@
       //        }
       //
       //    }
+
+               //    while (progress.equalsIgnoreCase("level1")) {
+
+       //               enemies = Enemy.getAllEnemies();
+
+
+      //                for (Enemy enemy : enemies) {
+      //
+      //                    enemiesStartingStats.add(new Enemy(enemy.getEnemyName(), enemy.getEnemyHealth(), enemy.getEnemyDamage()));
+      //
+      //                }
+
+         //         enemiesStartingStats = enemiesStartingStatsNewList;
+
+
+      //                for (Enemy enemy : enemiesStartingStats) {
+      //                    System.out.println("enemiesStartingStats: " + enemy.toString());
+      //                }
+
+
+      //                for (Enemy enemy : copiedEnemiesStartingStats) {
+      //                    System.out.println("copiedEnemiesStartingStats" + enemy.toString());
+      //                }
+
+
+      //                for (Enemy enemy : enemiesVariableStats) {
+      //                    System.out.println("enemiesVariableStats" + enemy.toString());
+      //                }
+
+
+
+
+
+      //                Iterator<Enemy> iterator = enemiesVariableStats.iterator();
+      //                while (iterator.hasNext()) {
+      //                    Enemy currentEnemy = iterator.next();
+      //                    for (Enemy startingEnemy : enemiesStartingStats) {
+      //                        if (currentEnemy.getEnemyName().equalsIgnoreCase(startingEnemy.getEnemyName())) {
+      //
+      //                            currentEnemy.updateEnemy(startingEnemy);
+      //                            System.out.println("Enemy: " + currentEnemy.getEnemyName() + " health has been set to " + currentEnemy.getEnemyHealth());
+      //                            System.out.println("Enemy: " + currentEnemy.getEnemyName() + " damage has been set to " + currentEnemy.getEnemyDamage());
+      //                            //iterator.remove(); // Remove the currentEnemy using the iterator
+      //                            break;
+      //                        }
+      //                    }
+      //                }
+
+
+
+      //                enemies.add(zombieOne);
+      //                enemies.add(zombieKing);
+      //                enemies.add(loki);
+
+      //                ArrayList<Enemy> copiedEnemiesStartingStats = new ArrayList<>(enemiesStartingStats);
+      //
+      //                ArrayList<Enemy> resetEnemies = new ArrayList<>();
+      //
+      //                Iterator<Enemy> iterator = enemiesStartingStats.iterator();
+      //                while (iterator.hasNext()) {
+      //                    Enemy currentEnemy = iterator.next();
+      //                    for (Enemy enemyToReset : copiedEnemiesStartingStats) {
+      //                        if (currentEnemy.getEnemyName().equalsIgnoreCase(enemyToReset.getEnemyName()+"NewGame")/* && loadedEnemy.getIsOriginal() == false */) {
+      //
+      //                            enemyToReset.updateEnemy(currentEnemy);
+      //
+      //                            resetEnemies.add(enemyToReset);
+      //                            System.out.println("Enemy: " + enemyToReset.getEnemyName() + " health has been set to " + enemyToReset.getEnemyHealth());
+      //                            System.out.println("Enemy: " + enemyToReset.getEnemyName() + " damage has been set to " + enemyToReset.getEnemyDamage());
+      //                            iterator.remove(); // Remove the currentEnemy using the iterator
+      //                            break;
+      ////                        } else {
+      ////                            iterator.remove();
+      ////                            break;
+      //                        }
+      //                    }
+      //                }
+      //
+      //// Now add the loadedEnemiesSave to the enemies list
+      //                enemiesStartingStats.addAll(resetEnemies);
+
+
+
+      //                            while (player.getHealth() > 0) {
+      //                                if (player.getCurrentWeaponDamage() >= zombieOne.getEnemyHealth()) {
+      //                                    userSubmitButton.setEnabled(false);
+      //                                    //addDelay(2000);
+      //                                    userSubmitButton.setEnabled(true);
+      //                                    zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
+      //
+      //                                    enemies.remove(zombieOne);
+      //                                    enemies.add(zombieOne);
+      //
+      //
+      //
+      //                         //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+      //
+      //                                    setPreviousAndMainText("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
+      //
+      //                                    System.out.println("You have killed the " + zombieOne.getEnemyName() +" and taken no damage.");
+      //                                    Weapon longSword = new Weapon("Long Sword", 12);
+      //                                    player.setCurrentWeapon(longSword);
+      //                                    userSubmitButton.setEnabled(false);
+      //                                //    addDelay(2000);
+      //                                    userSubmitButton.setEnabled(true);
+      //
+      //                                    setPreviousAndMainText("The "+ zombieOne.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
+      //
+      //                      //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+      //                                    System.out.println("The "+ zombieOne.getEnemyName() +" was carrying a " + longSword.getName() + " which you claim as your own.");
+      //                                    System.out.println(player);
+      //                                    player.setProgress("level3");
+      //                                    System.out.println("Player progress is: " + player.getProgress());
+      //                                    System.out.println("Please enter your save game name.");
+      //                                    //                                    //String savedFileName = userTextInputCollected;
+      //                                    //save(userTextInputCollected);
+      //                                    break;
+      //                                } else {
+      //                        //            userSubmitButton.setEnabled(false);
+      //                                    addDelay(2000);
+      //                        //            userSubmitButton.setEnabled(true);
+      //                                    System.out.println("\nYou have damaged the Zombie");
+      //
+      //                                    setPreviousAndMainText("You have damaged the " + zombieOne.getEnemyName() + ".");
+      //
+      //                              //      mainTextView.setText("You have damaged the Zombie");
+      //                                    zombieOne.enemyTakeDamage(player.getCurrentWeaponDamage());
+      //                                    enemies.remove(zombieOne);
+      //                                    enemies.add(zombieOne);
+      //                         //           userSubmitButton.setEnabled(false);
+      //                            //        addDelay(2000);
+      //                          //          userSubmitButton.setEnabled(true);
+      //                                    System.out.println("The " + zombieOne.getEnemyName() + "now has " + zombieOne.getEnemyHealth() + " health.");
+      //
+      //                                    setPreviousAndMainText("The " + zombieOne.getEnemyName() + "now has " + zombieOne.getEnemyHealth() + " health.");
+      //
+      //                         //           mainTextView.setText("The Zombie now has " + zombieHealth + " health.");
+      //                         //           userSubmitButton.setEnabled(false);
+      //                         //           addDelay(2000);
+      //                         //           userSubmitButton.setEnabled(true);
+      //
+      //                                    setPreviousAndMainText("The " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
+      //
+      //                             //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+      //                                    System.out.println("\nThe " + zombieOne.getEnemyName() + "has attacked you with " + zombieOne.getEnemyDamage() + " damage.");
+      //                                    player.takeDamage(zombieOne.getEnemyDamage());
+      //                                }
+      //                            }
+
+
+
+      //
+      //
+      //    ArrayList<String> saveGames = new ArrayList<>();
+      //
+      //    saveGames.add(0, "Cancel Load Game");
+      //
+      //    if (files != null){
+      //        for (File file : files) {
+      //            if (file.isFile()) {
+      //                String fileName = file.getName();
+      //                if (fileName.endsWith(".svr")) {
+      //                    saveGames.add(fileName.substring(0, fileName.length() -4));
+      //                }
+      //            }
+      //        }
+      //    }
+      //
+      //
+      //    if (saveGames.size() > 0) {
+      //
+      //        //         if (player != null) {
+      //
+      //        AlertDialog.Builder chooseSavedGameDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+      //        chooseSavedGameDialogBuilder.setCancelable(true);
+      //        chooseSavedGameDialogBuilder.setTitle("Please choose your saved game");
+      //
+      //
+      //        int saveGamesSize = saveGames.size();
+      //
+      //        String[] savedGames = new String[saveGamesSize];
+      //
+      //        for (int i = 0; i < saveGamesSize; i++) {
+      //            savedGames[i] = saveGames.get(i);
+      //        }
