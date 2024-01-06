@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     private String loadGameSelected;
 
-    private Item itemSelected;
-
     final String[] options = {"New Game", "Load"};
 
     UpgradeItem potion = new UpgradeItem("Heal Potion", 0,0,0, 40);
@@ -169,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Weapon longSword = new Weapon("Long Sword", 12);
 
     ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
+
+    private Item itemSelected;
 
     ArrayList<Item> itemList = new ArrayList<Item>();
 
@@ -930,6 +930,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                         Player loadedPlayerSave;
                         ArrayList<Enemy> loadedEnemiesSave;
+                        ArrayList<Item> loadedItemList;
 
 
 
@@ -948,6 +949,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                                 loadedEnemiesSave = (ArrayList<Enemy>) loadedObjectPlayerFile.readObject();
 
+                                loadedItemList = (ArrayList<Item>) loadedObjectPlayerFile.readObject();
+
 
                                 Iterator<Enemy> iterator = enemiesStartingStats.iterator();
                                 while (iterator.hasNext()) {
@@ -963,6 +966,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                         }
                                     }
                                 }
+
+                                itemList = loadedItemList;
 
 // Now add the loadedEnemiesSave to the enemies list
       //                          enemiesStartingStats.addAll(loadedEnemiesSave);
@@ -1037,6 +1042,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 playerSaver.writeObject(player);
 
                 playerSaver.writeObject(enemiesStartingStats);
+
+                playerSaver.writeObject(itemList);
 
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
@@ -1115,6 +1122,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         switch (progress) {
             case "level1":
+
+
+                if (!itemList.isEmpty()) {
+                    itemList.clear();
+                }
 
 
                 for (Enemy originalEnemy : enemiesStartingStats) {
