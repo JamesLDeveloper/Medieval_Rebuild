@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 //        mainTextViewText = "";
 //        previousStageTextViewText = "";
 //        previousPreviousStageTextViewText = "";
-        setPreviousAndMainText("Welcome to Medieval Marvels!");
+//        setPreviousAndMainText("Welcome to Medieval Marvels!");
 
 //        userTextInput = findViewById(R.id.ett_main_user_text);
         //       TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
@@ -1154,9 +1154,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             case "level1":
 
  //               setPreviousAndMainText("");
+//                previousPreviousStageTextView.setText("");
+//                System.out.println("previousPreviousStageTextView.setText(\"\")");
 
-                previousStageTextView.setText("");
-                mainTextView.setText("");
+                storySoFar = "";
+
+                setPreviousAndMainText(storySoFar);
 
                 setPreviousAndMainText("Welcome to Medieval Marvels!");
 
@@ -1416,7 +1419,7 @@ userSubmitButton.setEnabled(false);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + " .The Zombie King has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it?");
+                                setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + " .The " + zombieKing.getEnemyName() + " has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it?");
 
                                 mainImageView.setImageResource(R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
                             }
@@ -1492,7 +1495,7 @@ userSubmitButton.setEnabled(false);
                             @Override
                             public void run() {
 
-                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". He has " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack it?");
+                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". They have " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack them?");
 
                                 mainImageView.setImageResource(R.drawable.loki_1556801363);
 
@@ -1724,7 +1727,7 @@ userSubmitButton.setEnabled(false);
 
                             String levelOneVictory = "The %s was carrying a %s which you claim as your own.";
 
-                            battle(zombieOne, longSword, levelOneVictory, "level3");
+                            battle(zombieOne, longSword, levelOneVictory, "level3", 40);
 
 
 
@@ -1796,7 +1799,9 @@ userSubmitButton.setEnabled(false);
                             player.setArmour(chainMail);
                             setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ". You put it on.");
                             System.out.println("You open the chest to find some chain mail. You put it on.");
-                            itemList.add(potion);
+
+                            addItemToItemList(potion);
+
                             System.out.println(player);
                             //addDelay(2000);
                             player.setProgress("level4");
@@ -1860,59 +1865,9 @@ userSubmitButton.setEnabled(false);
 
                             String levelFourVictory = "The %s drops a key. You use it to open a chest. Inside is a pair of %s.";
 
-                            battle(zombieKing, chainMailTrousers, levelFourVictory, "level5");
+                            battle(zombieKing, chainMailTrousers, levelFourVictory, "level5", 90);
 
-//
-//
-//                            while (player.getHealth() > 0) {
-//                                if (player.getCurrentWeaponDamage() >= zombieKing.getEnemyHealth()) {
-//                                  //  addDelay(2000);
-//                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
-//
-//                                    setPreviousAndMainText("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
-//
-//                                    System.out.println("You have killed the " + zombieKing.getEnemyName() + " and taken no damage.");
-//
-////                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
-//                                    setPreviousAndMainText();
-//                                    System.out.println("The " + zombieKing.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of chain mail trousers.");
-//
-//
-//                                    player.setTrouser(chainMailTrousers);
-//                                    System.out.println(player);
-//                  //                  player.setProgress("level5");
-//                  //                  System.out.println("Please enter your save game name.");
-//                  //                  String savedFileName = userTextInputCollected;
-//                  //                  save(savedFileName);
-//                                    player.setProgress("level5");
-//                                    break;
-//
-//                                } else {
-//                                  //  addDelay(2000);
-//
-//                                    setPreviousAndMainText("You have damaged the " + zombieKing.getEnemyName());
-//                                    System.out.println("\nYou have damaged the " + zombieKing.getEnemyName());
-//                                    zombieKing.enemyTakeDamage(player.getCurrentWeaponDamage());
-//
-//                            //        enemiesStartingStats.remove(zombieKing);
-//                            //        enemiesStartingStats.add(zombieKing);
-//
-//                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
-//                                    System.out.println("The " + zombieKing.getEnemyName() + " now has " + zombieKing.getEnemyHealth() + " health.");
-//
-//                                    setPreviousAndMainText("The " + zombieKing.getEnemyName() + " has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
-//                                    System.out.println("\nThe Zombie has attacked you with " + zombieKing.getEnemyDamage() + " damage.");
-//
-//                                    System.out.println("The Original" + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyName() + " has " + zombieKing.getOriginalEnemyStats(zombieKing).getEnemyHealth() + " health.");
-//
-//                                    player.takeDamage(zombieKing.getEnemyDamage());
-//
-//                                    for (Enemy enemy : enemiesStartingStats) {
-//                                        System.out.println("enemiesStartingStats: " + enemy.toString());
-//                                    }
-//
-//                                }
-//                            }
+
                             if (player.getHealth() >0) {
                                 nextLevel();
                             } else {
@@ -2039,6 +1994,14 @@ userSubmitButton.setEnabled(false);
                            // int currentWeaponDamage = player.getCurrentWeaponDamage();
                           //  int lokiHealth = loki.getEnemyHealth();
 
+                            String levelSixVictory = "%s drops a key. You use it to open a chest. Inside is a %s.";
+
+                            Weapon flamingSword = new Weapon("Flaming Sword", 24);
+
+                            bossBattle(loki, flamingSword, levelSixVictory, "level7", 150);
+
+                            /*
+
                             while (player.getHealth() > 0) {
 
                                 if (player.getCurrentWeaponDamage() >= loki.getEnemyHealth()) {
@@ -2052,7 +2015,7 @@ userSubmitButton.setEnabled(false);
                                     setPreviousAndMainText("You have killed " + loki.getEnemyName() + " and taken no damage.");
 
                             //        Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
-                                    Weapon flamingSword = new Weapon("Flaming Sword", 24);
+
 
                                   //  System.out.println(loki.getEnemyName() + " drops a key. You use it to open a chest. Inside is a pair of " + chainMailTrousers.getArmourName() + " and a " + flamingSword.getName() + ".");
                                     setPreviousAndMainText(loki.getEnemyName() + " drops a key. You use it to open a chest. Inside is a " + flamingSword.getName() + ".");
@@ -2065,6 +2028,7 @@ userSubmitButton.setEnabled(false);
 
     //                                String savedFileName = userTextInputCollected;
     //                                save(savedFileName);
+
                                     System.out.println("Congratulations you have defeated the boss and completed the game. Well done!");
                                     setPreviousAndMainText("Congratulations you have defeated the boss and completed the game. Well done!");
                                     player.setProgress("level7");
@@ -2072,6 +2036,10 @@ userSubmitButton.setEnabled(false);
                                     for (Enemy enemy : enemiesStartingStats) {
                                         System.out.println("enemiesStartingStats: " + enemy.toString());
                                     }
+
+
+
+
 
                                     //nextLevel();
       //                              System.exit(1);
@@ -2106,6 +2074,9 @@ userSubmitButton.setEnabled(false);
                                 chooseNewOrLoad();
                             }
                             break;
+
+
+                             */
                         } else if (enemy3 == 1) {
                             System.out.println("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
                             setPreviousAndMainText("You choose not to attack. " + loki.getEnemyName() + " attacks you in the back as you run away.");
@@ -2158,6 +2129,10 @@ userSubmitButton.setEnabled(false);
  //           }
                 nextLevel();
                 break;
+
+//            case "level7":
+
+
                 default:
 
             }
@@ -2254,7 +2229,7 @@ userSubmitButton.setEnabled(false);
 //        this.time = time;
 //    }
 
-private void battle (Enemy levelEnemy, Equipable reward, String rewardText, String progress){
+private void battle (Enemy levelEnemy, Equipable reward, String rewardText, String progress, int goldReward){
 
         String formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), reward.getName());
 
@@ -2294,6 +2269,8 @@ private void battle (Enemy levelEnemy, Equipable reward, String rewardText, Stri
             } else if (reward instanceof Trouser) {
                 player.setTrouser(reward);
             }
+
+            player.addPlayerGold(goldReward);
 
 
 //            userSubmitButton.setEnabled(false);
@@ -2364,7 +2341,7 @@ private void battle (Enemy levelEnemy, Equipable reward, String rewardText, Stri
 
 }
 
-    private void bossBattle (Enemy levelEnemy, Equipable reward, String rewardText, String progress){
+    private void bossBattle (Enemy levelEnemy, Equipable reward, String rewardText, String progress, int goldReward){
 
         String formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), reward.getName());
 
@@ -2405,7 +2382,7 @@ private void battle (Enemy levelEnemy, Equipable reward, String rewardText, Stri
                     player.setTrouser(reward);
                 }
 
-
+                player.addPlayerGold(goldReward);
 //            userSubmitButton.setEnabled(false);
                 //    addDelay(2000);
 //            userSubmitButton.setEnabled(true);
@@ -2469,8 +2446,32 @@ private void battle (Enemy levelEnemy, Equipable reward, String rewardText, Stri
                 //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
                 System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
                 player.takeDamage(levelEnemy.getEnemyDamage());
+
+
+                player.getArmour().reduceDurability(loki.getReduceDurability());
+                player.getShirt().reduceDurability(loki.getReduceDurability());
+                player.getShoe().reduceDurability(loki.getReduceDurability());
+                player.getHelmet().reduceDurability(loki.getReduceDurability());
+                player.getTrouser().reduceDurability(loki.getReduceDurability());
+
+                setPreviousAndMainText("You now have " + player.getHealth() + " health left.");
+
+
             }
         }
+
+    }
+
+
+    private void addItemToItemList(Item itemToAdd){
+
+        itemList.add(itemToAdd);
+
+        AlertDialog.Builder addItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        addItemDialogBuilder.setCancelable(true);
+        addItemDialogBuilder.setMessage("You have collected a " + itemToAdd.getItemName() + ".");
+
+       addItemDialogBuilder.create().show();
 
     }
 
@@ -2556,13 +2557,33 @@ ArrayList<String> itemNames = new ArrayList<>();
 
 public void useItem(Item itemChosen){
 
-        if (itemChosen.getHealAmount() > 0){
-            player.heal(itemChosen.getHealAmount());
-            itemList.remove(itemChosen);
 
-        }
+        AlertDialog.Builder useItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        useItemDialogBuilder.setCancelable(false);
+        useItemDialogBuilder.setTitle("Confirm Item Use");
+        useItemDialogBuilder.setMessage("You have chosen " + itemChosen.getItemName() + ". Are you sure you would like to use this item?");
+
+        useItemDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (itemChosen.getHealAmount() > 0){
+                    player.heal(itemChosen.getHealAmount());
+                    itemList.remove(itemChosen);
+                }
+
+            }
+        });
+
+        useItemDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
 
+    useItemDialogBuilder.create().show();
 }
 
 public Enemy getOriginalEnemyStat (ArrayList<Enemy> originalEnemyStats, Enemy currentEnemy) {

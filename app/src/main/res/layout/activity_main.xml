@@ -37,8 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="14"
-                android:text="TextView"
-                app:autoSizeTextType="uniform" />
+                android:text="Welcome to Medieval Marvels!"
+                android:textSize="10sp"
+                app:autoSizeTextType="none" />
         </ScrollView>
 
 
@@ -53,8 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="19"
-                android:text="TextView"
-                app:autoSizeTextType="uniform" />
+                android:textSize="12sp"
+                app:autoSizeTextType="none" />
 
         </ScrollView>
 
@@ -108,20 +109,20 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_main_item"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="40"
-                android:text="Button"
-                app:autoSizeTextType="uniform" />
-
-            <Button
                 android:id="@+id/btn_main_submit"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="40"
+                android:layout_weight="3"
+                android:text="Button"
+                app:autoSizeTextType="uniform" />
+
+            <Button
+                android:id="@+id/btn_main_item"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:text="Button"
                 app:autoSizeTextType="uniform" />
 
@@ -130,7 +131,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="20"
+                android:layout_weight="2"
                 android:text="Button"
                 app:autoSizeTextType="uniform" />
 

@@ -29,6 +29,10 @@ public class Player implements Serializable {
     private Equipable trouser;
     private Equipable shoe;
 
+    private int strength;
+
+    private int playerGold;
+
     private String progress;
 
     //implement a max health variable?
@@ -38,6 +42,8 @@ public class Player implements Serializable {
         this.name = name;
         this.currentWeapon = new Weapon("Rusty Short Sword", 3);
         this.health = 100;
+        this.strength = 5;
+        this.playerGold = 100;
         this.armour = new Armour("None", 0, 0);
         this.helmet = new Helmet("None", 0, 0);
         this.shirt = new Shirt("None", 0, 0);
@@ -105,8 +111,33 @@ public class Player implements Serializable {
     }
 
     public double getHealth() {
-        return health;
+        return this.health;
     }
+
+    public int getStrength(){
+        return this.strength;
+    }
+
+    public int getPlayerGold(){
+        return this.playerGold;
+    }
+
+    public void addStrength(int strengthToAdd){
+        this.strength += strengthToAdd;
+    }
+
+    public void subtractStrength(int strengthToSubtract)
+    {
+        this.strength -= strengthToSubtract;
+    }
+    public void addPlayerGold(int addGold){
+        this.playerGold += addGold;
+    }
+
+    public void subtractGold(int subtractGold){
+        this.playerGold -= subtractGold;
+    }
+
 
     public int getDefenseRating() {
         return
@@ -126,7 +157,8 @@ public class Player implements Serializable {
         this.helmet = helmet;
     }
 
-    public void setArmour(Equipable armour) {this.armour = armour;
+    public void setArmour(Equipable armour) {
+        this.armour = armour;
     }
     public Equipable getShirt() {
         return shirt;
@@ -169,6 +201,8 @@ public class Player implements Serializable {
         return "\nCurrent Player: \n" +
                 "Name: " + name + "\n" +
                 "Health: " + getHealth() + "\n" +
+                "Strength: " + getStrength() + "\n" +
+                "Gold: " + getPlayerGold() + "\n" +
                 getCurrentWeapon() +
                 "Equipped Items: \nArmour: " + armour +
                 "Helmet: " + helmet +
