@@ -1,6 +1,10 @@
 package com.example.medievalrebuild.ArmourFiles;
 
+import android.app.AlertDialog;
+import android.content.Context;
+
 import com.example.medievalrebuild.Equipable.Equipable;
+import com.example.medievalrebuild.MainActivity;
 
 import java.io.Serializable;
 
@@ -11,7 +15,7 @@ public class Armour implements Equipable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /* Instance Variables */
-    private final String name;
+    private final String armourName;
     private int durability;
     private int defenseRating;
 
@@ -19,7 +23,7 @@ public class Armour implements Equipable, Serializable {
 
     /* Constructors */
     public Armour(String name, int durability, int defenseRating) {
-        this.name = name;
+        this.armourName = name;
         this.durability = durability;
         this.defenseRating = defenseRating;
         this.damage = 0;
@@ -27,19 +31,28 @@ public class Armour implements Equipable, Serializable {
 
     /* Instance Methods */
     @Override
-    public void reduceDurability(int reduction) {
+    public void reduceDurability(int reduction, Context context) {
         if (durability > 0) {
             durability -= reduction;
             if (durability <= 0) {
                 durability = 0;
-                System.out.println("Your " + name + " has been rendered useless. It cannot be repaired and must be sold for scraps.");
+                System.out.println("Your " + armourName + " has been rendered useless. It cannot be repaired and must be sold for scraps.");
+
+
+                AlertDialog.Builder itemsScrappedDialogBuilder = new AlertDialog.Builder(context);
+                itemsScrappedDialogBuilder.setCancelable(true);
+                itemsScrappedDialogBuilder.setMessage("Your " + armourName + " has been rendered useless. It cannot be repaired and must be sold for scraps.");
+
+                itemsScrappedDialogBuilder.create().show();
+
+
                 defenseRating = 0;
             }
         }
     }
 
     public String getName(){
-        return this.name;
+        return this.armourName;
     }
 
 
@@ -59,12 +72,12 @@ public class Armour implements Equipable, Serializable {
     @Override
     public String toString() {
 
-        if (name.equalsIgnoreCase("none")) {
+        if (armourName.equalsIgnoreCase("none")) {
 
-            return name + "\n";
+            return armourName + "\n";
 
         }
-        return name + ". \nDurability: " + durability + ", Defense Rating: " + defenseRating + "\n";
+        return armourName + ". \nDurability: " + durability + ", Defense Rating: " + defenseRating + "\n";
     }
 @Override
     public int getDurability() {

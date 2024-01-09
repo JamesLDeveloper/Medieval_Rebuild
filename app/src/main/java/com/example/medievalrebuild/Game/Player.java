@@ -31,6 +31,8 @@ public class Player implements Serializable {
 
     private int strength;
 
+    private int maxHealth;
+
     private int playerGold;
 
     private String progress;
@@ -42,6 +44,7 @@ public class Player implements Serializable {
         this.name = name;
         this.currentWeapon = new Weapon("Rusty Short Sword", 3);
         this.health = 100;
+        this.maxHealth = 100;
         this.strength = 5;
         this.playerGold = 100;
         this.armour = new Armour("None", 0, 0);
@@ -76,9 +79,18 @@ public class Player implements Serializable {
 
     public void heal(double healthToAdd) {
         this.health += healthToAdd;
-        if (this.health > 100) {
-            this.health = 100;
+        if (this.health > maxHealth) {
+            this.health = maxHealth;
         }
+    }
+
+
+    public int getMaxHealth(){
+        return this.maxHealth;
+    }
+
+    public void setMaxHealth(int newMaxHealth){
+        this.maxHealth = newMaxHealth;
     }
 
     //could change to if this.health > max health.

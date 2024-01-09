@@ -1,5 +1,7 @@
 package com.example.medievalrebuild.Weapons;
 
+import android.content.Context;
+
 import com.example.medievalrebuild.Equipable.Equipable;
 
 import java.io.Serializable;
@@ -36,7 +38,7 @@ public class Weapon implements Equipable, Serializable {
     }
 
     @Override
-    public void reduceDurability(int reduction){
+    public void reduceDurability(int reduction, Context context){
 
     }
 
