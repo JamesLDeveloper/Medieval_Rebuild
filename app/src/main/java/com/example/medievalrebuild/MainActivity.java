@@ -2282,7 +2282,7 @@ userSubmitButton.setEnabled(false);
                         // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
-                        UpgradeItem weights  = new UpgradeItem("Weights", 0, 0,0, 0, 5, 0, false);
+                        UpgradeItem weights  = new UpgradeItem("Set of weights", 0, 0,0, 0, 5, 0, false);
 
                         String levelFourVictory = "The %s drops a key. You use it to open a chest. You discover %s gold and also some %s.";
 
@@ -3070,10 +3070,18 @@ public void useItem(Item itemChosen){
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if (itemChosen.getHealAmount() > 0){
-                    player.heal(itemChosen.getHealAmount());
+ //               if (itemChosen.getHealAmount() > 0){
+                
+                player.setMaxHealth(player.getMaxHealth()+ itemChosen.getMaxHealth());
+                //                       } else if
+                player.addStrength(itemChosen.getStrengthAmount());
+                player.heal(itemChosen.getHealAmount());
+
+
+
+
                     itemList.remove(itemChosen);
-                }
+
 
             }
         });
