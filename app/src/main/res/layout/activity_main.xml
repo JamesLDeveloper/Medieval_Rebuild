@@ -27,13 +27,13 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <ScrollView
-            android:id="@+id/sv_previous_stage_user_text_container"
+            android:id="@+id/sv_main_previous_stage_user_text_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="23">
 
             <TextView
-                android:id="@+id/tv_previous_stage_user_text"
+                android:id="@+id/tv_main_previous_stage_user_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="14"

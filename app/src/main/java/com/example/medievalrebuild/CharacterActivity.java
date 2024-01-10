@@ -32,13 +32,19 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
     Button switchToStory;
 
+    Button switchToEnemy;
+
 
     private static final long serialVersionUID = 1L;
 
     /* Instance Variables */
 
     private transient MainActivity mainActivity;
+
+    private transient EnemyActivity enemyActivity;
     private Player player;
+
+    private Enemy enemy;
 
 
     @Override
@@ -61,6 +67,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         characterStats = findViewById(R.id.tv_character_stats);
 
         switchToStory = findViewById(R.id.btn_character_story);
+        switchToEnemy= findViewById(R.id.btn_character_enemy);
 
 
         if (getIntent().hasExtra("player")) {

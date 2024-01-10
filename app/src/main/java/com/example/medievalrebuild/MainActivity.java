@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button switchToCharacter;
 
+    Button switchToEnemy;
     ScrollView mainTextScrollView;
 
     ScrollView storySoFarScrollView;
@@ -125,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private boolean waitingForAnswer = true;
 
     CharacterActivity characterActivity;
+
+    EnemyActivity enemyActivity;
 
 //    Button switchToStory;
 
@@ -139,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     private Player player;
 
 //    private Game.Player player;
+
+    private Enemy currentEnemy;
 
     private Enemy enemy;
 
@@ -249,12 +254,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         mainTextScrollView = findViewById(R.id.sv_main_user_text_container);
 
-        storySoFarScrollView = findViewById(R.id.sv_previous_stage_user_text_container);
+        storySoFarScrollView = findViewById(R.id.sv_main_previous_stage_user_text_container);
 
 
 
 //        previousPreviousStageTextView = findViewById(R.id.tv_previous_previous_stage_user_text);
-        previousStageTextView = findViewById(R.id.tv_previous_stage_user_text);
+        previousStageTextView = findViewById(R.id.tv_main_previous_stage_user_text);
         mainTextView = findViewById(R.id.tv_main_user_text);
 
 
@@ -392,6 +397,25 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
 
         });
+
+        switchToEnemy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentEnemy != null) {
+
+                    //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, EnemyActivity.class);
+                    intent.putExtra("currentEnemy", currentEnemy);
+
+                    startActivity(intent);
+                    //                   finish();
+
+
+                }
+            }
+
+        });
+
 
         userResponse0Button.setText("Yes");
         userResponse1Button.setText("No");
@@ -1316,6 +1340,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     @Override
                     public void run() {
 
+                        currentEnemy = zombieOne;
+
                         System.out.println("\nYou discover a "+ zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
                         //              mainTextView.setText("\nYou discover a Zombie. The Zombie has " + zombieHealth + " health and " + zombieDamage + " damage. Would you like to attack it? Type y for yes, n for no, s for save, x for exit.");
                         runOnUiThread(new Runnable() {
@@ -1371,6 +1397,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
          //           handler.postDelayed(new Runnable() {
          //                                   @Override
          //                                   public void run() {
+                currentEnemy = null;
+
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1422,6 +1450,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
        //                 @Override
        //                 public void run() {
 
+                currentEnemy = zombieKing;
+
 userSubmitButton.setEnabled(false);
          //       while (player.getProgress().equalsIgnoreCase("level4")) {
 
@@ -1464,6 +1494,8 @@ userSubmitButton.setEnabled(false);
 
             case "level5":
 
+                currentEnemy = null;
+
 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1500,6 +1532,8 @@ userSubmitButton.setEnabled(false);
 
             case "level6":
 
+                currentEnemy = loki;
+
 
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
@@ -1535,6 +1569,8 @@ userSubmitButton.setEnabled(false);
                     break;
 
             case "level7":
+
+                currentEnemy = werewolf;
 
                 //             handler.postDelayed(new Runnable() {
                 //                 @Override
@@ -1582,6 +1618,8 @@ userSubmitButton.setEnabled(false);
 
             case "level8":
 
+                currentEnemy = null;
+
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1618,6 +1656,8 @@ userSubmitButton.setEnabled(false);
 
             case "level9":
 
+                currentEnemy = morgana;
+
 
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
@@ -1653,6 +1693,8 @@ userSubmitButton.setEnabled(false);
                 break;
 
             case "level10" :
+
+                currentEnemy = null;
 
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
