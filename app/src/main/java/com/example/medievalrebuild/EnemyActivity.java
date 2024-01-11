@@ -1,40 +1,39 @@
 package com.example.medievalrebuild;
 
-        import android.app.AlertDialog;
-        import android.content.DialogInterface;
-        import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
 
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.widget.TextViewCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
 
-        import android.util.Log;
-        import android.util.TypedValue;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import android.content.Context;
-        import android.content.Intent;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.content.Context;
+import android.content.Intent;
 
-        import com.example.medievalrebuild.Enemies.BossEnemy;
-        import com.example.medievalrebuild.Enemies.Enemy;
-        import com.example.medievalrebuild.Game.Art;
-        import com.example.medievalrebuild.Game.Player;
+import com.example.medievalrebuild.Enemies.BossEnemy;
+import com.example.medievalrebuild.Enemies.Enemy;
+import com.example.medievalrebuild.Game.Art;
+import com.example.medievalrebuild.Game.Player;
 
-        import java.io.Serializable;
+import java.io.Serializable;
 
-public class CharacterActivity extends AppCompatActivity implements Serializable {
+public class EnemyActivity extends AppCompatActivity implements Serializable {
 
-    ImageView characterImage;
+    ImageView EnemyImage;
 
-    TextView characterStats;
+    TextView EnemyStats;
 
     Button switchToStory;
 
-    Button switchToEnemy;
-
-
+    Button switchToCharacter;
 
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +42,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
     private transient MainActivity mainActivity;
 
-    private transient EnemyActivity enemyActivity;
+    private transient CharacterActivity characterActivity;
     private Player player;
 
     private Enemy enemy;
@@ -51,9 +50,14 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
     private Enemy currentEnemy;
 
 
+    @SuppressLint("MissingInflatedId")
+
+
+
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,25 +68,25 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setElevation(0);
 
-        setContentView(R.layout.activity_character);
+        setContentView(R.layout.activity_enemy);
 
         int autoSizeMinTextSize = 6;
         int autoSizeMaxTextSize = 30;
         int autoSizeStepGranularity = 1;
         int unit = TypedValue.COMPLEX_UNIT_SP;
 
-        characterImage = findViewById(R.id.iv_character_image);
-        characterStats = findViewById(R.id.tv_character_stats);
+        EnemyImage = findViewById(R.id.iv_enemy_image);
+        EnemyStats = findViewById(R.id.tv_enemy_stats);
 
-        switchToStory = findViewById(R.id.btn_character_story);
-        switchToEnemy= findViewById(R.id.btn_character_enemy);
+        switchToStory = findViewById(R.id.btn_enemy_story);
+        switchToCharacter= findViewById(R.id.btn_enemy_character);
 
 
-        if (getIntent().hasExtra("player")) {
-            player = (Player) getIntent().getSerializableExtra("player");
-            characterStats.setText(player.toString());
+        if (getIntent().hasExtra("currentEnemy")) {
+            currentEnemy = (Enemy) getIntent().getSerializableExtra("currentEnemy");
+            EnemyStats.setText(currentEnemy.toString());
         } else {
-        Log.e("CharacterActivity", "Player object not found in Intent");
+            Log.e("EnemyActivity", "Player object not found in Intent");
         }
 
 //        switchToStory = findViewById(R.id.btn_character_story);
@@ -105,24 +109,23 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
                 //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
                 //startActivity(intent);
                 finish();
-
             }
 
         });
 
-        switchToEnemy.setOnClickListener(new View.OnClickListener() {
+
+        switchToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//finish();
-                //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
-                //startActivity(intent);
+//                finish();
                 if (mainActivity != null) {
-                    mainActivity.switchToEnemyStats();
-                 //   finish();
+                    mainActivity.switchToCharacterStats();
+                  //  finish();
                 } else {
                     Log.e("CharacterActivity", "MainActivity is null");
                 }
-              // mainActivity.switchToEnemyStats();
+
+//                finish();
 
             }
 

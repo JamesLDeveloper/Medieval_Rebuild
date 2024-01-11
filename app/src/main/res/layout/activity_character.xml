@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="5"
-                android:text="Enemy" />
+                android:text="Enemy Stats" />
         </LinearLayout>
 
     </LinearLayout>

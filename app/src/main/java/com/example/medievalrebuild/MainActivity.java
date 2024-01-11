@@ -1,37 +1,17 @@
 package com.example.medievalrebuild;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
-import android.content.IntentFilter;
-import android.content.IntentSender;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.AsyncTask;
-import java.io.File;
-import java.nio.file.FileVisitOption;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.content.DialogInterface;
+
+import android.os.Bundle;
+
+import java.io.File;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
-
 import android.os.Handler;
 import android.os.Looper;
-import android.os.UserHandle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -45,10 +25,6 @@ import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
-
-
-
-
 import com.example.medievalrebuild.ArmourFiles.Armour;
 import com.example.medievalrebuild.ArmourFiles.Helmet;
 import com.example.medievalrebuild.ArmourFiles.Shirt;
@@ -62,11 +38,9 @@ import com.example.medievalrebuild.Game.Player;
 import com.example.medievalrebuild.Item.Item;
 import com.example.medievalrebuild.Item.UpgradeItem;
 import com.example.medievalrebuild.Weapons.Weapon;
-
 import java.io.Serializable;
 import java.io.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -243,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         setContentView(R.layout.activity_main);
 
+        characterActivity = new CharacterActivity();
+        characterActivity.setMainActivity(this);
+
+        enemyActivity = new EnemyActivity();
+        enemyActivity.setMainActivity(this);
+
         context = this;
 
         int autoSizeMinTextSize = 8;
@@ -264,6 +244,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
         switchToCharacter = findViewById(R.id.btn_main_character);
+
+        switchToEnemy = findViewById(R.id.btn_main_enemy);
 
 //        switchToStory = findViewById(R.id.btn_character_story);
 
@@ -383,17 +365,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             @Override
             public void onClick(View v) {
 
-                if (player != null) {
+                switchToCharacterStats();
 
- //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
-                    Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
-                    intent.putExtra("player", player);
-
-                    startActivity(intent);
- //                   finish();
-
-
-                }
             }
 
         });
@@ -401,17 +374,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         switchToEnemy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentEnemy != null) {
 
-                    //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
-                    Intent intent = new Intent(MainActivity.this, EnemyActivity.class);
-                    intent.putExtra("currentEnemy", currentEnemy);
+                switchToEnemyStats();
 
-                    startActivity(intent);
-                    //                   finish();
-
-
-                }
             }
 
         });
@@ -3156,5 +3121,36 @@ public Enemy getEnemyForBattle(ArrayList<Enemy> enemiesVariableStats, Enemy curr
         return currentEnemyVariableStats;
 
 }
+
+public void switchToCharacterStats () {
+
+    if (player != null) {
+
+        //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
+        Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
+        intent.putExtra("player", player);
+
+        startActivity(intent);
+        //                   finish();
+
+    }
+
+}
+
+    public void switchToEnemyStats(){
+
+        if (currentEnemy != null) {
+
+            //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
+            Intent intent = new Intent(MainActivity.this, EnemyActivity.class);
+            intent.putExtra("currentEnemy", currentEnemy);
+
+            startActivity(intent);
+            //                   finish();
+
+
+        }
+
+    }
 
 }
