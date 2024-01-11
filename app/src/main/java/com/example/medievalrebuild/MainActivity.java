@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     EnemyActivity enemyActivity;
 
+    MainActivity mainActivity;
+
 //    Button switchToStory;
 
 //    EditText userTextInput;
@@ -219,9 +221,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         characterActivity = new CharacterActivity();
         characterActivity.setMainActivity(this);
+        Log.d("CharacterActivity", "MainActivity: " + mainActivity);
+        System.out.println("Character Activity MainActivity: " + mainActivity);
+
 
         enemyActivity = new EnemyActivity();
         enemyActivity.setMainActivity(this);
+        Log.d("EnemyActivity", "MainActivity: " + mainActivity);
+        System.out.println("Enemy Activity: MainActivity: " + mainActivity);
 
         context = this;
 
@@ -3127,10 +3134,11 @@ public void switchToCharacterStats () {
     if (player != null) {
 
         //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
-        Intent intent = new Intent(MainActivity.this, CharacterActivity.class);
-        intent.putExtra("player", player);
 
-        startActivity(intent);
+        Intent intentCharacter = new Intent(MainActivity.this, CharacterActivity.class);
+        intentCharacter.putExtra("player", player);
+
+        startActivity(intentCharacter);
         //                   finish();
 
     }
@@ -3142,10 +3150,10 @@ public void switchToCharacterStats () {
         if (currentEnemy != null) {
 
             //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
-            Intent intent = new Intent(MainActivity.this, EnemyActivity.class);
-            intent.putExtra("currentEnemy", currentEnemy);
+            Intent intentEnemy = new Intent(MainActivity.this, EnemyActivity.class);
+            intentEnemy.putExtra("currentEnemy", currentEnemy);
 
-            startActivity(intent);
+            startActivity(intentEnemy);
             //                   finish();
 
 
