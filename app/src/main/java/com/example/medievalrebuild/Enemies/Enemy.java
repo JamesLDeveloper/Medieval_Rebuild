@@ -11,6 +11,8 @@ public class Enemy implements Serializable {
     private int damage;
     private int health;
 
+    private int imageId;
+
     private boolean original;
 
 //    private static ArrayList<Enemy> enemiesCreated = new ArrayList<>();
@@ -18,7 +20,7 @@ public class Enemy implements Serializable {
     private static final ArrayList<Enemy> enemiesOriginalStats = new ArrayList<>();
 
 
-    public Enemy(String name, int health, int damage, boolean original) {
+    public Enemy(String name, int health, int damage, boolean original, int imageId) {
 
         if (original) {
             this.name = name;
@@ -29,13 +31,14 @@ public class Enemy implements Serializable {
         this.damage = damage;
         this.health = health;
         this.original = original;
+        this.imageId = imageId;
 
         enemiesOriginalStats.add(this);
 //        enemiesCreated.add(this);
 //        enemiesOriginalStats.add(clone(original));
 
         if (original) {
-            new Enemy(this.name, this.health, this.damage, false);
+            new Enemy(this.name, this.health, this.damage, false, this.imageId);
         }
 
     }
@@ -102,6 +105,13 @@ public class Enemy implements Serializable {
 
     }
 
+    public int getImageId(){
+        return this.imageId;
+    }
+
+    public void setImageId(int imageIdSetter) {
+        this.imageId = imageIdSetter;
+    }
 
     public boolean getIsOriginal(){
         return original;
@@ -127,8 +137,15 @@ public class Enemy implements Serializable {
 
     @Override
     public String toString() {
-        return "Name: " + getEnemyName() + ". Health: " + getEnemyHealth() + ". Damage: " + getEnemyDamage() + "." + "Original?: " + original + ".";
+        return "Name: " + getEnemyName() + ". Health: " + getEnemyHealth() + ". Damage: " + getEnemyDamage() + "." + " Original?: " + original + ".";
+
     }
+
+    public String enemyStats(){
+        return "Name: " + getEnemyName() + ". \nHealth: " + getEnemyHealth() + ". \nDamage: " + getEnemyDamage() + ".";
+    }
+
+
 
 //    public Enemy clone(boolean isOriginal) {
 //

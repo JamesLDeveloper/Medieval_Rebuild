@@ -27,9 +27,9 @@ import java.io.Serializable;
 
 public class EnemyActivity extends AppCompatActivity implements Serializable {
 
-    ImageView EnemyImage;
+    ImageView enemyImage;
 
-    TextView EnemyStats;
+    TextView enemyStats;
 
     Button switchToStory;
 
@@ -48,11 +48,6 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
     private Enemy enemy;
 
     private Enemy currentEnemy;
-
-
-    @SuppressLint("MissingInflatedId")
-
-
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -75,16 +70,20 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
         int autoSizeStepGranularity = 1;
         int unit = TypedValue.COMPLEX_UNIT_SP;
 
-        EnemyImage = findViewById(R.id.iv_enemy_image);
-        EnemyStats = findViewById(R.id.tv_enemy_stats);
+        enemyImage = findViewById(R.id.iv_enemy_image);
+        enemyStats = findViewById(R.id.tv_enemy_stats);
 
         switchToStory = findViewById(R.id.btn_enemy_story);
-        switchToCharacter= findViewById(R.id.btn_enemy_character);
+//        switchToCharacter= findViewById(R.id.btn_enemy_character);
+
+
+
 
 
         if (getIntent().hasExtra("currentEnemy")) {
             currentEnemy = (Enemy) getIntent().getSerializableExtra("currentEnemy");
-            EnemyStats.setText(currentEnemy.toString());
+            enemyStats.setText(currentEnemy.enemyStats());
+            enemyImage.setImageResource(currentEnemy.getImageId());
         } else {
             Log.e("EnemyActivity", "Player object not found in Intent");
         }
@@ -113,7 +112,7 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
 
         });
 
-
+/*
         switchToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +130,7 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
 
         });
 
-
+*/
 
 
 

@@ -75,12 +75,13 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         characterStats = findViewById(R.id.tv_character_stats);
 
         switchToStory = findViewById(R.id.btn_character_story);
-        switchToEnemy= findViewById(R.id.btn_character_enemy);
+//        switchToEnemy= findViewById(R.id.btn_character_enemy);
 
 
         if (getIntent().hasExtra("player")) {
             player = (Player) getIntent().getSerializableExtra("player");
             characterStats.setText(player.toString());
+            characterImage.setImageResource(R.drawable.e710d0a6e8434a2b874b74101ff5cb63);
         } else {
         Log.e("CharacterActivity", "Player object not found in Intent");
         }
@@ -110,7 +111,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
         });
 
-        switchToEnemy.setOnClickListener(new View.OnClickListener() {
+/*        switchToEnemy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //finish();
@@ -128,7 +129,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
         });
 
-
+*/
 
 
 

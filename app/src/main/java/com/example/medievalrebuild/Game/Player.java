@@ -113,7 +113,7 @@ public class Player implements Serializable {
     public String getCurrentWeapon() {
         return "Currently wielding: " +
                 currentWeapon.getName() +
-                ". \n This weapon does " +
+                ". \nThis weapon does " +
                 currentWeapon.getDamage() +
                 " damage.\n";
     }

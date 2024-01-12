@@ -160,15 +160,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     UpgradeItem brokenSceptre = new UpgradeItem("Broken Sceptre", 0, 0,0,0,0,0, true);
 
-    Enemy zombieOne = new Enemy("Zombie", 4, 2, true);
-    Enemy zombieKing = new Enemy("Zombie King", 20, 20, true);
+    Enemy zombieOne = new Enemy("Zombie", 4, 2, true, R.drawable.workzombie);
+    Enemy zombieKing = new Enemy("Zombie King", 20, 20, true, R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
 
-    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 35, 25, true, 4);
+    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 35, 25, true, R.drawable.loki_1556801363,4);
 
 
-    Enemy werewolf = new Enemy("Werewolf", 15, 12, true);
+    Enemy werewolf = new Enemy("Werewolf", 15, 12, true, R.drawable.werewolves);
 
-    BossEnemy morgana = new BossEnemy("Morgana", 50, 30, true, 5);
+    BossEnemy morgana = new BossEnemy("Morgana", 50, 30, true, R.drawable.merlin1133,5);
 
 
 
@@ -286,6 +286,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userSubmitButton = findViewById(R.id.btn_main_submit);
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 userSubmitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
+        switchToCharacter = findViewById(R.id.btn_main_character);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                switchToCharacter, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
+        switchToEnemy = findViewById(R.id.btn_main_enemy);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                switchToEnemy, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
 
         storySoFar = "";

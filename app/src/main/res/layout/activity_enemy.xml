@@ -51,17 +51,9 @@ android:layout_height="match_parent">
             android:id="@+id/btn_enemy_story"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="4dp"
             android:layout_weight="5"
             android:text="Story" />
 
-        <Button
-            android:id="@+id/btn_enemy_character"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="4dp"
-            android:layout_weight="5"
-            android:text="Character Stats" />
     </LinearLayout>
 
 </LinearLayout>
