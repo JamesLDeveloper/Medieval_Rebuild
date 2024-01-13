@@ -6,10 +6,10 @@ public class BossEnemy extends Enemy implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    int reduceDurability;
+    double reduceDurability;
 
 
-    public BossEnemy(String name, int health, int damage, boolean original, int imageId, int reduceDurability) {
+    public BossEnemy(String name, double health, double damage, boolean original, int imageId, double reduceDurability) {
 
         super(name, health, damage, original, imageId);
 
@@ -17,7 +17,7 @@ public class BossEnemy extends Enemy implements Serializable {
 
     }
 
-    public int getReduceDurability(){
+    public double getReduceDurability(){
 
         return this.reduceDurability;
 

@@ -14,18 +14,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Looper;
-import com.example.medievalrebuild.ArmourFiles.Armour;
+
+import com.example.medievalrebuild.ArmourFiles.ChestArmour;
 import com.example.medievalrebuild.ArmourFiles.Helmet;
 import com.example.medievalrebuild.ArmourFiles.Shirt;
 import com.example.medievalrebuild.ArmourFiles.Shoe;
@@ -37,14 +34,12 @@ import com.example.medievalrebuild.Game.Art;
 import com.example.medievalrebuild.Game.Player;
 import com.example.medievalrebuild.Item.Item;
 import com.example.medievalrebuild.Item.UpgradeItem;
-import com.example.medievalrebuild.Weapons.Weapon;
+import com.example.medievalrebuild.HandHeldItems.Weapon;
 import java.io.Serializable;
 import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -163,16 +158,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Enemy zombieOne = new Enemy("Zombie", 20, 2, true, R.drawable.workzombie);
     Enemy zombieKing = new Enemy("Zombie King", 100, 20, true, R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
 
-    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 175, 25, true, R.drawable.loki_1556801363,4);
+    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 175, 25, true, R.drawable.loki_1556801363,2);
 
 
     Enemy werewolf = new Enemy("Werewolf", 75, 12, true, R.drawable.werewolves);
 
-    BossEnemy morgana = new BossEnemy("Morgana", 250, 30, true, R.drawable.merlin1133,5);
+    BossEnemy morgana = new BossEnemy("Morgana", 250, 30, true, R.drawable.merlin1133,3);
 
 
 
-    Weapon longSword = new Weapon("Long Sword", 12);
+    Weapon longSword = new Weapon("Long Sword", 12, R.drawable.longsword);
 
     ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
 
@@ -1788,7 +1783,7 @@ userSubmitButton.setEnabled(false);
                             setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
 
 
-                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8);
+                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8, R.drawable.platedhelmet);
                     player.setHelmet(platedHelmet);
 
        //                 }
@@ -1814,7 +1809,7 @@ userSubmitButton.setEnabled(false);
 
                     setPreviousAndMainText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
 
-                    Shoe leatherboots = new Shoe("Leather Boots", 10, 10);
+                    Shoe leatherboots = new Shoe("Leather Boots", 10, 10, R.drawable.leatherboots);
                     player.setShoe(leatherboots);
                     //System.out.println(player);
                     player.setProgress("level2");
@@ -1949,8 +1944,8 @@ userSubmitButton.setEnabled(false);
                     chestTwo = userChoice;
                         if (chestTwo== 0) {
                             //addDelay(2000);
-                            Armour chainMail = new Armour("Chain Mail", 10, 10);
-                            player.setArmour(chainMail);
+                            ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, R.drawable.chainmailchestarmour);
+                            player.setChestArmour(chainMail);
                             setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ". You put it on.");
                             System.out.println("You open the chest to find some chain mail. You put it on.");
 
@@ -1962,8 +1957,8 @@ userSubmitButton.setEnabled(false);
                             nextLevel();
                             break;
                         } else if (chestTwo== 1) {
-                            Armour platedArmor = new Armour("Plated Armor", 7, 6);
-                            player.setArmour(platedArmor);
+                            ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, R.drawable.platedarmour);
+                            player.setChestArmour(platedArmor);
                             setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getName() + "armor behind.");
                             System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                             System.out.println(player);
@@ -2015,7 +2010,7 @@ userSubmitButton.setEnabled(false);
                            // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
-                            Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10);
+                            Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10, R.drawable.chainmailtrousers2);
 
                             String levelFourVictory = "The %s drops a key. You use it to open a chest. Inside is a pair of %s. You also recover %s gold.";
 
@@ -2081,8 +2076,8 @@ userSubmitButton.setEnabled(false);
                        // addDelay(2000);
                         setPreviousAndMainText("You open the door to find a leather jacket. You put it on.");
                         System.out.println("You open the door to find a leather jacket. You put it on.");
-                        Shirt leatherJacket = new Shirt("Leather Jacket", 3, 3);
-                        player.setShirt(leatherJacket);
+                        Shirt woolenShirt = new Shirt("Woolen Shirt", 3, 3, R.drawable.woolenshirt);
+                        player.setShirt(woolenShirt);
                         System.out.println(player);
                       //  addDelay(2000);
                         player.setProgress("level6");
@@ -2091,8 +2086,8 @@ userSubmitButton.setEnabled(false);
                     } else if (doorOne== 1) {
                         System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                         setPreviousAndMainText("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
-                        Armour platedArmor = new Armour("Plated Armor", 7, 6);
-                        player.setArmour(platedArmor);
+                        ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, R.drawable.platedarmour);
+                        player.setChestArmour(platedArmor);
                         System.out.println(player);
                         player.setProgress("level6");
                          nextLevel();
@@ -2150,7 +2145,7 @@ userSubmitButton.setEnabled(false);
 
                             String levelSixVictory = "%s drops a key. You use it to open a chest. Inside is a %s.";
 
-                            Weapon flamingSword = new Weapon("Flaming Sword", 24);
+                            Weapon flamingSword = new Weapon("Flaming Sword", 24, R.drawable.flamingsword);
 
                             bossBattle(loki, flamingSword, levelSixVictory, "level7", 150, null);
 
@@ -2370,7 +2365,7 @@ userSubmitButton.setEnabled(false);
                         // addDelay(2000);
 
 
-                        Shirt dragonScaleWeave = new Shirt("Dragon Scale Weave Shirt", 20, 15);
+                        Shirt dragonScaleWeave = new Shirt("Dragon Scale Weave Shirt", 20, 15, R.drawable.dragonscaleweave);
 
                         String formattedTextNonCombat = "";
 
@@ -2388,7 +2383,7 @@ userSubmitButton.setEnabled(false);
                         break;
                     } else if (chestThree== 1) {
 
-                        int chestThreeGold = 900;
+                        double chestThreeGold = 900;
 
                         System.out.println("You choose not to open the chest. The owner sees you and invites you to a game of cards. You agree and clean up! You win " + chestThreeGold + " gold.");
                         setPreviousAndMainText("You choose not to open the chest. The owner sees you and invites you to a game of cards. You agree and clean up! You win " + chestThreeGold + " gold.");
@@ -2695,7 +2690,7 @@ userSubmitButton.setEnabled(false);
 //        this.time = time;
 //    }
 
-private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, int goldReward, Item itemReward ){
+private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward ){
 
         String formattedRewardText = "";
 
@@ -2737,8 +2732,8 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
                     player.setCurrentWeapon(equipableReward);
                 } else if (equipableReward instanceof Helmet) {
                     player.setHelmet(equipableReward);
-                } else if (equipableReward instanceof Armour) {
-                    player.setArmour(equipableReward);
+                } else if (equipableReward instanceof ChestArmour) {
+                    player.setChestArmour(equipableReward);
                 } else if (equipableReward instanceof Shirt) {
                     player.setShirt(equipableReward);
                 } else if (equipableReward instanceof Shoe) {
@@ -2831,7 +2826,7 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
 
 }
 
-    private void bossBattle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, int goldReward, Item itemReward){
+    private void bossBattle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward){
 
 
         String formattedRewardText = "";
@@ -2876,8 +2871,8 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
                         player.setCurrentWeapon(equipableReward);
                     } else if (equipableReward instanceof Helmet) {
                         player.setHelmet(equipableReward);
-                    } else if (equipableReward instanceof Armour) {
-                        player.setArmour(equipableReward);
+                    } else if (equipableReward instanceof ChestArmour) {
+                        player.setChestArmour(equipableReward);
                     } else if (equipableReward instanceof Shirt) {
                         player.setShirt(equipableReward);
                     } else if (equipableReward instanceof Shoe) {
@@ -2973,7 +2968,7 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
                 player.takeDamage(levelEnemy.getEnemyDamage());
 
 
-                player.getArmour().reduceDurability(morgana.getReduceDurability(), MainActivity.this);
+                player.getChestArmour().reduceDurability(morgana.getReduceDurability(), MainActivity.this);
                 player.getShirt().reduceDurability(morgana.getReduceDurability(), MainActivity.this);
                 player.getShoe().reduceDurability(morgana.getReduceDurability(), MainActivity.this);
                 player.getHelmet().reduceDurability(morgana.getReduceDurability(), MainActivity.this);

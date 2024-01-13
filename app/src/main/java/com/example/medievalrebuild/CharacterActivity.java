@@ -28,7 +28,55 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
     ImageView characterImage;
 
-    TextView characterStats;
+//    TextView characterStats;
+
+    TextView characterName;
+
+    TextView characterHealth;
+
+    TextView characterGold;
+
+    TextView characterStrength;
+
+    TextView characterAccuracy;
+
+    TextView characterReactions;
+
+    TextView characterSpeed;
+
+    TextView characterIntelligence;
+
+    TextView characterWeaponDescription;
+
+    ImageView characterWeaponImage;
+
+    TextView characterShieldDescription;
+
+    ImageView characterShieldImage;
+
+    TextView characterChestArmourDescription;
+
+    ImageView characterChestArmourImage;
+
+    TextView characterHelmetDescription;
+
+    ImageView characterHelmetImage;
+
+    TextView characterShirtDescription;
+
+    ImageView characterShirtImage;
+
+    TextView characterTrousersDescription;
+
+    ImageView characterTrousersImage;
+
+    TextView characterShoesDescription;
+
+    ImageView characterShoesImage;
+
+    TextView characterLevelName;
+
+    TextView characterLevelDescription;
 
     Button switchToStory;
 
@@ -72,7 +120,57 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         int unit = TypedValue.COMPLEX_UNIT_SP;
 
         characterImage = findViewById(R.id.iv_character_image);
-        characterStats = findViewById(R.id.tv_character_stats);
+
+        characterName = findViewById(R.id.tv_character_name);
+
+        characterHealth = findViewById(R.id.tv_character_health);
+
+        characterGold = findViewById(R.id.tv_character_gold);
+
+        characterStrength = findViewById(R.id.tv_character_strength);
+
+        characterAccuracy = findViewById(R.id.tv_character_accuracy);
+
+        characterReactions = findViewById(R.id.tv_character_reactions);
+
+        characterSpeed = findViewById(R.id.tv_character_speed);
+
+        characterIntelligence = findViewById(R.id.tv_character_intelligence);
+
+        characterWeaponDescription = findViewById(R.id.tv_character_weapon_description);
+
+        characterWeaponImage = findViewById(R.id.iv_character_weapon_image);
+
+        characterShieldDescription = findViewById(R.id.tv_character_shield_description);
+
+        characterShieldImage = findViewById(R.id.iv_character_shield_image);
+
+        characterChestArmourDescription = findViewById(R.id.tv_character_chestArmour_description);
+
+        characterChestArmourImage = findViewById(R.id.iv_character_chestArmour_image);
+
+        characterHelmetDescription = findViewById(R.id.tv_character_helmet_description);
+
+        characterHelmetImage = findViewById(R.id.iv_character_helmet_image);
+
+        characterShirtDescription = findViewById(R.id.tv_character_shirt_description);
+
+        characterShirtImage = findViewById(R.id.iv_character_shirt_image);
+
+        characterTrousersDescription = findViewById(R.id.tv_character_trousers_description);
+
+        characterTrousersImage = findViewById(R.id.iv_character_trousers_image);
+
+        characterShoesDescription = findViewById(R.id.tv_character_shoes_description);
+
+        characterShoesImage = findViewById(R.id.iv_character_shoes_image);
+
+        characterLevelName = findViewById(R.id.tv_character_level_name);
+
+        characterLevelDescription = findViewById(R.id.tv_character_level_description);
+
+
+//        characterStats = findViewById(R.id.tv_character_stats);
 
         switchToStory = findViewById(R.id.btn_character_story);
 //        switchToEnemy= findViewById(R.id.btn_character_enemy);
@@ -80,8 +178,60 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
         if (getIntent().hasExtra("player")) {
             player = (Player) getIntent().getSerializableExtra("player");
-            characterStats.setText(player.toString());
+//            characterStats.setText(player.toString());
             characterImage.setImageResource(R.drawable.e710d0a6e8434a2b874b74101ff5cb63);
+
+            characterName.setText("Name: " + player.getName());
+
+            characterHealth.setText("Current Health: " + String.valueOf(player.getHealth()));
+
+            characterGold.setText("Gold: " + String.valueOf(player.getPlayerGold()));
+
+            characterStrength.setText("Strength: " + String.valueOf(player.getStrength()));
+
+            characterAccuracy.setText("Accuracy: " + String.valueOf(player.getAccuracy()));
+
+            characterReactions.setText("Reactions: " + String.valueOf(player.getReactions()));
+
+            characterSpeed.setText("Speed: " + String.valueOf(player.getSpeed()));
+
+            characterIntelligence.setText("Intelligence: " + String.valueOf(player.getIntelligence()));
+
+            characterWeaponDescription.setText(player.getCurrentWeapon());
+
+            characterWeaponImage.setImageResource(player.getWeapon().getImageId());
+
+            characterShieldDescription.setText(player.getShield().toString());
+
+            characterShieldImage.setImageResource(player.getShield().getImageId());
+
+            characterChestArmourDescription.setText((player.getChestArmour().toString()));
+
+            characterChestArmourImage.setImageResource(player.getChestArmour().getImageId());
+
+            characterHelmetDescription.setText(player.getHelmet().toString());
+
+            characterHelmetImage.setImageResource(player.getHelmet().getImageId());
+
+            characterShirtDescription.setText(player.getShirt().toString());
+
+            characterShirtImage.setImageResource(player.getShirt().getImageId());
+
+            characterTrousersDescription.setText(player.getTrouser().toString());
+
+            characterTrousersImage.setImageResource(player.getTrouser().getImageId());
+
+            characterShoesDescription.setText(player.getShoe().toString());
+
+            characterShoesImage.setImageResource(player.getShoe().getImageId());
+
+            characterLevelName.setText("Progress: " + player.getProgress());
+
+            characterLevelDescription.setText("Level Name: " + player.getProgress());
+
+
+
+
         } else {
         Log.e("CharacterActivity", "Player object not found in Intent");
         }

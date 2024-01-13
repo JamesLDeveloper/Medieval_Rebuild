@@ -8,7 +8,7 @@ public class Trouser extends Armour implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /* Constructors */
-    public Trouser(String name, int durability, int defenseRating) {
-        super(name, durability, defenseRating);
+    public Trouser(String name, double durability, double defenseRating, int imageId) {
+        super(name, durability, defenseRating, imageId);
     }
 }

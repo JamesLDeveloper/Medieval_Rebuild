@@ -31,15 +31,306 @@
             android:layout_height="0dp"
             android:layout_weight="56">
 
-
-            <TextView
-                android:id="@+id/tv_character_stats"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                app:autoSizeTextType="uniform" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:id="@+id/tv_character_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_character_health"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_gold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/tv_character_strength"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_accuracy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/tv_character_reactions"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_speed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/tv_character_intelligence"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_weapon_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_weapon_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_shield_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_shield_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_chestArmour_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_chestArmour_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_helmet_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_helmet_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_shirt_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_shirt_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_trousers_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_trousers_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_shoes_description"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <ImageView
+                        android:id="@+id/iv_character_shoes_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_character_level_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/tv_character_level_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
 
         </ScrollView>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"

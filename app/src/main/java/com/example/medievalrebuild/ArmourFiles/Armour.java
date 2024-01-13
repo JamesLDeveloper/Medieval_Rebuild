@@ -16,22 +16,25 @@ public class Armour implements Equipable, Serializable {
 
     /* Instance Variables */
     private final String armourName;
-    private int durability;
-    private int defenseRating;
+    private double durability;
+    private double defenseRating;
 
-    private int damage;
+    private double damage;
+
+    private int imageId;
 
     /* Constructors */
-    public Armour(String name, int durability, int defenseRating) {
+    public Armour(String name, double durability, double defenseRating, int imageId) {
         this.armourName = name;
         this.durability = durability;
         this.defenseRating = defenseRating;
+        this.imageId = imageId;
         this.damage = 0;
     }
 
     /* Instance Methods */
     @Override
-    public void reduceDurability(int reduction, Context context) {
+    public void reduceDurability(double reduction, Context context) {
         if (durability > 0) {
             durability -= reduction;
             if (durability <= 0) {
@@ -56,7 +59,7 @@ public class Armour implements Equipable, Serializable {
     }
 
 
-    public void repairArmour(int amount) {
+    public void repairArmour(double amount) {
         durability += amount;
         if (durability > 100) {
             durability = 100;
@@ -65,8 +68,8 @@ public class Armour implements Equipable, Serializable {
 
     /* Getters & Setters */
     @Override
-    public int getDefenseRating() {
-        return (int) (defenseRating * (durability / 100.0)) ;
+    public double getDefenseRating() {
+        return (double) (defenseRating * (durability / 100.0)) ;
     }
 
     @Override
@@ -80,14 +83,19 @@ public class Armour implements Equipable, Serializable {
         return armourName + ". \nDurability: " + durability + ", Defense Rating: " + defenseRating + "\n";
     }
 @Override
-    public int getDurability() {
+    public double getDurability() {
         return this.durability;
     }
 
 
     @Override
-    public int getDamage(){
+    public double getDamage(){
     return damage;
+}
+
+@Override
+    public int getImageId(){
+        return imageId;
 }
 
 

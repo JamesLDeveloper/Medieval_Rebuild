@@ -1,4 +1,4 @@
-package com.example.medievalrebuild.Weapons;
+package com.example.medievalrebuild.HandHeldItems;
 
 import android.content.Context;
 
@@ -14,15 +14,22 @@ public class Weapon implements Equipable, Serializable {
 
     /* Instance Variables */
     private final String name;
-    private final int damage;
+    private final double damage;
+
+    private final int weaponImageId;
 
     private Player player;
 
     /* Constructors */
-    public Weapon(String name, int damage) {
+    public Weapon(String name, double damage, int imageId) {
         this.name = name;
         this.damage = damage;
+        this.weaponImageId = imageId;
     }
+
+
+
+
 
     // implement accuracy variable?
     // implement critical damage variable?
@@ -36,21 +43,27 @@ public class Weapon implements Equipable, Serializable {
     }
 
     @Override
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
     @Override
-    public void reduceDurability(int reduction, Context context){
+    public void reduceDurability(double reduction, Context context){
 
     }
 
     @Override
-    public int getDefenseRating(){
+    public int getImageId(){
+        return weaponImageId;
+    }
+
+
+    @Override
+    public double getDefenseRating(){
         return 0;
     }
 
-    public int getDurability(){
+    public double getDurability(){
         return 0;
     }
 

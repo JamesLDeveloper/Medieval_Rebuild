@@ -2,9 +2,10 @@ package com.example.medievalrebuild.Game;
 
 import com.example.medievalrebuild.ArmourFiles.*;
 import com.example.medievalrebuild.Equipable.Equipable;
+import com.example.medievalrebuild.HandHeldItems.Shield;
 import com.example.medievalrebuild.MainActivity;
-import com.example.medievalrebuild.Weapons.Weapon;
-import com.example.medievalrebuild.MyAlertDialog;
+import com.example.medievalrebuild.R;
+import com.example.medievalrebuild.HandHeldItems.Weapon;
 
 import java.io.Serializable;
 
@@ -23,17 +24,26 @@ public class Player implements Serializable {
 
     private Equipable currentWeapon;
 
-    private Equipable armour;
+    private Equipable shield;
+    private Equipable chestArmour;
     private Equipable helmet;
     private Equipable shirt;
     private Equipable trouser;
     private Equipable shoe;
 
-    private int strength;
+    private double strength;
 
-    private int maxHealth;
+    private double maxHealth;
 
-    private int playerGold;
+    private double playerGold;
+
+    private double accuracy;
+
+    private double speed;
+
+    private double reactions;
+
+    private double intelligence;
 
     private String progress;
 
@@ -42,16 +52,21 @@ public class Player implements Serializable {
     /* Constructors */
     public Player(String name, MainActivity mainActivity) {
         this.name = name;
-        this.currentWeapon = new Weapon("Rusty Short Sword", 3);
+        this.currentWeapon = new Weapon("Rusty Short Sword", 3, R.drawable.rustysword);
         this.health = 100;
         this.maxHealth = 100;
         this.strength = 5;
         this.playerGold = 100;
-        this.armour = new Armour("None", 0, 0);
-        this.helmet = new Helmet("None", 0, 0);
-        this.shirt = new Shirt("None", 0, 0);
-        this.trouser = new Trouser("None", 0, 0);
-        this.shoe = new Shoe("None", 0, 0);
+        this.accuracy = 5;
+        this.speed = 5;
+        this.reactions = 5;
+        this.intelligence = 5;
+        this.shield = new Shield("None", 0, 0,0, R.drawable.none);
+        this.chestArmour = new ChestArmour("None", 0, 0, R.drawable.none);
+        this.helmet = new Helmet("None", 0, 0, R.drawable.none);
+        this.shirt = new Shirt("None", 0, 0, R.drawable.none);
+        this.trouser = new Trouser("None", 0, 0, R.drawable.none);
+        this.shoe = new Shoe("None", 0, 0, R.drawable.none);
         this.mainActivity = mainActivity;
         this.progress = "level1";
     }
@@ -85,11 +100,13 @@ public class Player implements Serializable {
     }
 
 
-    public int getMaxHealth(){
+
+
+    public double getMaxHealth(){
         return this.maxHealth;
     }
 
-    public void setMaxHealth(int newMaxHealth){
+    public void setMaxHealth(double newMaxHealth){
         this.maxHealth = newMaxHealth;
     }
 
@@ -100,7 +117,7 @@ public class Player implements Serializable {
         return name;
     }
 
-    public int getCurrentWeaponDamage(){
+    public double getCurrentWeaponDamage(){
 
         return currentWeapon.getDamage() * this.strength;
     }
@@ -111,7 +128,7 @@ public class Player implements Serializable {
     }
 
     public String getCurrentWeapon() {
-        return "Currently wielding: " +
+        return "Currently wielding: \n" +
                 currentWeapon.getName() +
                 ". \nThis weapon does " +
                 currentWeapon.getDamage() +
@@ -126,52 +143,95 @@ public class Player implements Serializable {
         return this.health;
     }
 
-    public int getStrength(){
+    public double getStrength(){
         return this.strength;
     }
 
-    public int getPlayerGold(){
+    public double getPlayerGold(){
         return this.playerGold;
     }
 
-    public void addStrength(int strengthToAdd){
+    public void addStrength(double strengthToAdd){
         this.strength += strengthToAdd;
     }
 
-    public void subtractStrength(int strengthToSubtract)
+    public void subtractStrength(double strengthToSubtract)
     {
         this.strength -= strengthToSubtract;
     }
-    public void addPlayerGold(int addGold){
+    public void addPlayerGold(double addGold){
         this.playerGold += addGold;
     }
 
-    public void subtractGold(int subtractGold){
+    public void subtractGold(double subtractGold){
         this.playerGold -= subtractGold;
     }
 
+    public double getAccuracy() {
+        return accuracy;
+    }
 
-    public int getDefenseRating() {
+    public void setAccuracy(double accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public double getReactions() {
+        return reactions;
+    }
+
+    public double getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(double intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public void setReactions(double reactions) {
+        this.reactions = reactions;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getDefenseRating() {
         return
-                armour.getDefenseRating() +
+                chestArmour.getDefenseRating() +
                 helmet.getDefenseRating() +
                 shirt.getDefenseRating() +
                 trouser.getDefenseRating() +
                 shoe.getDefenseRating();
     }
 
+    public Equipable getWeapon(){ return currentWeapon;}
+
+    public Equipable getShield(){ return shield;}
+
+    public void setShield(Equipable shield){
+        this.shield = shield;
+    }
+
+    public Equipable getChestArmour() {        return chestArmour;    }
+    public void setChestArmour(Equipable chestArmour) {
+        this.chestArmour = chestArmour;
+    }
+
+
     public Equipable getHelmet() {
         return helmet;
     }
 
-    public Equipable getArmour() {        return armour;    }
+
     public void setHelmet(Equipable helmet) {
         this.helmet = helmet;
     }
 
-    public void setArmour(Equipable armour) {
-        this.armour = armour;
-    }
+
     public Equipable getShirt() {
         return shirt;
     }
@@ -211,16 +271,16 @@ public class Player implements Serializable {
     @Override
     public String toString() {
         return "\nCurrent Player: \n" +
-                "Name: " + name + "\n" +
-                "Health: " + getHealth() + "\n" +
-                "Strength: " + getStrength() + "\n" +
-                "Gold: " + getPlayerGold() + "\n" +
+                "Name: " + name + "\n\n" +
+                "Health: " + getHealth() + "\n\n" +
+                "Strength: " + getStrength() + "\n\n" +
+                "Gold: " + getPlayerGold() + "\n\n" +
                 getCurrentWeapon() +
-                "Equipped Items: \nArmour: " + armour +
-                "Helmet: " + helmet +
-                "Shirt: " + shirt +
-                "Trousers: " + trouser +
-                "Shoes: " + shoe +
-                "Level: " + progress;
+                "\nEquipped Items: \nArmour: " + chestArmour +
+                "\nHelmet: " + helmet +
+                "\nShirt: " + shirt +
+                "\nTrousers: " + trouser +
+                "\nShoes: " + shoe +
+                "\nLevel: " + progress;
     }
 }

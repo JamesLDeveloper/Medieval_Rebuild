@@ -8,8 +8,8 @@ public class Enemy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String name;
-    private int damage;
-    private int health;
+    private double damage;
+    private double health;
 
     private int imageId;
 
@@ -20,7 +20,7 @@ public class Enemy implements Serializable {
     private static final ArrayList<Enemy> enemiesOriginalStats = new ArrayList<>();
 
 
-    public Enemy(String name, int health, int damage, boolean original, int imageId) {
+    public Enemy(String name, double health, double damage, boolean original, int imageId) {
 
         if (original) {
             this.name = name;
@@ -90,17 +90,17 @@ public class Enemy implements Serializable {
         return this.name;
     }
 
-    public int getEnemyDamage() {
+    public double getEnemyDamage() {
         return this.damage;
 
     }
 
-    public void enemyTakeDamage(int damage) {
+    public void enemyTakeDamage(double damage) {
         this.health -= damage;
         //     return (this.health);
     }
 
-    public int getEnemyHealth() {
+    public double getEnemyHealth() {
         return this.health;
 
     }

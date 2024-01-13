@@ -11,15 +11,17 @@ public interface Equipable extends Serializable {
 
 //    public void equipItem();
 
-    public void reduceDurability(int reduction, Context context);
+    public void reduceDurability(double reduction, Context context);
 
     public String getName();
 
-    public int getDamage();
+    public int getImageId();
 
-    public int getDefenseRating();
+    public double getDamage();
 
-    public int getDurability();
+    public double getDefenseRating();
+
+    public double getDurability();
 
 
 
