@@ -102,7 +102,7 @@ public class Player implements Serializable {
 
     public int getCurrentWeaponDamage(){
 
-        return currentWeapon.getDamage();
+        return currentWeapon.getDamage() * this.strength;
     }
 
     public String getCurrentWeaponName(){

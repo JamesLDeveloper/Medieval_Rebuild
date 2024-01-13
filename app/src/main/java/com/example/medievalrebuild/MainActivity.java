@@ -160,15 +160,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     UpgradeItem brokenSceptre = new UpgradeItem("Broken Sceptre", 0, 0,0,0,0,0, true);
 
-    Enemy zombieOne = new Enemy("Zombie", 4, 2, true, R.drawable.workzombie);
-    Enemy zombieKing = new Enemy("Zombie King", 20, 20, true, R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
+    Enemy zombieOne = new Enemy("Zombie", 20, 2, true, R.drawable.workzombie);
+    Enemy zombieKing = new Enemy("Zombie King", 100, 20, true, R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
 
-    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 35, 25, true, R.drawable.loki_1556801363,4);
+    BossEnemy loki = new BossEnemy("Loki God Of Mischief", 175, 25, true, R.drawable.loki_1556801363,4);
 
 
-    Enemy werewolf = new Enemy("Werewolf", 15, 12, true, R.drawable.werewolves);
+    Enemy werewolf = new Enemy("Werewolf", 75, 12, true, R.drawable.werewolves);
 
-    BossEnemy morgana = new BossEnemy("Morgana", 50, 30, true, R.drawable.merlin1133,5);
+    BossEnemy morgana = new BossEnemy("Morgana", 250, 30, true, R.drawable.merlin1133,5);
 
 
 
@@ -2304,7 +2304,7 @@ userSubmitButton.setEnabled(false);
                         // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
-                        UpgradeItem weights  = new UpgradeItem("Set of weights", 0, 0,0, 0, 5, 0, false);
+                        UpgradeItem weights  = new UpgradeItem("Set of weights", 0, 0,0, 0, 2, 0, false);
 
                         String levelFourVictory = "The %s drops a key. You use it to open a chest. You discover %s gold and also some %s.";
 
@@ -3009,14 +3009,11 @@ ArrayList<String> itemNames = new ArrayList<>();
 
     itemNames.add(0, "Cancel Item Use");
 
-//        if (Item != null){
+        if (!itemList.isEmpty()){
             for (Item item : itemList){
                 itemNames.add(item.getItemName());
             }
-
- //       }
-
-
+        }
 
 
         AlertDialog.Builder chooseItemDialogBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -3099,11 +3096,7 @@ public void useItem(Item itemChosen){
                 player.addStrength(itemChosen.getStrengthAmount());
                 player.heal(itemChosen.getHealAmount());
 
-
-
-
                     itemList.remove(itemChosen);
-
 
             }
         });

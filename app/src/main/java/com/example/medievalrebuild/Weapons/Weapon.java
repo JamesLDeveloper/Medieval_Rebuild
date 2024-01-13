@@ -3,6 +3,7 @@ package com.example.medievalrebuild.Weapons;
 import android.content.Context;
 
 import com.example.medievalrebuild.Equipable.Equipable;
+import com.example.medievalrebuild.Game.Player;
 
 import java.io.Serializable;
 
@@ -14,6 +15,8 @@ public class Weapon implements Equipable, Serializable {
     /* Instance Variables */
     private final String name;
     private final int damage;
+
+    private Player player;
 
     /* Constructors */
     public Weapon(String name, int damage) {
