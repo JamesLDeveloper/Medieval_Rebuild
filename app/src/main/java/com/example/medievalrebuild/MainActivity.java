@@ -2844,8 +2844,9 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
 //                }
 //            }
 
-            addEquipableToEquipableList(equipableReward);
-
+            if (equipableReward!=null) {
+                addEquipableToEquipableList(equipableReward);
+            }
 
             player.addPlayerGold(goldReward);
 
@@ -3380,6 +3381,11 @@ public void switchToCharacterStats () {
                     addEquipableToEquipableList(player.getTrouser());
                     player.setTrouser(equipableChosen);
                     equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof Shield) {
+                    addEquipableToEquipableList(player.getShield());
+                    player.setShield(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+
                 }
 
 
