@@ -63,12 +63,12 @@ public class Player implements Serializable {
         this.speed = 5;
         this.reactions = 5;
         this.intelligence = 5;
-        this.shield = new Shield("None", 0, 0,0, 0,0, R.drawable.none);
-        this.chestArmour = new ChestArmour("None", 0, 0,0,0, R.drawable.none);
-        this.helmet = new Helmet("None", 0, 0,0,0, R.drawable.none);
-        this.shirt = new Shirt("None", 0, 0, 0,0, R.drawable.none);
-        this.trouser = new Trouser("None", 0, 0,0,0, R.drawable.none);
-        this.shoe = new Shoe("None", 0, 0,0,0, R.drawable.none);
+        this.shield = new Shield("Shield: None", 0, 0,0, 0,0, R.drawable.none);
+        this.chestArmour = new ChestArmour("Chest Armour: None", 0, 0,0,0, R.drawable.none);
+        this.helmet = new Helmet("Helmet: None", 0, 0,0,0, R.drawable.none);
+        this.shirt = new Shirt("Shirt: None", 0, 0, 0,0, R.drawable.none);
+        this.trouser = new Trouser("Trouser: None", 0, 0,0,0, R.drawable.none);
+        this.shoe = new Shoe("Shoe: None", 0, 0,0,0, R.drawable.none);
         this.mainActivity = mainActivity;
         this.progress = "level1";
     }

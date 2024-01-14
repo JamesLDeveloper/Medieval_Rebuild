@@ -32,6 +32,7 @@ import com.example.medievalrebuild.Enemies.Enemy;
 import com.example.medievalrebuild.Equipable.Equipable;
 import com.example.medievalrebuild.Game.Art;
 import com.example.medievalrebuild.Game.Player;
+import com.example.medievalrebuild.HandHeldItems.Shield;
 import com.example.medievalrebuild.Item.Item;
 import com.example.medievalrebuild.Item.UpgradeItem;
 import com.example.medievalrebuild.HandHeldItems.Weapon;
@@ -1583,6 +1584,9 @@ userSubmitButton.setEnabled(false);
 
 
                 userSubmitButton.setEnabled(false);
+
+                Shield wooodenShield = new Shield("Round wooden shield", 3, 4, 8, 30, 2, R.drawable.woodenshield);
+
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1591,7 +1595,9 @@ userSubmitButton.setEnabled(false);
                             @Override
                             public void run() {
 
-                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". They have " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. Would you like to attack them?");
+                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". They have " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. You find a " + wooodenShield.getName() + " and pick it up. " + loki.getEnemyName() + " moves into an aggressive pose. Would you like to attack them?");
+
+                                addEquipableToEquipableList(wooodenShield);
 
                                 mainImageView.setImageResource(R.drawable.loki_1556801363);
 
@@ -1852,11 +1858,14 @@ userSubmitButton.setEnabled(false);
                     System.out.println("You choose option 0");
           //          mainTextView.setText("You open the chest to find a helmet. You put it on.");
 
-                            setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
+                            setPreviousAndMainText("You open the chest to find a helmet.");
 
 
                     Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8, 100, 20, R.drawable.platedhelmet);
-                    player.setHelmet(platedHelmet);
+
+                    addEquipableToEquipableList(platedHelmet);
+
+ //                   player.setHelmet(platedHelmet);
 
        //                 }
       //              }, 5000);
@@ -1882,7 +1891,10 @@ userSubmitButton.setEnabled(false);
                     setPreviousAndMainText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
 
                     Shoe leatherboots = new Shoe("Leather Boots", 10, 10, 200, 40, R.drawable.leatherboots);
-                    player.setShoe(leatherboots);
+
+                    addEquipableToEquipableList(leatherboots);
+
+  //                  player.setShoe(leatherboots);
                     //System.out.println(player);
                     player.setProgress("level2");
                     //userChoice = -1;
@@ -1968,6 +1980,7 @@ userSubmitButton.setEnabled(false);
                             setPreviousAndMainText("You choose not to attack the Zombie. The Zombie attacks you in the back as you run away.");
 
                             player.takeDamage(zombieOne.getEnemyDamage() * 1.5);
+
                             player.setProgress("level3");
                             if (player.getHealth() >0) {
                                 nextLevel();
@@ -2017,8 +2030,11 @@ userSubmitButton.setEnabled(false);
                         if (chestTwo== 0) {
                             //addDelay(2000);
                             ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, 200, 20, R.drawable.chainmailchestarmour);
-                            player.setChestArmour(chainMail);
-                            setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ". You put it on.");
+ //                           player.setChestArmour(chainMail);
+
+                            addEquipableToEquipableList(chainMail);
+
+                            setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ".");
                             System.out.println("You open the chest to find some chain mail. You put it on.");
 
                             addItemToItemList(potion);
@@ -2030,8 +2046,11 @@ userSubmitButton.setEnabled(false);
                             break;
                         } else if (chestTwo== 1) {
                             ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
-                            player.setChestArmour(platedArmor);
-                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getName() + "armor behind.");
+
+                            addEquipableToEquipableList(platedArmor);
+
+//                            player.setChestArmour(platedArmor);
+                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getName() + " behind.");
                             System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                             System.out.println(player);
                             player.setProgress("level4");
@@ -2148,10 +2167,12 @@ userSubmitButton.setEnabled(false);
                        // addDelay(2000);
                         Shirt woolenShirt = new Shirt("Woolen Shirt", 3, 3, 10, 2, R.drawable.woolenshirt);
 
-                        setPreviousAndMainText("You open the door to find a " + woolenShirt.getName() + ". You put it on.");
+                        setPreviousAndMainText("You open the door to find a " + woolenShirt.getName() + ".");
                         System.out.println("You open the door to find a leather jacket. You put it on.");
 
-                        player.setShirt(woolenShirt);
+                        addEquipableToEquipableList(woolenShirt);
+
+//                        player.setShirt(woolenShirt);
                         System.out.println(player);
                       //  addDelay(2000);
                         player.setProgress("level6");
@@ -2161,7 +2182,11 @@ userSubmitButton.setEnabled(false);
                         System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                         setPreviousAndMainText("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                         ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
-                        player.setChestArmour(platedArmor);
+
+                        addEquipableToEquipableList(platedArmor);
+
+
+//                        player.setChestArmour(platedArmor);
                         System.out.println(player);
                         player.setProgress("level6");
                          nextLevel();
@@ -2445,10 +2470,12 @@ userSubmitButton.setEnabled(false);
 
 
 
-                        setPreviousAndMainText("You open the chest to find a " + dragonScaleWeave.getName() + ". You put it on.");
+                        setPreviousAndMainText("You open the chest to find a " + dragonScaleWeave.getName() + ".");
                         System.out.println("You open the chest to find a " + dragonScaleWeave.getName() + ". You put it on.");
 
-                        player.setShirt(dragonScaleWeave);
+                        addEquipableToEquipableList(dragonScaleWeave);
+
+//                        player.setShirt(dragonScaleWeave);
 
                         System.out.println(player);
                         //  addDelay(2000);
@@ -2800,22 +2827,25 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
             System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
           //  Weapon longSword = new Weapon("Long Sword", 12);
 
-            if (equipableReward!= null) {
+//            if (equipableReward!= null) {
+//
+//                if (equipableReward instanceof Weapon) {
+//                    player.setCurrentWeapon(equipableReward);
+//                } else if (equipableReward instanceof Helmet) {
+//                    player.setHelmet(equipableReward);
+//                } else if (equipableReward instanceof ChestArmour) {
+//                    player.setChestArmour(equipableReward);
+//                } else if (equipableReward instanceof Shirt) {
+//                    player.setShirt(equipableReward);
+//                } else if (equipableReward instanceof Shoe) {
+//                    player.setShoe(equipableReward);
+//                } else if (equipableReward instanceof Trouser) {
+//                    player.setTrouser(equipableReward);
+//                }
+//            }
 
-                if (equipableReward instanceof Weapon) {
-                    player.setCurrentWeapon(equipableReward);
-                } else if (equipableReward instanceof Helmet) {
-                    player.setHelmet(equipableReward);
-                } else if (equipableReward instanceof ChestArmour) {
-                    player.setChestArmour(equipableReward);
-                } else if (equipableReward instanceof Shirt) {
-                    player.setShirt(equipableReward);
-                } else if (equipableReward instanceof Shoe) {
-                    player.setShoe(equipableReward);
-                } else if (equipableReward instanceof Trouser) {
-                    player.setTrouser(equipableReward);
-                }
-            }
+            addEquipableToEquipableList(equipableReward);
+
 
             player.addPlayerGold(goldReward);
 
@@ -2938,23 +2968,24 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
                 System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
                 //  Weapon longSword = new Weapon("Long Sword", 12);
 
+                addEquipableToEquipableList(equipableReward);
 
-                if (equipableReward!= null) {
-
-                    if (equipableReward instanceof Weapon) {
-                        player.setCurrentWeapon(equipableReward);
-                    } else if (equipableReward instanceof Helmet) {
-                        player.setHelmet(equipableReward);
-                    } else if (equipableReward instanceof ChestArmour) {
-                        player.setChestArmour(equipableReward);
-                    } else if (equipableReward instanceof Shirt) {
-                        player.setShirt(equipableReward);
-                    } else if (equipableReward instanceof Shoe) {
-                        player.setShoe(equipableReward);
-                    } else if (equipableReward instanceof Trouser) {
-                        player.setTrouser(equipableReward);
-                    }
-                }
+//                if (equipableReward!= null) {
+//
+//                    if (equipableReward instanceof Weapon) {
+//                        player.setCurrentWeapon(equipableReward);
+//                    } else if (equipableReward instanceof Helmet) {
+//                        player.setHelmet(equipableReward);
+//                    } else if (equipableReward instanceof ChestArmour) {
+//                        player.setChestArmour(equipableReward);
+//                    } else if (equipableReward instanceof Shirt) {
+//                        player.setShirt(equipableReward);
+//                    } else if (equipableReward instanceof Shoe) {
+//                        player.setShoe(equipableReward);
+//                    } else if (equipableReward instanceof Trouser) {
+//                        player.setTrouser(equipableReward);
+//                    }
+//                }
 
                 player.addPlayerGold(goldReward);
 
