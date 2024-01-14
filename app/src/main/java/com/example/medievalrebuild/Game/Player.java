@@ -1,5 +1,7 @@
 package com.example.medievalrebuild.Game;
 
+import android.app.AlertDialog;
+
 import com.example.medievalrebuild.ArmourFiles.*;
 import com.example.medievalrebuild.Equipable.Equipable;
 import com.example.medievalrebuild.HandHeldItems.Shield;
@@ -52,7 +54,7 @@ public class Player implements Serializable {
     /* Constructors */
     public Player(String name, MainActivity mainActivity) {
         this.name = name;
-        this.currentWeapon = new Weapon("Rusty Short Sword", 3, R.drawable.rustysword);
+        this.currentWeapon = new Weapon("Rusty Short Sword", 3, 5, 1, R.drawable.rustysword);
         this.health = 100;
         this.maxHealth = 100;
         this.strength = 5;
@@ -61,12 +63,12 @@ public class Player implements Serializable {
         this.speed = 5;
         this.reactions = 5;
         this.intelligence = 5;
-        this.shield = new Shield("None", 0, 0,0, R.drawable.none);
-        this.chestArmour = new ChestArmour("None", 0, 0, R.drawable.none);
-        this.helmet = new Helmet("None", 0, 0, R.drawable.none);
-        this.shirt = new Shirt("None", 0, 0, R.drawable.none);
-        this.trouser = new Trouser("None", 0, 0, R.drawable.none);
-        this.shoe = new Shoe("None", 0, 0, R.drawable.none);
+        this.shield = new Shield("None", 0, 0,0, 0,0, R.drawable.none);
+        this.chestArmour = new ChestArmour("None", 0, 0,0,0, R.drawable.none);
+        this.helmet = new Helmet("None", 0, 0,0,0, R.drawable.none);
+        this.shirt = new Shirt("None", 0, 0, 0,0, R.drawable.none);
+        this.trouser = new Trouser("None", 0, 0,0,0, R.drawable.none);
+        this.shoe = new Shoe("None", 0, 0,0,0, R.drawable.none);
         this.mainActivity = mainActivity;
         this.progress = "level1";
     }
@@ -76,6 +78,11 @@ public class Player implements Serializable {
     public void takeDamage(double enemyAttack) {
         double damage = enemyAttack - (getDefenseRating() / 5.0);
         this.health -= damage;
+
+        if (this.health <= this.maxHealth * 0.3){
+            mainActivity.lowHealthMessage();
+        }
+
         if (this.health <= 0) {
             System.out.println("You have succumbed to the enemy, better luck next time.");
             //System.exit(1);

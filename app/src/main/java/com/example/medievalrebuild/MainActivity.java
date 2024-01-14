@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     Button useItemButton;
 
+    Button equipEquipableButton;
+
     Button switchToCharacter;
 
     Button switchToEnemy;
@@ -167,13 +169,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-    Weapon longSword = new Weapon("Long Sword", 12, R.drawable.longsword);
+    Weapon longSword = new Weapon("Long Sword", 12, 500, 100 ,R.drawable.longsword);
 
     ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
 
     private Item itemSelected;
 
-    ArrayList<Item> itemList = new ArrayList<Item>();
+    ArrayList<Item> itemList = new ArrayList<>();
+
+    ArrayList<Equipable> equipableArrayList = new ArrayList<>();
 
 //    ArrayList<Enemy> enemiesVariableStats = new ArrayList<>();
 
@@ -278,6 +282,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 useItemButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
+        equipEquipableButton = findViewById(R.id.btn_main_equipable);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                equipEquipableButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
         userSubmitButton = findViewById(R.id.btn_main_submit);
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 userSubmitButton, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
@@ -361,6 +369,15 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
         });
 
+        equipEquipableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseEquipable();
+            }
+        });
+
+
+
         userExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -397,6 +414,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         userResponse2Button.setText("Save");
         userResponse3Button.setText("Load");
         useItemButton.setText("Item");
+        equipEquipableButton.setText("Equip");
         userExitButton.setText("Delete");
         userSubmitButton.setText("Submit");
 
@@ -968,6 +986,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         ArrayList<Enemy> loadedEnemiesSave;
                         ArrayList<Item> loadedItemList;
                         String loadedStorySoFar;
+                        ArrayList<Equipable> loadedEquipableItemList;
 
 
 
@@ -990,6 +1009,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                                 loadedStorySoFar = (String) loadedObjectPlayerFile.readObject();
 
+                                loadedEquipableItemList = (ArrayList<Equipable>) loadedObjectPlayerFile.readObject();
+
 
                                 Iterator<Enemy> iterator = enemiesStartingStats.iterator();
                                 while (iterator.hasNext()) {
@@ -1008,6 +1029,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                                 itemList = loadedItemList;
                                 storySoFar = loadedStorySoFar;
+                                equipableArrayList = loadedEquipableItemList;
 
 
 
@@ -1228,7 +1250,22 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 },1500);
 
 
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("Your experiments with magic have yielded few successes so far, however a kindly wizard has had compassion for your efforts and given you a magical rucksack.");
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+
+                    }
+                },3000);
 
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1237,6 +1274,41 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                setPreviousAndMainText("Any non-living item less than the size of a spear could be placed into the sack and be rendered weightless.");
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+
+                    }
+                },4500);
+
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setPreviousAndMainText("The wizard starts you off on your journey and you are excited to try out this magical gift.");
+                            }
+                        });
+
+//userSubmitButton.setEnabled(true);
+
+
+                    }
+                },6000);
+
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
                                 setPreviousAndMainText("You discover a chest. Would you like to open it?");
 
 
@@ -1278,7 +1350,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
                     }
-                },3000);
+                },7500);
 
 
 
@@ -1783,7 +1855,7 @@ userSubmitButton.setEnabled(false);
                             setPreviousAndMainText("You open the chest to find a helmet. You put it on.");
 
 
-                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8, R.drawable.platedhelmet);
+                    Helmet platedHelmet = new Helmet("Plated Helmet", 5, 8, 100, 20, R.drawable.platedhelmet);
                     player.setHelmet(platedHelmet);
 
        //                 }
@@ -1809,7 +1881,7 @@ userSubmitButton.setEnabled(false);
 
                     setPreviousAndMainText("You choose not to open the chest. An onlooker observes your honesty and gives you a pair of boots.");
 
-                    Shoe leatherboots = new Shoe("Leather Boots", 10, 10, R.drawable.leatherboots);
+                    Shoe leatherboots = new Shoe("Leather Boots", 10, 10, 200, 40, R.drawable.leatherboots);
                     player.setShoe(leatherboots);
                     //System.out.println(player);
                     player.setProgress("level2");
@@ -1944,7 +2016,7 @@ userSubmitButton.setEnabled(false);
                     chestTwo = userChoice;
                         if (chestTwo== 0) {
                             //addDelay(2000);
-                            ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, R.drawable.chainmailchestarmour);
+                            ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, 200, 20, R.drawable.chainmailchestarmour);
                             player.setChestArmour(chainMail);
                             setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ". You put it on.");
                             System.out.println("You open the chest to find some chain mail. You put it on.");
@@ -1957,7 +2029,7 @@ userSubmitButton.setEnabled(false);
                             nextLevel();
                             break;
                         } else if (chestTwo== 1) {
-                            ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, R.drawable.platedarmour);
+                            ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
                             player.setChestArmour(platedArmor);
                             setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getName() + "armor behind.");
                             System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
@@ -2010,7 +2082,7 @@ userSubmitButton.setEnabled(false);
                            // int zombieKingHealth = zombieKing.getEnemyHealth();
 
 
-                            Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10, R.drawable.chainmailtrousers2);
+                            Trouser chainMailTrousers = new Trouser("Chain Mail Trousers", 10, 10, 200, 40, R.drawable.chainmailtrousers2);
 
                             String levelFourVictory = "The %s drops a key. You use it to open a chest. Inside is a pair of %s. You also recover %s gold.";
 
@@ -2074,9 +2146,11 @@ userSubmitButton.setEnabled(false);
                     doorOne = userChoice;
                     if (doorOne== 0) {
                        // addDelay(2000);
-                        setPreviousAndMainText("You open the door to find a leather jacket. You put it on.");
+                        Shirt woolenShirt = new Shirt("Woolen Shirt", 3, 3, 10, 2, R.drawable.woolenshirt);
+
+                        setPreviousAndMainText("You open the door to find a " + woolenShirt.getName() + ". You put it on.");
                         System.out.println("You open the door to find a leather jacket. You put it on.");
-                        Shirt woolenShirt = new Shirt("Woolen Shirt", 3, 3, R.drawable.woolenshirt);
+
                         player.setShirt(woolenShirt);
                         System.out.println(player);
                       //  addDelay(2000);
@@ -2086,7 +2160,7 @@ userSubmitButton.setEnabled(false);
                     } else if (doorOne== 1) {
                         System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                         setPreviousAndMainText("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
-                        ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, R.drawable.platedarmour);
+                        ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
                         player.setChestArmour(platedArmor);
                         System.out.println(player);
                         player.setProgress("level6");
@@ -2145,7 +2219,7 @@ userSubmitButton.setEnabled(false);
 
                             String levelSixVictory = "%s drops a key. You use it to open a chest. Inside is a %s.";
 
-                            Weapon flamingSword = new Weapon("Flaming Sword", 24, R.drawable.flamingsword);
+                            Weapon flamingSword = new Weapon("Flaming Sword", 24, 1000, 200 , R.drawable.flamingsword);
 
                             bossBattle(loki, flamingSword, levelSixVictory, "level7", 150, null);
 
@@ -2365,7 +2439,7 @@ userSubmitButton.setEnabled(false);
                         // addDelay(2000);
 
 
-                        Shirt dragonScaleWeave = new Shirt("Dragon Scale Weave Shirt", 20, 15, R.drawable.dragonscaleweave);
+                        Shirt dragonScaleWeave = new Shirt("Dragon Scale Weave Shirt", 20, 15, 1000, 200, R.drawable.dragonscaleweave);
 
                         String formattedTextNonCombat = "";
 
@@ -3156,5 +3230,213 @@ public void switchToCharacterStats () {
         }
 
     }
+
+
+
+
+    private void chooseEquipable(){
+
+
+
+        ArrayList<String> equipablesNames = new ArrayList<>();
+
+        equipablesNames.add(0, "Cancel equipable item choice.");
+
+        if (!equipableArrayList.isEmpty()){
+            for (Equipable equipable : equipableArrayList){
+                equipablesNames.add(equipable.getName());
+            }
+        }
+
+
+        AlertDialog.Builder chooseEquipablesDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        chooseEquipablesDialogBuilder.setCancelable(true);
+        chooseEquipablesDialogBuilder.setTitle("Which equipable item would you like to equip?");
+
+
+        int equipablesListSize = equipablesNames.size();
+
+        String[] equipablesInList = new String[equipablesListSize];
+
+//        itemsInList[0] = "Cancel Item Use";
+
+        for (int i = 0; i < equipablesListSize; i++) {
+            equipablesInList[i] = equipablesNames.get(i);
+        }
+
+
+        chooseEquipablesDialogBuilder.setItems(equipablesInList, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("Test Dialog", "Equipables List: " + which);
+//            itemSelected = itemList.get(which-1);
+
+                Equipable equipableChosen;
+
+                if (which > 0) {
+
+//                try {
+
+                    equipableChosen = equipableArrayList.get(which-1);
+
+                    System.out.println("You have chosen to use " + equipableArrayList.get(which-1).getName());
+
+//                    previousPreviousStageTextViewText = "";
+//                    previousStageTextViewText = "";
+                    userChoice = -1;
+
+//                } catch (IOException | ClassNotFoundException e) {
+//
+//
+//                }
+
+                    useEquipable(equipableChosen, which-1);
+
+                } else /*if (which == 0 && player != null)*/ {
+                    dialog.dismiss();
+                    //        } else {
+                    //            dialog.dismiss();
+                    //            chooseNewOrLoad();
+                }
+
+
+
+            }
+        });
+
+        //        if (saveGamesSize > 0) {
+
+        chooseEquipablesDialogBuilder.create().show();
+
+    }
+
+    public void useEquipable(Equipable equipableChosen, int arrayListIndex){
+
+
+        AlertDialog.Builder useEquipableDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        useEquipableDialogBuilder.setCancelable(false);
+        useEquipableDialogBuilder.setTitle("Confirm Item Use");
+        useEquipableDialogBuilder.setMessage("You have chosen " + equipableChosen.getName() + ". Are you sure you would like to equip this equipable?");
+
+        useEquipableDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //               if (itemChosen.getHealAmount() > 0){
+
+
+                if (equipableChosen instanceof Weapon) {
+                    addEquipableToEquipableList(player.getWeapon());
+                    player.setCurrentWeapon(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof Helmet) {
+                    addEquipableToEquipableList(player.getHelmet());
+                    player.setHelmet(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof ChestArmour) {
+                    addEquipableToEquipableList(player.getChestArmour());
+                    player.setChestArmour(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof Shirt) {
+                    addEquipableToEquipableList(player.getShirt());
+                    player.setShirt(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof Shoe) {
+                    addEquipableToEquipableList(player.getShoe());
+                    player.setShoe(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                } else if (equipableChosen instanceof Trouser) {
+                    addEquipableToEquipableList(player.getTrouser());
+                    player.setTrouser(equipableChosen);
+                    equipableArrayList.remove(arrayListIndex);
+                }
+
+
+            }
+        });
+
+        useEquipableDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        useEquipableDialogBuilder.create().show();
+    }
+
+
+ /*   public void equipItemChoice(Equipable itemToEquip){
+
+//        Iterator<Equipable> iterator = equipableArrayList.iterator();
+//        while (iterator.hasNext()) {
+//            Equipable currentEquipable = iterator.next();
+//if (itemToEquip == currentEquipable){
+//    iterator.remove();
+
+    if (itemToEquip instanceof Weapon) {
+        addEquipableToEquipableList(player.getWeapon());
+        player.setCurrentWeapon(itemToEquip);
+    } else if (itemToEquip instanceof Helmet) {
+        addEquipableToEquipableList(player.getHelmet());
+        player.setHelmet(itemToEquip);
+    } else if (itemToEquip instanceof ChestArmour) {
+        addEquipableToEquipableList(player.getChestArmour());
+        player.setChestArmour(itemToEquip);
+    } else if (itemToEquip instanceof Shirt) {
+        addEquipableToEquipableList(player.getShirt());
+        player.setShirt(itemToEquip);
+    } else if (itemToEquip instanceof Shoe) {
+        addEquipableToEquipableList(player.getShoe());
+        player.setShoe(itemToEquip);
+    } else if (itemToEquip instanceof Trouser) {
+        addEquipableToEquipableList(player.getTrouser());
+        player.setTrouser(itemToEquip);
+    }
+
+//    break;
+
+//}
+//                }
+            }
+            */
+
+    public void addEquipableToEquipableListNoDuplicates(Equipable itemToAddToEquipableList){
+
+        boolean itemInArrayList = false;
+
+        for (Equipable equipable : equipableArrayList){
+            if (itemInArrayList == true){
+                break;
+            } else if (itemToAddToEquipableList == equipable){
+                itemInArrayList = true;
+                break;
+            } else {
+                equipableArrayList.add(itemToAddToEquipableList);
+            }
+
+        }
+    }
+
+    public void addEquipableToEquipableList(Equipable itemToAddToEquipableList){
+
+        equipableArrayList.add(itemToAddToEquipableList);
+
+        AlertDialog.Builder collectedEquipableDialogBuiler = new AlertDialog.Builder(MainActivity.this);
+        collectedEquipableDialogBuiler.setCancelable(true);
+        collectedEquipableDialogBuiler.setMessage("You have collected " + itemToAddToEquipableList.getName() + ". It has been added to your equipable items.");
+        collectedEquipableDialogBuiler.create().show();
+    }
+
+
+    public void lowHealthMessage(){
+        AlertDialog.Builder lowHealthDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        lowHealthDialogBuilder.setCancelable(true);
+        lowHealthDialogBuilder.setMessage("Your health is less than 30% of your max health. You have " + player.getHealth() + " left. Please heal as soon as possible!");
+        lowHealthDialogBuilder.create().show();
+    }
+
+
 
 }

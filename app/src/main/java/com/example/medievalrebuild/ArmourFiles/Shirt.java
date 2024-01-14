@@ -8,7 +8,7 @@ public class Shirt extends Armour implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /* Constructors */
-    public Shirt(String name, double durability, double defenseRating, int imageId) {
-        super(name, durability, defenseRating, imageId);
+    public Shirt(String name, double durability, double defenseRating, double goldValue, double scrapValue, int imageId) {
+        super(name, durability, defenseRating, goldValue, scrapValue, imageId);
     }
 }

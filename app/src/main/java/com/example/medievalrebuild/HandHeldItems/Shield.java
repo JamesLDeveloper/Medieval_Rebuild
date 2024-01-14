@@ -22,14 +22,20 @@ public class Shield implements Equipable, Serializable {
 
     private double defenseRating;
 
+    private double goldValue;
+
+    private double scrapValue;
+
     private Player player;
 
     /* Constructors */
-    public Shield(String name, double damage, double durability, double defenseRating, int imageId) {
+    public Shield(String name, double damage, double durability, double defenseRating, double goldValue, double scrapValue, int imageId) {
         this.name = name;
         this.damage = damage;
         this.durability = durability;
         this.defenseRating = defenseRating;
+        this.goldValue = goldValue;
+        this.scrapValue = scrapValue;
         this.weaponImageId = imageId;
     }
 
@@ -63,6 +69,26 @@ public class Shield implements Equipable, Serializable {
     @Override
     public double getDefenseRating(){
         return 0;
+    }
+
+    @Override
+    public double getGoldValue() {
+        return goldValue;
+    }
+
+    @Override
+    public void setGoldValue(double goldValue) {
+        this.goldValue = goldValue;
+    }
+
+    @Override
+    public double getScrapValue() {
+        return scrapValue;
+    }
+
+    @Override
+    public void setScrapValue(double scrapValue) {
+        this.scrapValue = scrapValue;
     }
 
     @Override

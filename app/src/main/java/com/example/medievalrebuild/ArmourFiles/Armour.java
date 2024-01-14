@@ -23,11 +23,17 @@ public class Armour implements Equipable, Serializable {
 
     private int imageId;
 
+    private double goldValue;
+
+    private double scrapValue;
+
     /* Constructors */
-    public Armour(String name, double durability, double defenseRating, int imageId) {
+    public Armour(String name, double durability, double defenseRating, double goldValue, double scrapValue, int imageId) {
         this.armourName = name;
         this.durability = durability;
         this.defenseRating = defenseRating;
+        this.goldValue = goldValue;
+        this.scrapValue = scrapValue;
         this.imageId = imageId;
         this.damage = 0;
     }
@@ -87,6 +93,18 @@ public class Armour implements Equipable, Serializable {
         return this.durability;
     }
 
+
+    @Override public double getGoldValue(){return this.goldValue;}
+
+    @Override public double getScrapValue(){return this.scrapValue;}
+
+    @Override public void setGoldValue(double goldValue){
+        this.goldValue = goldValue;
+    }
+
+    @Override public void setScrapValue(double scrapValue){
+    this.scrapValue = scrapValue;
+    }
 
     @Override
     public double getDamage(){
