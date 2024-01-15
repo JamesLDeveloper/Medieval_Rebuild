@@ -108,6 +108,15 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
                 //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
                 //startActivity(intent);
                 finish();
+                mainActivity = MyApplication.getMainActivityInstance();
+
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
             }
 
         });

@@ -6,6 +6,7 @@ import com.example.medievalrebuild.ArmourFiles.*;
 import com.example.medievalrebuild.Equipable.Equipable;
 import com.example.medievalrebuild.HandHeldItems.Shield;
 import com.example.medievalrebuild.MainActivity;
+import com.example.medievalrebuild.MyApplication;
 import com.example.medievalrebuild.R;
 import com.example.medievalrebuild.HandHeldItems.Weapon;
 
@@ -80,17 +81,27 @@ public class Player implements Serializable {
         this.health -= damage;
 
         if (this.health <= this.maxHealth * 0.3){
-            mainActivity.lowHealthMessage();
+            if (mainActivity != null && mainActivity.getPlayer() != null) {
+                mainActivity.lowHealthMessage();
+            }
+
         }
 
         if (this.health <= 0) {
             System.out.println("You have succumbed to the enemy, better luck next time.");
+
+            mainActivity = MyApplication.getMainActivityInstance();
             //System.exit(1);
+
+            if (mainActivity == null){
+                System.out.println("mainActivity = null");
+            } else {
+                System.out.println("mainActivity != null");
+            }
+
 
             if (mainActivity != null){
                 mainActivity.chooseNewOrLoad();
-            } else {
-
             }
 
 

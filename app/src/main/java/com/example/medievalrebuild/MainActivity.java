@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 import android.os.Handler;
@@ -212,6 +213,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mainActivity = new MainActivity();
+
+        MyApplication.setMainActivityInstance(this);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.medieval_marvels_and_might_icon);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -219,14 +224,18 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         setContentView(R.layout.activity_main);
 
+
+
+        MainActivityHolder.setMainActivity(this);
+
         characterActivity = new CharacterActivity();
-        characterActivity.setMainActivity(this);
+        characterActivity.setMainActivity(MainActivity.this);
         Log.d("CharacterActivity", "MainActivity: " + mainActivity);
         System.out.println("Character Activity MainActivity: " + mainActivity);
 
 
         enemyActivity = new EnemyActivity();
-        enemyActivity.setMainActivity(this);
+        enemyActivity.setMainActivity(MainActivity.this);
         Log.d("EnemyActivity", "MainActivity: " + mainActivity);
         System.out.println("Enemy Activity: MainActivity: " + mainActivity);
 
@@ -395,6 +404,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 switchToCharacterStats();
 
+        //        mainActivity.setMainActivity(MainActivity.this);
+
             }
 
         });
@@ -487,6 +498,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
     public void chooseNewOrLoad() {
+
+        System.out.println("chooseNewOrLoad() called");
 
         if (player != null) {
 
@@ -1032,7 +1045,13 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 storySoFar = loadedStorySoFar;
                                 equipableArrayList = loadedEquipableItemList;
 
+                                mainActivity = MyApplication.getMainActivityInstance();
 
+                                if (mainActivity == null){
+                                    System.out.println("mainActivity = null");
+                                } else {
+                                    System.out.println("mainActivity != null");
+                                }
 
 // Now add the loadedEnemiesSave to the enemies list
       //                          enemiesStartingStats.addAll(loadedEnemiesSave);
@@ -1068,6 +1087,9 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 //        if (saveGamesSize > 0) {
 
                 chooseSavedGameDialogBuilder.create().show();
+
+
+
             } else if (player == null) {
 
 
@@ -1112,6 +1134,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 playerSaver.writeObject(storySoFar);
 
+                playerSaver.writeObject(equipableArrayList);
+
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
 //                playerSaver.writeObject(progress);
@@ -1149,6 +1173,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 System.out.println("Saved Games: " + savedGames.toString());
 
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
                 //return fileName;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1185,6 +1215,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         System.out.println(progress);
         waitingForAnswer = true;
         userChoice = -1;
+
+        if (mainActivity == null){
+            System.out.println("mainActivity = null");
+        } else {
+            System.out.println("mainActivity != null");
+        }
 
 
         switch (progress) {
@@ -1365,7 +1401,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
              //   System.out.println("You have reached the start of level 2");
 
 
-
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
              //   setPreviousAndMainText("You have reached the start of level 2");
 
@@ -1447,6 +1487,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
          //                                   public void run() {
                 currentEnemy = null;
 
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1493,6 +1539,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 break;
 
             case "level4":
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
        //             handler.postDelayed(new Runnable() {
        //                 @Override
@@ -1542,6 +1594,12 @@ userSubmitButton.setEnabled(false);
 
             case "level5":
 
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
                 currentEnemy = null;
 
 userSubmitButton.setEnabled(false);
@@ -1579,6 +1637,12 @@ userSubmitButton.setEnabled(false);
                     break;
 
             case "level6":
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
                 currentEnemy = loki;
 
@@ -1622,6 +1686,12 @@ userSubmitButton.setEnabled(false);
                     break;
 
             case "level7":
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
                 currentEnemy = werewolf;
 
@@ -1671,6 +1741,12 @@ userSubmitButton.setEnabled(false);
 
             case "level8":
 
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
                 currentEnemy = null;
 
                 userSubmitButton.setEnabled(false);
@@ -1709,6 +1785,12 @@ userSubmitButton.setEnabled(false);
 
             case "level9":
 
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
                 currentEnemy = morgana;
 
 
@@ -1746,6 +1828,12 @@ userSubmitButton.setEnabled(false);
                 break;
 
             case "level10" :
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
                 currentEnemy = null;
 
@@ -2969,8 +3057,10 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
                 System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
                 //  Weapon longSword = new Weapon("Long Sword", 12);
 
-                addEquipableToEquipableList(equipableReward);
 
+                if (equipableReward != null) {
+                    addEquipableToEquipableList(equipableReward);
+                }
 //                if (equipableReward!= null) {
 //
 //                    if (equipableReward instanceof Weapon) {
@@ -3473,6 +3563,30 @@ public void switchToCharacterStats () {
         lowHealthDialogBuilder.setMessage("Your health is less than 30% of your max health. You have " + player.getHealth() + " left. Please heal as soon as possible!");
         lowHealthDialogBuilder.create().show();
     }
+
+
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save necessary data to restore state
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore state from the saved bundle
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.clearMainActivityInstance();
+    }
+
 
 
 

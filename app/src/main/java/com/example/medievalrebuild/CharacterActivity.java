@@ -89,6 +89,8 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
     /* Instance Variables */
 
+    MainActivityHolder mainActivityHolder;
+
     private transient MainActivity mainActivity;
 
     private transient EnemyActivity enemyActivity;
@@ -229,7 +231,15 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
 
             characterLevelDescription.setText("Level Name: " + player.getProgress());
 
+            mainActivity = MyApplication.getMainActivityInstance();
 
+
+
+            if (mainActivity == null){
+                System.out.println("mainActivity = null");
+            } else {
+                System.out.println("mainActivity != null");
+            }
 
 
         } else {
@@ -256,6 +266,15 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
                 //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
                 //startActivity(intent);
                 finish();
+
+                mainActivity = MyApplication.getMainActivityInstance();
+
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
 
             }
 
