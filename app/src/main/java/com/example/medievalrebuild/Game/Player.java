@@ -55,7 +55,7 @@ public class Player implements Serializable {
     /* Constructors */
     public Player(String name, MainActivity mainActivity) {
         this.name = name;
-        this.currentWeapon = new Weapon("Rusty Short Sword", 3, 5, 1, R.drawable.rustysword);
+        this.currentWeapon = new Weapon("Rusty Short Sword", 3, 5, 1, 1, R.drawable.rustysword);
         this.health = 100;
         this.maxHealth = 100;
         this.strength = 5;
@@ -64,7 +64,7 @@ public class Player implements Serializable {
         this.speed = 5;
         this.reactions = 5;
         this.intelligence = 5;
-        this.shield = new Shield("Shield: None", 0, 0,0, 0,0, R.drawable.none);
+        this.shield = new Shield("Shield: None", 0, 0,0, 0,0, 1, R.drawable.none);
         this.chestArmour = new ChestArmour("Chest Armour: None", 0, 0,0,0, R.drawable.none);
         this.helmet = new Helmet("Helmet: None", 0, 0,0,0, R.drawable.none);
         this.shirt = new Shirt("Shirt: None", 0, 0, 0,0, R.drawable.none);

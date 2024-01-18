@@ -25,6 +25,7 @@
 
         <activity   android:name=".CharacterActivity" />
         <activity   android:name=".EnemyActivity" />
+        <activity android:name=".ShopActivity" />
 
     </application>
 

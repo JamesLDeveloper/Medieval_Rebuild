@@ -23,11 +23,11 @@ public interface Equipable extends Serializable {
 
     public double getDurability();
 
-    public double getGoldValue();
+    public double getGoldSellValue();
 
     public double getScrapValue();
 
-    public void setGoldValue(double goldValue);
+    public void setGoldSellValue(double goldSellValue);
 
     public void setScrapValue(double scrapValue);
 

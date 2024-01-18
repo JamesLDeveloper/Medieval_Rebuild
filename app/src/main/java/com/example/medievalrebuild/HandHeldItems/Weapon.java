@@ -18,18 +18,24 @@ public class Weapon implements Equipable, Serializable {
 
     private final int weaponImageId;
 
-    private double goldValue;
+    private double goldSellValue;
 
     private double scrapValue;
+
+    private double purchaseCost;
+
+    private int handsNeeded;
 
     private Player player;
 
     /* Constructors */
-    public Weapon(String name, double damage, double goldValue, double scrapValue, int imageId) {
+    public Weapon(String name, double damage, double goldSellValue, double scrapValue, int handsNeeded, int imageId) {
         this.name = name;
         this.damage = damage;
-        this.goldValue = goldValue;
+        this.goldSellValue = goldSellValue;
         this.scrapValue = scrapValue;
+        this.purchaseCost = goldSellValue * 1.2;
+        this.handsNeeded = handsNeeded;
         this.weaponImageId = imageId;
     }
 
@@ -59,13 +65,13 @@ public class Weapon implements Equipable, Serializable {
     }
 
     @Override
-    public double getGoldValue() {
-        return goldValue;
+    public double getGoldSellValue() {
+        return goldSellValue;
     }
 
     @Override
-    public void setGoldValue(double goldValue) {
-        this.goldValue = goldValue;
+    public void setGoldSellValue(double goldSellValue) {
+        this.goldSellValue = goldSellValue;
     }
 
     @Override

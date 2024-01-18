@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-    Weapon longSword = new Weapon("Long Sword", 12, 500, 100 ,R.drawable.longsword);
+    Weapon longSword = new Weapon("Long Sword", 12, 500, 100 , 1 , R.drawable.longsword);
 
     ArrayList<Enemy> enemiesStartingStats = new ArrayList<>();
 
@@ -419,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
             }
 
         });
+
 
 
         userResponse0Button.setText("Yes");
@@ -1493,6 +1494,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     System.out.println("mainActivity != null");
                 }
 
+
+                switchToShop();
+
+
+
                 userSubmitButton.setEnabled(false);
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -1649,7 +1655,7 @@ userSubmitButton.setEnabled(false);
 
                 userSubmitButton.setEnabled(false);
 
-                Shield wooodenShield = new Shield("Round wooden shield", 3, 4, 8, 30, 2, R.drawable.woodenshield);
+                Shield wooodenShield = new Shield("Round wooden shield", 3, 4, 8, 30, 2, 1, R.drawable.woodenshield);
 
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
@@ -2332,7 +2338,7 @@ userSubmitButton.setEnabled(false);
 
                             String levelSixVictory = "%s drops a key. You use it to open a chest. Inside is a %s.";
 
-                            Weapon flamingSword = new Weapon("Flaming Sword", 24, 1000, 200 , R.drawable.flamingsword);
+                            Weapon flamingSword = new Weapon("Flaming Sword", 24, 1000, 200 , 1, R.drawable.flamingsword);
 
                             bossBattle(loki, flamingSword, levelSixVictory, "level7", 150, null);
 
@@ -3354,6 +3360,23 @@ public void switchToCharacterStats () {
     }
 
 
+    public void switchToShop () {
+
+        if (player != null) {
+
+            //                   new MyAlertDialog(MainActivity.this, MainActivity.this);
+
+            Intent intentShop = new Intent(MainActivity.this, ShopActivity.class);
+            intentShop.putExtra("player", player);
+
+            startActivity(intentShop);
+            //                   finish();
+
+        }
+
+    }
+
+
 
 
     private void chooseEquipable(){
@@ -3585,6 +3608,11 @@ public void switchToCharacterStats () {
     protected void onDestroy() {
         super.onDestroy();
         MyApplication.clearMainActivityInstance();
+    }
+
+
+    public void goToShop(){
+
     }
 
 
