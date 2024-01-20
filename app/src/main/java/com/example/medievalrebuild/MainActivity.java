@@ -1436,7 +1436,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                setPreviousAndMainText("You discover a " + zombieOne.getEnemyName() + ". The Zombie has " + zombieOne.getEnemyHealth() + " health and " + zombieOne.getEnemyDamage() + " damage. Would you like to attack it?");
+                                setPreviousAndMainText("You discover a " + zombieOne.getEnemyName() + ". Would you like to attack it?");
                                 mainImageView.setImageResource(R.drawable.workzombie);
 
 
@@ -1494,8 +1494,93 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     System.out.println("mainActivity != null");
                 }
 
+                ArrayList<Equipable> majistosWorkshop = new ArrayList<>();
 
-                switchToShop();
+
+
+                String majistosWorkshopName = "Majisto's Workshop";
+
+                Weapon daggerStilleto = new Weapon("Stilleto", 8.0, 300.0, 60.0, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Weapon mace = new Weapon("Mace", 40, 800, 160, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Weapon longsword = new Weapon("Longsword", 35.0, 750.0, 150.0, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Weapon warhammer = new Weapon("Warhammer", 38.0, 780.0, 156.0, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Weapon halberd = new Weapon("Halberd", 32.0, 720.0, 144.0, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
+                Shield lionShield = new Shield("Lion Head Shield", 5, 16, 12, 250, 50, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shield romanCenturion = new Shield("Roman Centurian", 3, 10, 25, 500, 100, 1,  R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shield dragonScaleShield = new Shield("Dragon Scale Shield", 6, 18, 15, 300, 60, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shield vikingRoundShield = new Shield("Viking Round Shield", 4, 12, 10, 200, 40, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shield towerShield = new Shield("Tower Shield", 7, 20, 16, 350, 70, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
+                Helmet dragonHelmet = new Helmet("Dragon Scale Helmet", 20, 15, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Helmet lionHelmet = new Helmet("Lion Mask Helmet", 8, 7, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Helmet tigerHelmet = new Helmet("Tiger Stripe Helmet", 18, 13, 280, 55, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Helmet eagleHelmet = new Helmet("Eagle Feather Helmet", 15, 10, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Helmet bearHelmet = new Helmet("Bear Claw Helmet", 22, 17, 320, 65, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour leatherChestArmour = new ChestArmour("Leather Jerkin", 15, 10, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour gambesonChestArmour = new ChestArmour("Gambeson Tunic", 20, 15, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour brigandineChestArmour = new ChestArmour("Brigandine Vest", 25, 20, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour paddedChestArmour = new ChestArmour("Padded Jack", 18, 13, 230, 46, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour surcoatChestArmour = new ChestArmour("Surcoat with Mail Sleeves", 22, 18, 280, 56, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser leatherTrouser = new Trouser("Leather Leggings", 12, 8, 150, 30, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser paddedTrouser = new Trouser("Padded Chausses", 15, 10, 180, 36, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser mailLeggings = new Trouser("Mail Leggings", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser brigandineLeggings = new Trouser("Brigandine Leg Guards", 18, 13, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser clothHose = new Trouser("Cloth Hose", 14, 9, 170, 34, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt linenShirt = new Shirt("Linen Undertunic", 10, 5, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt armingDoublet = new Shirt("Arming Doublet", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt paddedGambeson = new Shirt("Padded Gambeson", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt silkUndershirt = new Shirt("Silk Undershirt", 12, 6, 140, 28, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt woolenHauberk = new Shirt("Woolen Hauberk", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe leatherBoots = new Shoe("Leather Boots", 10, 6, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe paddedGreaves = new Shoe("Padded Greaves", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe woodenSabatons = new Shoe("Wooden Sabatons", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe furLinedBoots = new Shoe("Fur-lined Boots", 12, 7, 140, 28, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe chainmailFootguards = new Shoe("Chainmail Footguards", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
+
+
+                addEquipablesToWorkshop(majistosWorkshop,
+                        daggerStilleto,
+                        mace,
+                        longsword,
+                        warhammer,
+                        halberd,
+                        lionShield,
+                        romanCenturion,
+                        dragonScaleShield,
+                        vikingRoundShield,
+                        towerShield,
+                        dragonHelmet,
+                        lionHelmet,
+                        tigerHelmet,
+                        eagleHelmet,
+                        bearHelmet,
+                        leatherChestArmour,
+                        gambesonChestArmour,
+                        brigandineChestArmour,
+                        paddedChestArmour,
+                        surcoatChestArmour,
+                        leatherTrouser,
+                        paddedTrouser,
+                        mailLeggings,
+                        brigandineLeggings,
+                        clothHose,
+                        linenShirt,
+                        armingDoublet,
+                        paddedGambeson,
+                        silkUndershirt,
+                        woolenHauberk,
+                        leatherBoots,
+                        paddedGreaves,
+                        woodenSabatons,
+                        furLinedBoots,
+                        chainmailFootguards
+);
+
+//System.out.println(majistosWorkshop);
+
+                switchToShop(majistosWorkshop, majistosWorkshopName);
 
 
 
@@ -1570,7 +1655,7 @@ userSubmitButton.setEnabled(false);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + " .The " + zombieKing.getEnemyName() + " has " + zombieKing.getEnemyHealth() + " health and " + zombieKing.getEnemyDamage() + " damage. Would you like to attack it?");
+                                setPreviousAndMainText("You discover a " + zombieKing.getEnemyName() + ". Would you like to attack it?");
 
                                 mainImageView.setImageResource(R.drawable.zombie_king_by_reddnekk_dc69pgp_fullview);
                             }
@@ -1665,7 +1750,7 @@ userSubmitButton.setEnabled(false);
                             @Override
                             public void run() {
 
-                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". They have " + loki.getEnemyHealth() + " health and " + loki.getEnemyDamage() + " damage. You find a " + wooodenShield.getName() + " and pick it up. " + loki.getEnemyName() + " moves into an aggressive pose. Would you like to attack them?");
+                                setPreviousAndMainText("You discover " + loki.getEnemyName() + ". Luckily, nearby you find a " + wooodenShield.getName() + " and pick it up. " + loki.getEnemyName() + " moves into an aggressive pose. Would you like to attack them?");
 
                                 addEquipableToEquipableList(wooodenShield);
 
@@ -1717,7 +1802,7 @@ userSubmitButton.setEnabled(false);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                setPreviousAndMainText("You discover a " + werewolf.getEnemyName() + " .The " + werewolf.getEnemyName() + " has " + werewolf.getEnemyHealth() + " health and " + werewolf.getEnemyDamage() + " damage. Would you like to attack it?");
+                                setPreviousAndMainText("You discover a " + werewolf.getEnemyName() + ". Would you like to attack it?");
 
                                 mainImageView.setImageResource(R.drawable.werewolves);
                             }
@@ -1809,7 +1894,7 @@ userSubmitButton.setEnabled(false);
                             @Override
                             public void run() {
 
-                                setPreviousAndMainText("You discover " + morgana.getEnemyName() + ". They have " + morgana.getEnemyHealth() + " health and " + morgana.getEnemyDamage() + " damage. Would you like to attack them?");
+                                setPreviousAndMainText("You discover " + morgana.getEnemyName() + ". Would you like to attack them?");
 
                                 mainImageView.setImageResource(R.drawable.merlin1133);
 
@@ -2144,7 +2229,7 @@ userSubmitButton.setEnabled(false);
                             addEquipableToEquipableList(platedArmor);
 
 //                            player.setChestArmour(platedArmor);
-                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own" + platedArmor.getName() + " behind.");
+                            setPreviousAndMainText("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own " + platedArmor.getName() + " behind.");
                             System.out.println("You choose not to open the chest. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
                             System.out.println(player);
                             player.setProgress("level4");
@@ -2273,9 +2358,12 @@ userSubmitButton.setEnabled(false);
                         nextLevel();
                         break;
                     } else if (doorOne== 1) {
-                        System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
-                        setPreviousAndMainText("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own armor behind.");
+
                         ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
+
+                        System.out.println("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own " + platedArmor.getName() +  " behind.");
+                        setPreviousAndMainText("You choose not to open the door. An observer thinks it must be locked and bashes it with their mace. They discover some Chain Mail inside and leave their own " + platedArmor.getName() +  " behind.");
+
 
                         addEquipableToEquipableList(platedArmor);
 
@@ -3360,7 +3448,7 @@ public void switchToCharacterStats () {
     }
 
 
-    public void switchToShop () {
+    public void switchToShop (ArrayList<Equipable> shopInventory, String shopName) {
 
         if (player != null) {
 
@@ -3368,7 +3456,8 @@ public void switchToCharacterStats () {
 
             Intent intentShop = new Intent(MainActivity.this, ShopActivity.class);
             intentShop.putExtra("player", player);
-
+            intentShop.putExtra("shopInventory", shopInventory);
+            intentShop.putExtra("shopName", shopName);
             startActivity(intentShop);
             //                   finish();
 
@@ -3614,6 +3703,22 @@ public void switchToCharacterStats () {
     public void goToShop(){
 
     }
+
+        public void addEquipablesToWorkshop(ArrayList<Equipable> workShopName, Equipable... equipables) {
+            for (Equipable equipable : equipables) {
+                workShopName.add(equipable);
+            }
+        }
+
+        // Example usage
+
+
+                    // Add more items as needed
+
+
+
+
+
 
 
 

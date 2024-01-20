@@ -160,7 +160,7 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
         shopChestArmourDescription = findViewById(R.id.btn_shop_torso_armour_item_name);
 
-        shopChestArmourImage = findViewById(R.id.imbtn_shop_hand_item2_image);
+        shopChestArmourImage = findViewById(R.id.imbtn_shop_torso_armour_item_image);
 
         shopHelmetDescription = findViewById(R.id.btn_shop_head_item_name);
 
@@ -190,9 +190,8 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         if (getIntent().hasExtra("player")) {
             player = (Player) getIntent().getSerializableExtra("player");
 
-       shopImage.setImageResource(R.drawable.shop1);
 
-       shopName.setText("Shop");
+       shopImage.setImageResource(R.drawable.shop1);
 
        shopHandOneDescription.setText("Hand One");
        shopHandOneImage.setImageResource(R.drawable.right_hand);
@@ -213,6 +212,25 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
         } else {
             Log.e("player", "Player object not found in Intent");
+        }
+
+        if (getIntent().hasExtra("shopInventory")){
+            shopItemsForPurchase = (ArrayList<Equipable>) getIntent().getSerializableExtra("shopInventory");
+
+            System.out.println(shopItemsForPurchase);
+
+
+
+        } else {
+            Log.e("shopInventory", "shopInventory object not found in Intent");
+        }
+
+        if (getIntent().hasExtra("shopName")){
+            String retrievedShopName = (String) getIntent().getSerializableExtra("shopName");
+
+            shopName.setText(retrievedShopName);
+        } else {
+            Log.e("shopName", "shopName object not found in Intent");
         }
 
 

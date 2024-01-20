@@ -8,7 +8,7 @@ public class Shoe extends Armour implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /* Constructors */
-    public Shoe(String name, double durability, double defenseRating, double goldValue, double scrapValue, int imageId) {
-        super(name, durability, defenseRating, goldValue, scrapValue, imageId);
+    public Shoe(String name, double durability, double defenseRating, double goldSellValue, double scrapValue, int imageId) {
+        super(name, durability, defenseRating, goldSellValue, scrapValue, imageId);
     }
 }
