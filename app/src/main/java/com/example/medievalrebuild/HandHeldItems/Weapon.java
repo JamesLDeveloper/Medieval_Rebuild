@@ -95,8 +95,31 @@ public class Weapon implements Equipable, Serializable {
         return 0;
     }
 
+    @Override
     public double getDurability(){
         return 0;
     }
+
+    @Override
+    public double getGoldPurchaseCost(){
+        return purchaseCost;
+    }
+
+    @Override
+    public void setGoldPurchaseCost(double purchaseCost){
+        this.purchaseCost = purchaseCost;
+    }
+
+    @Override
+    public String toString() {
+
+        if (name.equalsIgnoreCase("none")) {
+
+            return name + "\n";
+
+        }
+        return name + ".\nDamage: " + damage + "\nHands Needed: " + handsNeeded;
+    }
+
 
 }

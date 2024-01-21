@@ -31,6 +31,11 @@ public interface Equipable extends Serializable {
 
     public void setScrapValue(double scrapValue);
 
+    public double getGoldPurchaseCost();
+
+    public void setGoldPurchaseCost(double goldPurchaseCost);
+
+
 
 
 }

@@ -1,29 +1,26 @@
 package com.example.medievalrebuild;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
-import android.content.Intent;
 
-import com.example.medievalrebuild.Enemies.BossEnemy;
-import com.example.medievalrebuild.Enemies.Enemy;
 import com.example.medievalrebuild.Equipable.Equipable;
-import com.example.medievalrebuild.Game.Art;
 import com.example.medievalrebuild.Game.Player;
+import com.example.medievalrebuild.HandHeldItems.Shield;
+import com.example.medievalrebuild.HandHeldItems.Weapon;
+import com.example.medievalrebuild.Item.UpgradeItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -89,7 +86,7 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
     Button switchToStory;
 
-    ArrayList<Equipable> shopItemsForPurchase = new ArrayList<>();
+    ArrayList<Equipable> shopEquipableItemsForPurchase = new ArrayList<>();
 
 
     private static final long serialVersionUID = 1L;
@@ -135,6 +132,11 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         shopImage = findViewById(R.id.iv_shop_shop_image);
 
         shopName = findViewById(R.id.tv_shop_shop_name);
+
+
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                shopName, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
 
 //        shopHealth = findViewById(R.id.tv_shop_health);
 //
@@ -215,9 +217,9 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         }
 
         if (getIntent().hasExtra("shopInventory")){
-            shopItemsForPurchase = (ArrayList<Equipable>) getIntent().getSerializableExtra("shopInventory");
+            shopEquipableItemsForPurchase = (ArrayList<Equipable>) getIntent().getSerializableExtra("shopInventory");
 
-            System.out.println(shopItemsForPurchase);
+            System.out.println(shopEquipableItemsForPurchase);
 
 
 
@@ -247,6 +249,60 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         // TODO 4-E: set onClickListener for each answer Button
 
 
+        shopHandOneDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder chooseItemFromEquipablesBuilder = new AlertDialog.Builder(ShopActivity.this);
+
+                        View dialogView = getLayoutInflater().inflate(R.layout.dialog_equipable_in_shop, null);
+                chooseItemFromEquipablesBuilder.setView(dialogView);
+
+                        RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerViewHandOne);
+                        // Create a dynamic list of handOneItems (replace this with your logic)
+
+                        ArrayList<Equipable> generatedHandOneEquipables = new ArrayList<>();
+
+
+
+
+                        for (Equipable equipable: shopEquipableItemsForPurchase) {
+
+                            if (equipable instanceof Shield || equipable instanceof Weapon) {
+                            generatedHandOneEquipables.add(equipable);
+                            }
+
+                        }
+
+
+                        ArrayList<Equipable> handOneEquipablesList = generatedHandOneEquipables;
+
+                        HandOneAdapter handOneAdapter = new HandOneAdapter(handOneEquipablesList);
+                        recyclerView.setAdapter(handOneAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ShopActivity.this));
+
+                        AlertDialog alertDialog = chooseItemFromEquipablesBuilder.create();
+                        alertDialog.show();
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         switchToStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,6 +323,17 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
         });
 
+
+
+
+//public void chooseItemFromShop(){
+//
+//        }
+
+
+//    public void confirmPurchase() {
+//
+//        }
 
 
 

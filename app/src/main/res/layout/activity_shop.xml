@@ -32,10 +32,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="cursive"
+                android:fontFamily="@font/the_girl_next_door"
                 android:text="Shop Name"
                 android:textAlignment="center"
-                android:textSize="34sp" />
+                android:textSize="30sp"
+                app:autoSizeTextType="uniform" />
         </LinearLayout>
 
         <ScrollView

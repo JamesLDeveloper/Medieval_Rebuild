@@ -119,6 +119,16 @@ public class Armour implements Equipable, Serializable {
         return imageId;
 }
 
+@Override
+    public double getGoldPurchaseCost(){
+        return goldPurchaseCost;
+}
+
+@Override
+    public void setGoldPurchaseCost(double goldPurchaseCost){
+        this.goldPurchaseCost = goldPurchaseCost;
+}
+
 
 
 }

@@ -112,4 +112,14 @@ public class Shield implements Equipable, Serializable {
         return 0;
     }
 
+    @Override
+    public double getGoldPurchaseCost(){
+        return this.goldPurchaseCost;
+    }
+
+    @Override
+    public void setGoldPurchaseCost(double goldPurchaseCost){
+        this.goldPurchaseCost = goldPurchaseCost;
+    }
+
 }
