@@ -24,6 +24,7 @@ import com.example.medievalrebuild.Item.UpgradeItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ShopActivity extends AppCompatActivity implements Serializable {
 
@@ -86,6 +87,8 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
     Button switchToStory;
 
+    Equipable equipable;
+
     ArrayList<Equipable> shopEquipableItemsForPurchase = new ArrayList<>();
 
 
@@ -121,12 +124,9 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_shop);
 
         int autoSizeMinTextSize = 6;
-        int autoSizeMaxTextSize = 30;
+        int autoSizeMaxTextSize = 14;
         int autoSizeStepGranularity = 1;
         int unit = TypedValue.COMPLEX_UNIT_SP;
-
-
-
 
 
         shopImage = findViewById(R.id.iv_shop_shop_image);
@@ -193,22 +193,22 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
             player = (Player) getIntent().getSerializableExtra("player");
 
 
-       shopImage.setImageResource(R.drawable.shop1);
+            shopImage.setImageResource(R.drawable.shop1);
 
-       shopHandOneDescription.setText("Hand One");
-       shopHandOneImage.setImageResource(R.drawable.right_hand);
-       shopHandTwoDescription.setText("Hand Two");
-       shopHandTwoImage.setImageResource(R.drawable.left_hand);
-       shopHelmetDescription.setText("Head");
-       shopHelmetImage.setImageResource(R.drawable.head);
-       shopChestArmourDescription.setText("Torso Armour");
-       shopChestArmourImage.setImageResource(R.drawable.material_armour_torso_metal);
-       shopShirtDescription.setText("Torso Under Armour");
-       shopShirtImage.setImageResource(R.drawable.material_torso_underarmour);
-       shopTrousersDescription.setText("Legs");
-       shopTrousersImage.setImageResource(R.drawable.legs);
-       shopShoesDescription.setText("Feet");
-       shopShoesImage.setImageResource(R.drawable.feet);
+            shopHandOneDescription.setText("Hand One");
+            shopHandOneImage.setImageResource(R.drawable.right_hand);
+            shopHandTwoDescription.setText("Hand Two");
+            shopHandTwoImage.setImageResource(R.drawable.left_hand);
+            shopHelmetDescription.setText("Head");
+            shopHelmetImage.setImageResource(R.drawable.head);
+            shopChestArmourDescription.setText("Torso Armour");
+            shopChestArmourImage.setImageResource(R.drawable.material_armour_torso_metal);
+            shopShirtDescription.setText("Torso Under Armour");
+            shopShirtImage.setImageResource(R.drawable.material_torso_underarmour);
+            shopTrousersDescription.setText("Legs");
+            shopTrousersImage.setImageResource(R.drawable.legs);
+            shopShoesDescription.setText("Feet");
+            shopShoesImage.setImageResource(R.drawable.feet);
 
             mainActivity = MyApplication.getMainActivityInstance();
 
@@ -216,18 +216,17 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
             Log.e("player", "Player object not found in Intent");
         }
 
-        if (getIntent().hasExtra("shopInventory")){
+        if (getIntent().hasExtra("shopInventory")) {
             shopEquipableItemsForPurchase = (ArrayList<Equipable>) getIntent().getSerializableExtra("shopInventory");
 
             System.out.println(shopEquipableItemsForPurchase);
-
 
 
         } else {
             Log.e("shopInventory", "shopInventory object not found in Intent");
         }
 
-        if (getIntent().hasExtra("shopName")){
+        if (getIntent().hasExtra("shopName")) {
             String retrievedShopName = (String) getIntent().getSerializableExtra("shopName");
 
             shopName.setText(retrievedShopName);
@@ -252,16 +251,47 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
         shopHandOneDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showEquipablesDialog(shopEquipableItemsForPurchase);
+            }
+        });
+
+        switchToStory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
+                //startActivity(intent);
+                finish();
+                mainActivity = MyApplication.getMainActivityInstance();
+
+
+                if (mainActivity == null){
+                    System.out.println("mainActivity = null");
+                } else {
+                    System.out.println("mainActivity != null");
+                }
+
+            }
+
+        });
+    }
+
+
+
+        private void showEquipablesDialog(ArrayList<Equipable> equipables) {
 
                 AlertDialog.Builder chooseItemFromEquipablesBuilder = new AlertDialog.Builder(ShopActivity.this);
 
                         View dialogView = getLayoutInflater().inflate(R.layout.dialog_equipable_in_shop, null);
                 chooseItemFromEquipablesBuilder.setView(dialogView);
 
-                        RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerViewHandOne);
-                        // Create a dynamic list of handOneItems (replace this with your logic)
+            RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerViewHandOne);
 
-                        ArrayList<Equipable> generatedHandOneEquipables = new ArrayList<>();
+            ArrayList<Equipable> generatedHandOneEquipables = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
 
 
 
@@ -284,7 +314,6 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
                         AlertDialog alertDialog = chooseItemFromEquipablesBuilder.create();
                         alertDialog.show();
                     }
-                });
 
 
 
@@ -303,25 +332,8 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
 
 
-        switchToStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Intent intent = new Intent(CharacterActivity.this, MainActivity.class);
-                //startActivity(intent);
-                finish();
-                mainActivity = MyApplication.getMainActivityInstance();
 
 
-                if (mainActivity == null){
-                    System.out.println("mainActivity = null");
-                } else {
-                    System.out.println("mainActivity != null");
-                }
-
-            }
-
-        });
 
 
 
@@ -371,4 +383,4 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
     }
 
-}
+
