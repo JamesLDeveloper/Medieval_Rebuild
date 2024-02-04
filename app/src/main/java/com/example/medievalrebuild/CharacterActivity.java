@@ -6,6 +6,7 @@ package com.example.medievalrebuild;
 
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.core.widget.TextViewCompat;
+        import androidx.lifecycle.ViewModelProvider;
 
         import android.util.Log;
         import android.util.TypedValue;
@@ -26,6 +27,7 @@ package com.example.medievalrebuild;
 
 public class CharacterActivity extends AppCompatActivity implements Serializable {
 
+    private CharacterActivityViewModel characterActivityViewModel;
     ImageView characterImage;
 
 //    TextView characterStats;
@@ -105,6 +107,7 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         this.mainActivity = mainActivity;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +118,8 @@ public class CharacterActivity extends AppCompatActivity implements Serializable
         getSupportActionBar().setElevation(0);
 
         setContentView(R.layout.activity_character);
+
+        characterActivityViewModel = new ViewModelProvider(this).get(CharacterActivityViewModel.class);
 
         int autoSizeMinTextSize = 6;
         int autoSizeMaxTextSize = 30;

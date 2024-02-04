@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -26,6 +27,8 @@ import com.example.medievalrebuild.Game.Player;
 import java.io.Serializable;
 
 public class EnemyActivity extends AppCompatActivity implements Serializable {
+
+    private EnemyActivityViewModel enemyActivityViewModel;
 
     ImageView enemyImage;
 
@@ -64,6 +67,8 @@ public class EnemyActivity extends AppCompatActivity implements Serializable {
         getSupportActionBar().setElevation(0);
 
         setContentView(R.layout.activity_enemy);
+
+        enemyActivityViewModel = new ViewModelProvider(this).get(EnemyActivityViewModel.class);
 
         int autoSizeMinTextSize = 6;
         int autoSizeMaxTextSize = 30;

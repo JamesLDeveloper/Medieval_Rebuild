@@ -1,5 +1,6 @@
-package com.example.medievalrebuild;
+/*package com.example.medievalrebuild;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +8,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medievalrebuild.Equipable.Equipable;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 
@@ -19,6 +25,9 @@ public class HandOneAdapter extends RecyclerView.Adapter<HandOneAdapter.ViewHold
 
     private OnBuyClickListener buyClickListener;
 
+    private Button backButton;
+
+    private ShopActivity shopActivity;
 
     public HandOneAdapter(ArrayList<Equipable> equipablesArrayList) {
         this.equipablesArrayList = equipablesArrayList;
@@ -47,8 +56,9 @@ public class HandOneAdapter extends RecyclerView.Adapter<HandOneAdapter.ViewHold
 
 
         holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListGoldCost.setText("Gold Cost" + equipable.getGoldPurchaseCost());
+        holder.equipableInListGoldCost.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
         holder.equipableInListImage.setImageResource(equipable.getImageId());
+        holder.backButton.setText("Back");
 
     }
 
@@ -62,8 +72,6 @@ public class HandOneAdapter extends RecyclerView.Adapter<HandOneAdapter.ViewHold
     }
 
 
-
-
     public void setOnEquipableClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
@@ -71,6 +79,9 @@ public class HandOneAdapter extends RecyclerView.Adapter<HandOneAdapter.ViewHold
     public void setOnBuyClickListener(OnBuyClickListener buyClickListener){
         this.buyClickListener = buyClickListener;
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -89,16 +100,36 @@ public class HandOneAdapter extends RecyclerView.Adapter<HandOneAdapter.ViewHold
 
         ImageButton equipableInListImage;
 
+        Button backButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize your item views here
             // Example: textView = itemView.findViewById(R.id.textView);
 
+            int autoSizeMinTextSize = 6;
+            int autoSizeMaxTextSize = 30;
+            int autoSizeStepGranularity = 1;
+            int unit = TypedValue.COMPLEX_UNIT_SP;
+
+
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    equipableInListDescription, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    equipableInListGoldCost, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
             equipableInListDescription = itemView.findViewById(R.id.btn_item_in_shop_equipable_description);
             equipableInListGoldCost = itemView.findViewById(R.id.btn_item_in_shop_equipable_goldCost);
             equipableInListImage = itemView.findViewById(R.id.imbtn_item_in_shop_equipable_image);
+            backButton = itemView.findViewById(R.id.btn_dialog_equipable_in_shop_back);
 
         }
+
+
+
+
     }
 }
+*/

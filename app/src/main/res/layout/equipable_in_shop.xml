@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
@@ -11,6 +12,7 @@
 
 
     <LinearLayout
+        android:id="@+id/itemView"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:background="@drawable/border"
@@ -18,22 +20,25 @@
         android:clickable="true">
 
         <LinearLayout
+            android:id="@+id/btn_dialog_equipable_in_shop_buy_item"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clickable="false"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_item_in_shop_equipable_goldCost"
                 style="@style/Widget.AppCompat.Button.Colored"
-                app:autoSizeTextType="uniform"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
+                android:clickable="false"
                 android:text="Button"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                app:autoSizeTextType="uniform" />
 
             <ImageButton
                 android:id="@+id/imbtn_item_in_shop_equipable_image"
@@ -41,6 +46,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="2"
+                android:clickable="false"
                 android:scaleType="fitCenter"
                 android:src="@android:drawable/btn_star" />
 
@@ -49,13 +55,14 @@
         <Button
             android:id="@+id/btn_item_in_shop_equipable_description"
             style="@style/Widget.AppCompat.Button.Colored"
-            app:autoSizeTextType="uniform"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
+            android:clickable="false"
             android:text="Button"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:autoSizeTextType="uniform" />
 
     </LinearLayout>
 

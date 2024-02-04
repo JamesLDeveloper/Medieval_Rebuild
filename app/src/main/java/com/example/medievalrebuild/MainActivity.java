@@ -11,6 +11,8 @@ import java.io.File;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -44,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
+
+    private MainActivityViewModel mainViewModel;
 
     Art art;
 
@@ -215,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         mainActivity = new MainActivity();
 
+
+
         MyApplication.setMainActivityInstance(this);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -224,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         setContentView(R.layout.activity_main);
 
-
+        mainViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         MainActivityHolder.setMainActivity(this);
 

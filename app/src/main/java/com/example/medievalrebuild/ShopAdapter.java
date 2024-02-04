@@ -1,3 +1,4 @@
+
 package com.example.medievalrebuild;
 
 import android.util.TypedValue;
@@ -6,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.TextViewCompat;
@@ -13,64 +15,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medievalrebuild.Equipable.Equipable;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.ArrayList;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
     private ArrayList<Equipable> equipablesArrayList;
+    private OnItemClickListener listener;
+    private OnBuyClickListener buyClickListener;
 
-    public ShopAdapter(ArrayList<Equipable> equipablesArrayList) {
-        this.equipablesArrayList = equipablesArrayList;
-    }
+    private ShopActivity shopActivity;
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_shop, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Equipable equipable = equipablesArrayList.get(position);
-        // Bind data to views in the ViewHolder
-        // Example: holder.textView.setText(item.getName());
-
-        holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListGoldCost.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
-        holder.equipableInListImage.setImageResource(equipable.getImageId());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return equipablesArrayList.size();
-    }
+//    private Button backButton;
+//    private Button btnBuyItem;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // Declare your item views here (e.g., TextView, ImageView)
-        // Example: TextView textView;
-
+        LinearLayout btnBuyItem;
         Button equipableInListDescription;
-
         Button equipableInListGoldCost;
-
         ImageButton equipableInListImage;
+        Button backButton;
+        ShopAdapter adapter;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, ShopAdapter adapter) {
             super(itemView);
-            // Initialize your item views here
-            // Example: textView = itemView.findViewById(R.id.textView);
+
+
+
+            equipableInListDescription = itemView.findViewById(R.id.btn_item_in_shop_equipable_description);
+            equipableInListGoldCost = itemView.findViewById(R.id.btn_item_in_shop_equipable_goldCost);
+            equipableInListImage = itemView.findViewById(R.id.imbtn_item_in_shop_equipable_image);
+            backButton = itemView.findViewById(R.id.btn_dialog_equipable_in_shop_back);
+            btnBuyItem = itemView.findViewById(R.id.btn_dialog_equipable_in_shop_buy_item);
+
 
             int autoSizeMinTextSize = 6;
             int autoSizeMaxTextSize = 30;
             int autoSizeStepGranularity = 1;
             int unit = TypedValue.COMPLEX_UNIT_SP;
-
 
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                     equipableInListDescription, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
@@ -78,16 +59,76 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                     equipableInListGoldCost, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
-            equipableInListDescription = itemView.findViewById(R.id.btn_item_in_shop_equipable_description);
-            equipableInListGoldCost = itemView.findViewById(R.id.btn_item_in_shop_equipable_goldCost);
-            equipableInListImage = itemView.findViewById(R.id.imbtn_item_in_shop_equipable_image);
 
+            this.adapter = adapter;
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    System.out.println("itemView clicked");
 
-
-
-
+                    if (adapter != null && adapter.listener != null) {
+                        adapter.listener.onItemClick(adapter.equipablesArrayList.get(getAdapterPosition()));
+                    }
+                }
+            });
         }
+    }
+
+    public ShopAdapter(ArrayList<Equipable> equipablesArrayList, ShopActivity shopActivity) {
+        this.equipablesArrayList = equipablesArrayList;
+        this.shopActivity = shopActivity;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_shop, parent, false);
+        return new ViewHolder(view, this);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Equipable equipable = equipablesArrayList.get(position);
+
+        holder.btnBuyItem.setOnClickListener(v -> {
+
+            if (buyClickListener == null) {
+                System.out.println("buyClickListener is Null");
+            }
+
+
+            if (buyClickListener != null) {
+                System.out.println("buyClickListener is not Null");
+                buyClickListener.onBuyClick(equipable);
+            }
+        });
+
+        holder.equipableInListDescription.setText(equipable.toString());
+        holder.equipableInListGoldCost.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
+        holder.equipableInListImage.setImageResource(equipable.getImageId());
+
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Equipable equipable);
+    }
+
+    public interface OnBuyClickListener {
+        void onBuyClick(Equipable equipable);
+    }
+
+    public void setOnEquipableClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void setOnBuyClickListener(OnBuyClickListener buyClickListener) {
+        this.buyClickListener = buyClickListener;
+    }
+
+    @Override
+    public int getItemCount() {
+        return equipablesArrayList.size();
     }
 }

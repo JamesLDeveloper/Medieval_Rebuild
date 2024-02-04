@@ -59,7 +59,7 @@ public class Player implements Serializable {
         this.health = 100;
         this.maxHealth = 100;
         this.strength = 5;
-        this.playerGold = 100;
+        this.playerGold = 500;
         this.accuracy = 5;
         this.speed = 5;
         this.reactions = 5;
