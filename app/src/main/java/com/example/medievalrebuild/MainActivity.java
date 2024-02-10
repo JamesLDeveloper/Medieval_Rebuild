@@ -1264,6 +1264,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     equipableArrayList.clear();
                 }
 
+                Shoe speedyBoots = new Shoe("Speedy Boots", 20, 200, 1000, 200, R.drawable.zombie1);
+
+       //         addEquipableToEquipableList(speedyBoots);
+
+                equipableArrayList.add(speedyBoots);
+
 
                 for (Enemy originalEnemy : enemiesStartingStats) {
                     // Assuming the "NewGame" version has the same name with "NewGame" appended
@@ -1606,7 +1612,7 @@ disableAllButtons();
 
 //System.out.println(majistosWorkshop);
 
-                switchToShop(majistosWorkshop, majistosWorkshopName);
+                switchToShop(majistosWorkshop, majistosWorkshopName, getPlayerEquipablesList());
 
 
 
@@ -3474,7 +3480,7 @@ public void switchToCharacterStats () {
     }
 
 
-    public void switchToShop (ArrayList<Equipable> shopInventory, String shopName) {
+    public void switchToShop (ArrayList<Equipable> shopInventory, String shopName, ArrayList<Equipable> playerEquipablesInventory) {
 
         if (player != null) {
 
@@ -3484,6 +3490,7 @@ public void switchToCharacterStats () {
             intentShop.putExtra("player", player);
             intentShop.putExtra("shopInventory", shopInventory);
             intentShop.putExtra("shopName", shopName);
+            intentShop.putExtra("playerEquipablesInventory", playerEquipablesInventory);
             startActivity(intentShop);
             //                   finish();
 

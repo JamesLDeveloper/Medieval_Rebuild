@@ -62,13 +62,19 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
     ImageButton shopHandOneImage;
 
+    Button shopHandOneSell;
+
     Button shopHandTwoDescription;
 
     ImageButton shopHandTwoImage;
 
+    Button shopHandTwoSell;
+
     Button shopHelmetDescription;
 
     ImageButton shopHelmetImage;
+
+    Button shopHelmetSell;
 
     Button shopChestArmourDescription;
 
@@ -76,19 +82,25 @@ public class ShopActivity extends AppCompatActivity implements Serializable {
 
 //    Button backButton;
 
-
+Button shopChestArmourSell;
 
     Button shopShirtDescription;
 
     ImageButton shopShirtImage;
 
+    Button shopShirtSell;
+
     Button shopTrousersDescription;
 
     ImageButton shopTrousersImage;
 
+    Button shopTrousersSell;
+
     Button shopShoesDescription;
 
     ImageButton shopShoesImage;
+
+    Button shopShoesSell;
 
 //    TextView characterLevelName;
 
@@ -101,6 +113,8 @@ RecyclerView recyclerView;
     Equipable equipable;
 
     ArrayList<Equipable> shopEquipableItemsForPurchase = new ArrayList<>();
+
+    ArrayList<Equipable> playerEquipablesInInventory = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 
@@ -178,29 +192,43 @@ RecyclerView recyclerView;
 
         shopHandOneImage = findViewById(R.id.imbtn_shop_hand_item1_image);
 
+        shopHandOneSell = findViewById(R.id.btn_shop_sell_hand_item1);
+
         shopHandTwoDescription = findViewById(R.id.btn_shop_hand_item2_name);
 
         shopHandTwoImage = findViewById(R.id.imbtn_shop_hand_item2_image);
+
+        shopHandTwoSell = findViewById(R.id.btn_shop_sell_hand_item2);
 
         shopChestArmourDescription = findViewById(R.id.btn_shop_torso_armour_item_name);
 
         shopChestArmourImage = findViewById(R.id.imbtn_shop_torso_armour_item_image);
 
+        shopChestArmourSell = findViewById(R.id.btn_shop_sell_torso_armour_item);
+
         shopHelmetDescription = findViewById(R.id.btn_shop_head_item_name);
 
         shopHelmetImage = findViewById(R.id.imbtn_shop_head_item_image);
+
+        shopHelmetSell = findViewById(R.id.btn_shop_sell_head_item);
 
         shopShirtDescription = findViewById(R.id.btn_shop_torso_underArmour_item_name);
 
         shopShirtImage = findViewById(R.id.imbtn_shop_torso_underArmour_item_image);
 
+        shopShirtSell = findViewById(R.id.btn_shop_sell_torso_underArmour_item);
+
         shopTrousersDescription = findViewById(R.id.btn_shop_legs_item_name);
 
         shopTrousersImage = findViewById(R.id.imbtn_shop_legs_item_image);
 
+        shopTrousersSell = findViewById(R.id.btn_shop_sell_legs_item);
+
         shopShoesDescription = findViewById(R.id.btn_shop_feet_item_name);
 
         shopShoesImage = findViewById(R.id.imbtn_shop_feet_item_image);
+
+        shopShoesSell = findViewById(R.id.btn_shop_sell_feet_item);
 
 //        backButton.findViewById(R.id.btn_dialog_equipable_in_shop_back);
 
@@ -221,18 +249,25 @@ RecyclerView recyclerView;
 
             shopHandOneDescription.setText("Hand One");
             shopHandOneImage.setImageResource(R.drawable.right_hand);
+            shopHandOneSell.setText("Sell");
             shopHandTwoDescription.setText("Hand Two");
             shopHandTwoImage.setImageResource(R.drawable.left_hand);
+            shopHandTwoSell.setText("Sell");
             shopHelmetDescription.setText("Head");
             shopHelmetImage.setImageResource(R.drawable.head);
+            shopHelmetSell.setText("Sell");
             shopChestArmourDescription.setText("Torso Armour");
             shopChestArmourImage.setImageResource(R.drawable.material_armour_torso_metal);
+            shopChestArmourSell.setText("Sell");
             shopShirtDescription.setText("Torso Under Armour");
             shopShirtImage.setImageResource(R.drawable.material_torso_underarmour);
+            shopShirtSell.setText("Sell");
             shopTrousersDescription.setText("Legs");
             shopTrousersImage.setImageResource(R.drawable.legs);
+            shopTrousersSell.setText("Sell");
             shopShoesDescription.setText("Feet");
             shopShoesImage.setImageResource(R.drawable.feet);
+            shopShoesSell.setText("Sell");
 
             mainActivity = MyApplication.getMainActivityInstance();
 
@@ -252,6 +287,22 @@ RecyclerView recyclerView;
         } else {
             Log.e("shopInventory", "shopInventory object not found in Intent");
         }
+
+        if (getIntent().hasExtra("playerEquipablesInventory")) {
+            playerEquipablesInInventory = (ArrayList<Equipable>) getIntent().getSerializableExtra("playerEquipablesInventory");
+
+
+            shopActivityViewModel.setEquipablesLiveData(playerEquipablesInInventory);
+
+            System.out.println(playerEquipablesInInventory);
+
+
+        } else {
+            Log.e("playerEquipablesInventory", "playerEquipablesInventory object not found in Intent");
+        }
+
+
+
 
         if (getIntent().hasExtra("shopName")) {
             String retrievedShopName = (String) getIntent().getSerializableExtra("shopName");
@@ -289,6 +340,14 @@ RecyclerView recyclerView;
             }
         });
 
+        shopHandOneSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+            }
+        });
+
+
         shopHandTwoDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,6 +362,12 @@ RecyclerView recyclerView;
             }
         });
 
+        shopHandTwoSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+            }
+        });
 
 
         shopHelmetDescription.setOnClickListener(new View.OnClickListener() {
@@ -319,6 +384,13 @@ RecyclerView recyclerView;
             }
         });
 
+        shopHelmetSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Helmet");
+            }
+        });
+
         shopChestArmourDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -330,6 +402,13 @@ RecyclerView recyclerView;
             @Override
             public void onClick(View v) {
                 showHandEquipablesDialog(shopEquipableItemsForPurchase, "ChestArmour");
+            }
+        });
+
+        shopChestArmourSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "ChestArmour");
             }
         });
 
@@ -348,6 +427,13 @@ RecyclerView recyclerView;
             }
         });
 
+        shopShirtSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shirt");
+            }
+        });
+
 
         shopTrousersDescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,6 +449,13 @@ RecyclerView recyclerView;
             }
         });
 
+        shopTrousersSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Trousers");
+            }
+        });
+
 
         shopShoesDescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -375,6 +468,13 @@ RecyclerView recyclerView;
             @Override
             public void onClick(View v) {
                 showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shoes");
+            }
+        });
+
+        shopShoesSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shoes");
             }
         });
 

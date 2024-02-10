@@ -92,18 +92,22 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Equipable equipable = equipablesArrayList.get(position);
 
-        holder.btnSellItem.setOnClickListener(v -> {
 
-            if (sellClickListener == null) {
-                System.out.println("sellClickListener is Null");
-            }
+        if (holder.btnSellItem != null) {
+
+            holder.btnSellItem.setOnClickListener(v -> {
+
+                if (sellClickListener == null) {
+                    System.out.println("sellClickListener is Null");
+                }
 
 
-            if (sellClickListener != null) {
-                System.out.println("buyClickListener is not Null");
-                sellClickListener.onSellClick(equipable);
-            }
-        });
+                if (sellClickListener != null) {
+                    System.out.println("buyClickListener is not Null");
+                    sellClickListener.onSellClick(equipable);
+                }
+            });
+        }
 
         holder.equipableInListDescription.setText(equipable.toString());
         holder.equipableInListSellValue.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
