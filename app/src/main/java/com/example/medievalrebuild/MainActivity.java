@@ -1215,7 +1215,18 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     public void nextLevel() {
 
-        userSubmitButton.setEnabled(true);
+        userSubmitButton.setEnabled(false);
+        equipEquipableButton.setEnabled(false);
+        useItemButton.setEnabled(false);
+        userExitButton.setEnabled(false);
+        userResponse0Button.setEnabled(false);
+        userResponse1Button.setEnabled(false);
+        userResponse2Button.setEnabled(false);
+        userResponse3Button.setEnabled(false);
+        switchToCharacter.setEnabled(false);
+        switchToEnemy.setEnabled(false);
+
+
 //        delayTask = new DelayTask();
         System.out.println("nextLevel() called");
         String progress = player.getProgress();
@@ -1249,6 +1260,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 }
 
 
+                if(!equipableArrayList.isEmpty()) {
+                    equipableArrayList.clear();
+                }
+
+
                 for (Enemy originalEnemy : enemiesStartingStats) {
                     // Assuming the "NewGame" version has the same name with "NewGame" appended
                     String newGameName = originalEnemy.getEnemyName() + "NewGame";
@@ -1269,7 +1285,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                     //player.setProgress("level1");
 //                    mainActivity.addDelay(2000);
 
-                userSubmitButton.setEnabled(false);
+disableAllButtons();
+
              //   addDelay(2000);
 //                userSubmitButton.setEnabled(true);
 
@@ -1390,8 +1407,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                         startDelayedTask(200000, true);
 
-                        userSubmitButton.setEnabled(true);
 
+            enableAllButtons();
 
                     }
                 },7500);
@@ -1417,7 +1434,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
              //   setPreviousAndMainText("You have reached the start of level 2");
 
 
-                userSubmitButton.setEnabled(false);
+            disableAllButtons();
            //     addDelay(5000);
 //                userSubmitButton.setEnabled(true);
 
@@ -1459,7 +1476,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         //                 }, 5000);
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+
+                enableAllButtons();
+
+
                     }
                 },1500);
 
@@ -1590,7 +1610,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
 
 
-                userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1619,7 +1639,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                         //                                   }
                         //           }, 5000);
-                        userSubmitButton.setEnabled(true);
+                    enableAllButtons();
                         startDelayedTask(200000, true);
 
                     }
@@ -1649,7 +1669,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 currentEnemy = zombieKing;
 
-userSubmitButton.setEnabled(false);
+                disableAllButtons();
          //       while (player.getProgress().equalsIgnoreCase("level4")) {
 
                 handlerDelayMessage.postDelayed(new Runnable() {
@@ -1675,7 +1695,7 @@ userSubmitButton.setEnabled(false);
                         //                }, 5000);
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                       enableAllButtons();
 
                     }
                 },1500);
@@ -1699,7 +1719,7 @@ userSubmitButton.setEnabled(false);
 
                 currentEnemy = null;
 
-userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1722,7 +1742,7 @@ userSubmitButton.setEnabled(false);
                         doorOne = userChoice;
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                        enableAllButtons();
 
                     }
                 },1500);
@@ -1744,7 +1764,7 @@ userSubmitButton.setEnabled(false);
                 currentEnemy = loki;
 
 
-                userSubmitButton.setEnabled(false);
+               disableAllButtons();
 
                 Shield wooodenShield = new Shield("Round wooden shield", 3, 4, 8, 30, 2, 1, R.drawable.woodenshield);
 
@@ -1771,7 +1791,7 @@ userSubmitButton.setEnabled(false);
 
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                        enableAllButtons();
 
                     }
                 },1500);
@@ -1796,7 +1816,7 @@ userSubmitButton.setEnabled(false);
                 //                 @Override
                 //                 public void run() {
 
-                userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 //       while (player.getProgress().equalsIgnoreCase("level4")) {
 
                 handlerDelayMessage.postDelayed(new Runnable() {
@@ -1822,7 +1842,7 @@ userSubmitButton.setEnabled(false);
                         //                }, 5000);
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                        enableAllButtons();
 
                     }
                 },1500);
@@ -1846,7 +1866,7 @@ userSubmitButton.setEnabled(false);
 
                 currentEnemy = null;
 
-                userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1869,7 +1889,7 @@ userSubmitButton.setEnabled(false);
                         chestThree = userChoice;
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                       enableAllButtons();
 
                     }
                 },1500);
@@ -1891,7 +1911,7 @@ userSubmitButton.setEnabled(false);
                 currentEnemy = morgana;
 
 
-                userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1913,7 +1933,7 @@ userSubmitButton.setEnabled(false);
 
 
                         startDelayedTask(200000, true);
-                        userSubmitButton.setEnabled(true);
+                        enableAllButtons();
 
                     }
                 },1500);
@@ -1934,7 +1954,7 @@ userSubmitButton.setEnabled(false);
 
                 currentEnemy = null;
 
-                userSubmitButton.setEnabled(false);
+                disableAllButtons();
                 handlerDelayMessage.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -1953,7 +1973,7 @@ userSubmitButton.setEnabled(false);
 
 //userSubmitButton.setEnabled(true);
 
-                        userSubmitButton.setEnabled(false);
+                        disableAllButtons();
                         player = null;
                         chooseNewOrLoad();
 
@@ -2037,9 +2057,9 @@ userSubmitButton.setEnabled(false);
                     System.out.println("chest int  " + chest);
                     System.out.println("You open the chest to find a helmet. You put it on.");
 
-                    userSubmitButton.setEnabled(false);
-             //       addDelay(2000);
-                    userSubmitButton.setEnabled(true);
+//                    userSubmitButton.setEnabled(false);
+//             //       addDelay(2000);
+//                    userSubmitButton.setEnabled(true);
                     System.out.println("You choose option 0");
           //          mainTextView.setText("You open the chest to find a helmet. You put it on.");
 
@@ -2058,9 +2078,9 @@ userSubmitButton.setEnabled(false);
                     //System.out.println(player);
                    // addDelay(2000);
                     player.setProgress("level2");
-                    userSubmitButton.setEnabled(false);
-              //      addDelay(10000);
-                    userSubmitButton.setEnabled(true);
+//                    userSubmitButton.setEnabled(false);
+//              //      addDelay(10000);
+//                    userSubmitButton.setEnabled(true);
 
 
 
@@ -2998,9 +3018,9 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
 
 
         if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
-            userSubmitButton.setEnabled(false);
-            //addDelay(2000);
-            userSubmitButton.setEnabled(true);
+//            userSubmitButton.setEnabled(false);
+//            //addDelay(2000);
+//            userSubmitButton.setEnabled(true);
             levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
 
         //    enemiesStartingStats.remove(levelEnemy);
@@ -3140,9 +3160,9 @@ private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardT
 
 
             if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
-                userSubmitButton.setEnabled(false);
-                //addDelay(2000);
-                userSubmitButton.setEnabled(true);
+//                userSubmitButton.setEnabled(false);
+//                //addDelay(2000);
+//                userSubmitButton.setEnabled(true);
                 levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
 
                 //    enemiesStartingStats.remove(levelEnemy);
@@ -3664,6 +3684,10 @@ public void switchToCharacterStats () {
         }
     }
 
+    public ArrayList getPlayerEquipablesList(){
+        return equipableArrayList;
+    }
+
     public void addEquipableToEquipableList(Equipable itemToAddToEquipableList){
 
         equipableArrayList.add(itemToAddToEquipableList);
@@ -3722,8 +3746,36 @@ public void switchToCharacterStats () {
                     // Add more items as needed
 
 
+    public void enableAllButtons(){
+
+        userSubmitButton.setEnabled(true);
+        equipEquipableButton.setEnabled(true);
+        useItemButton.setEnabled(true);
+        userExitButton.setEnabled(true);
+        userResponse0Button.setEnabled(true);
+        userResponse1Button.setEnabled(true);
+        userResponse2Button.setEnabled(true);
+        userResponse3Button.setEnabled(true);
+        switchToCharacter.setEnabled(true);
+        switchToEnemy.setEnabled(true);
+
+    }
 
 
+    public void disableAllButtons(){
+
+        userSubmitButton.setEnabled(false);
+        equipEquipableButton.setEnabled(false);
+        useItemButton.setEnabled(false);
+        userExitButton.setEnabled(false);
+        userResponse0Button.setEnabled(false);
+        userResponse1Button.setEnabled(false);
+        userResponse2Button.setEnabled(false);
+        userResponse3Button.setEnabled(false);
+        switchToCharacter.setEnabled(false);
+        switchToEnemy.setEnabled(false);
+
+    }
 
 
 

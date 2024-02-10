@@ -102,7 +102,6 @@ RecyclerView recyclerView;
 
     ArrayList<Equipable> shopEquipableItemsForPurchase = new ArrayList<>();
 
-
     private static final long serialVersionUID = 1L;
 
     /* Instance Variables */
@@ -135,6 +134,7 @@ RecyclerView recyclerView;
             ShopAdapter shopAdapter = new ShopAdapter(equipables, ShopActivity.this);
 //            recyclerView.setAdapter(shopAdapter);
 
+            ShopAdapterSell shopAdapterSell = new ShopAdapterSell(equipables, ShopActivity.this);
 
         });
 
@@ -569,8 +569,9 @@ RecyclerView recyclerView;
                             }
                         });
 
-
                     }
+
+
 
     protected void showPurchaseConfirmationDialog(Equipable equipable) {
 
@@ -620,6 +621,213 @@ System.out.println("show purchase confirmation dialog called");
 
         insufficientGoldDialogBuilder.show();
     }
+
+
+
+    private void showHandEquipablesToSellDialog(ArrayList<Equipable> equipables, String slotType) {
+
+        AlertDialog.Builder chooseItemToSellBuilder = new AlertDialog.Builder(ShopActivity.this);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_equipable_to_sell, null);
+        chooseItemToSellBuilder.setView(dialogView);
+
+//            RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerViewHandOne);
+
+        RecyclerView recyclerView = dialogView.findViewById(R.id.btn_dialog_equipable_to_sell_sell_item);
+
+//backButton.findViewById(R.id.btn_dialog_equipable_in_shop_back);
+
+        ArrayList<Equipable> generatedEquipablesForSlotTypeToSell = new ArrayList<>();
+
+        ArrayList<Equipable> playerEquipablesToSell = new ArrayList<>();
+
+        playerEquipablesToSell = mainActivity.getPlayerEquipablesList();
+
+
+        if (slotType.equalsIgnoreCase("Hand")) {
+
+
+            ArrayList<Equipable> generatedHandOneEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof Shield || equipable instanceof Weapon) {
+                    generatedHandOneEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedHandOneEquipablesToSell;
+        } else if (slotType.equalsIgnoreCase("Helmet")) {
+
+
+            ArrayList<Equipable> generatedHelmetEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof Helmet) {
+                    generatedHelmetEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedHelmetEquipablesToSell;
+        } else if (slotType.equalsIgnoreCase("ChestArmour")) {
+
+
+            ArrayList<Equipable> generatedChestArmourEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof ChestArmour) {
+                    generatedChestArmourEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedChestArmourEquipablesToSell;
+        } else if (slotType.equalsIgnoreCase("Trousers")) {
+
+
+            ArrayList<Equipable> generatedTrouserEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof Trouser) {
+                    generatedTrouserEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedTrouserEquipablesToSell;
+        } else if (slotType.equalsIgnoreCase("Shirt")) {
+
+
+            ArrayList<Equipable> generatedShirtEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof Shirt) {
+                    generatedShirtEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedShirtEquipablesToSell;
+
+        } else if (slotType.equalsIgnoreCase("Shoes")) {
+
+
+            ArrayList<Equipable> generatedShoeEquipablesToSell = new ArrayList<>();
+
+//            ArrayList<Equipable> handOneEquipablesList = equipables.stream()
+//                    .filter(equipable -> equipable instanceof Shield || equipable instanceof Weapon)
+//                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+            for (Equipable equipable : playerEquipablesToSell) {
+
+                if (equipable instanceof Shoe) {
+                    generatedShoeEquipablesToSell.add(equipable);
+                }
+
+            }
+
+            generatedEquipablesForSlotTypeToSell = generatedShoeEquipablesToSell;
+
+        }
+
+
+        //                       ArrayList<Equipable> handOneEquipablesList = generatedHandOneEquipables;
+
+        //HandOneAdapter handOneAdapter = new HandOneAdapter(handOneEquipablesList);
+        //recyclerView.setAdapter(handOneAdapter);
+
+        ShopAdapterSell shopAdapterSell = new ShopAdapterSell(generatedEquipablesForSlotTypeToSell, ShopActivity.this);
+        recyclerView.setAdapter(shopAdapterSell);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(ShopActivity.this));
+
+        AlertDialog alertDialog = chooseItemToSellBuilder.create();
+        alertDialog.show();
+
+        Button backButton = dialogView.findViewById(R.id.btn_dialog_equipable_to_sell_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        shopAdapterSell.setOnSellClickListener(new ShopAdapterSell.OnSellClickListener() {
+
+            @Override
+            public void onSellClick(Equipable equipable) {
+                System.out.println("You have chosen an equipable.");
+                showSellConfirmationDialog(equipable);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+
+
+    protected void showSellConfirmationDialog(Equipable equipable) {
+
+        System.out.println("show sell confirmation dialog called");
+
+        AlertDialog.Builder sellConfirmationDialogBuilder = new AlertDialog.Builder(ShopActivity.this);
+
+        sellConfirmationDialogBuilder.setTitle("Confirm Item to Sell");
+        sellConfirmationDialogBuilder.setMessage("Do you want to sell " + equipable.toString() + " for " + equipable.getGoldSellValue() + " gold?");
+
+        sellConfirmationDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
+            // Check if the player has enough gold
+                // Add the equipable to the player's list
+
+            mainActivity.getPlayer().addPlayerGold(equipable.getGoldSellValue());
+
+                mainActivity.getPlayerEquipablesList().remove(equipable);
+
+                // Notify the ViewModel about the changes in equipables
+                shopActivityViewModel.setEquipablesLiveData(mainActivity.getPlayerEquipablesList());
+
+        });
+
+        sellConfirmationDialogBuilder.setNegativeButton("No", (dialog, which) -> {
+            // User chose not to purchase
+            dialog.dismiss();
+        });
+
+        sellConfirmationDialogBuilder.show();
+    }
+
 
 //public void chooseItemFromShop(){
 //
