@@ -29,6 +29,8 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout btnSellItem;
+
+        LinearLayout itemViewSellButton;
         Button equipableInListDescription;
         Button equipableInListSellValue;
         ImageButton equipableInListImage;
@@ -46,6 +48,7 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
             equipableInListImage = itemView.findViewById(R.id.imbtn_equipable_to_sell_image);
             backButton = itemView.findViewById(R.id.btn_dialog_equipable_to_sell_back);
             btnSellItem = itemView.findViewById(R.id.btn_dialog_equipable_to_sell_sell_item);
+            itemViewSellButton = itemView.findViewById(R.id.itemView);
 
 
             int autoSizeMinTextSize = 6;
@@ -111,6 +114,27 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
 
             System.out.println("holder.btnSellItem = null");
         }
+
+
+        if (holder.itemViewSellButton != null) {
+
+            holder.itemViewSellButton.setOnClickListener(v -> {
+
+                if (sellClickListener == null) {
+                    System.out.println("sellClickListener is Null");
+                }
+
+
+                if (sellClickListener != null) {
+                    System.out.println("buyClickListener is not Null");
+                    sellClickListener.onSellClick(equipable);
+                }
+            });
+        } else {
+
+            System.out.println("holder.btnSellItem = null");
+        }
+
 
         holder.equipableInListDescription.setText(equipable.toString());
         holder.equipableInListSellValue.setText("Gold Value: " + equipable.getGoldSellValue());

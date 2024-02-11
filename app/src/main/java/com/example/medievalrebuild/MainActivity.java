@@ -2003,7 +2003,7 @@ disableAllButtons();
                             @Override
                             public void run() {
 
-                                setPreviousAndMainText("You have reached the end of the game");
+                                setPreviousAndMainText("Congratulations, you have reached the end of the game");
                                 mainImageView.setImageResource(R.drawable.s_l1600);
 
                             }
@@ -2016,7 +2016,20 @@ disableAllButtons();
                         chooseNewOrLoad();
 
                     }
-                },15000);
+                },1500);
+
+
+                handlerDelayMessage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        chooseNewOrLoad();
+
+
+                    }
+                }, 15000);
+
+
 
                 for (Enemy enemy : enemiesStartingStats) {
                     System.out.println("enemiesStartingStats: " + enemy.toString());
@@ -2929,13 +2942,6 @@ disableAllButtons();
                     //           }
                     nextLevel();
                     break;
-
-
-
-
-
-
-
 
 
 

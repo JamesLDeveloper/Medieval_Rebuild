@@ -18,38 +18,40 @@ import com.example.medievalrebuild.Equipable.Equipable;
 
 import java.util.ArrayList;
 
-public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
+public class EquipableAdapter extends RecyclerView.Adapter<EquipableAdapter.ViewHolder> {
     private ArrayList<Equipable> equipablesArrayList;
     private OnItemClickListener listener;
-    private OnBuyClickListener buyClickListener;
+    private OnEquipClickListener equipClickListener;
 
-    private ShopActivity shopActivity;
+//    private ShopActivity shopActivity;
+
+    private MainActivity mainActivity;
 
 //    private Button backButton;
 //    private Button btnBuyItem;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout btnBuyItem;
+        LinearLayout btnEquipItem;
         Button equipableInListDescription;
-        Button equipableInListGoldCost;
+        Button equipableInListGoldValue;
         ImageButton equipableInListImage;
         Button backButton;
-        ShopAdapter adapter;
+        EquipableAdapter adapter;
 
-        LinearLayout itemViewBuyButton;
+        LinearLayout itemViewEquipButton;
 
 
-        public ViewHolder(@NonNull View itemView, ShopAdapter adapter) {
+        public ViewHolder(@NonNull View itemView, EquipableAdapter adapter) {
             super(itemView);
 
 
 
-            equipableInListDescription = itemView.findViewById(R.id.btn_item_in_shop_equipable_description);
-            equipableInListGoldCost = itemView.findViewById(R.id.btn_item_in_shop_equipable_goldCost);
-            equipableInListImage = itemView.findViewById(R.id.imbtn_item_in_shop_equipable_image);
-            backButton = itemView.findViewById(R.id.btn_dialog_equipable_in_shop_back);
-            btnBuyItem = itemView.findViewById(R.id.btn_dialog_equipable_in_shop_buy_item);
-            itemViewBuyButton = itemView.findViewById(R.id.itemView);
+            equipableInListDescription = itemView.findViewById(R.id.btn_equipable_in_player_inventory_description);
+            equipableInListGoldValue = itemView.findViewById(R.id.btn_equipable_in_player_inventory_gold_value);
+            equipableInListImage = itemView.findViewById(R.id.imbtn_equipable_in_player_inventory_image);
+            backButton = itemView.findViewById(R.id.btn_dialog_equipable_in_player_inventory_back);
+            btnEquipItem = itemView.findViewById(R.id.btn_equipable_in_player_inventory_equip);
+            itemViewEquipButton = itemView.findViewById(R.id.itemView);
 
 
             int autoSizeMinTextSize = 6;
@@ -61,7 +63,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                     equipableInListDescription, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-                    equipableInListGoldCost, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+                    equipableInListGoldValue, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
 
             this.adapter = adapter;
@@ -80,15 +82,15 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         }
     }
 
-    public ShopAdapter(ArrayList<Equipable> equipablesArrayList, ShopActivity shopActivity) {
+    public EquipableAdapter(ArrayList<Equipable> equipablesArrayList, MainActivity mainActivity) {
         this.equipablesArrayList = equipablesArrayList;
-        this.shopActivity = shopActivity;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_shop, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_player_inventory, parent, false);
         return new ViewHolder(view, this);
     }
 
@@ -96,35 +98,35 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Equipable equipable = equipablesArrayList.get(position);
 
-        holder.btnBuyItem.setOnClickListener(v -> {
+        holder.btnEquipItem.setOnClickListener(v -> {
 
-            if (buyClickListener == null) {
+            if (equipClickListener == null) {
                 System.out.println("buyClickListener is Null");
             }
 
 
-            if (buyClickListener != null) {
+            if (equipClickListener != null) {
                 System.out.println("buyClickListener is not Null");
-                buyClickListener.onBuyClick(equipable);
+                equipClickListener.onEquipClick(equipable);
             }
         });
 
-        holder.itemViewBuyButton.setOnClickListener(v -> {
+        holder.itemViewEquipButton.setOnClickListener(v -> {
 
-            if (buyClickListener == null) {
+            if (equipClickListener == null) {
                 System.out.println("buyClickListener is Null");
             }
 
 
-            if (buyClickListener != null) {
+            if (equipClickListener != null) {
                 System.out.println("buyClickListener is not Null");
-                buyClickListener.onBuyClick(equipable);
+                equipClickListener.onEquipClick(equipable);
             }
         });
 
-        
+
         holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListGoldCost.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
+        holder.equipableInListGoldValue.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
         holder.equipableInListImage.setImageResource(equipable.getImageId());
 
     }
@@ -133,16 +135,16 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         void onItemClick(Equipable equipable);
     }
 
-    public interface OnBuyClickListener {
-        void onBuyClick(Equipable equipable);
+    public interface OnEquipClickListener {
+        void onEquipClick(Equipable equipable);
     }
 
     public void setOnEquipableClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public void setOnBuyClickListener(OnBuyClickListener buyClickListener) {
-        this.buyClickListener = buyClickListener;
+    public void setOnEquipClickListener(OnEquipClickListener equipClickListener) {
+        this.equipClickListener = equipClickListener;
     }
 
     @Override
