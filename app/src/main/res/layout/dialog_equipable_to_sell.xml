@@ -15,13 +15,13 @@
         android:id="@+id/btn_dialog_equipable_to_sell_back"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="20"
         android:text="Back" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="90">
+        android:layout_weight="80">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/btn_dialog_equipable_to_sell_sell_item"

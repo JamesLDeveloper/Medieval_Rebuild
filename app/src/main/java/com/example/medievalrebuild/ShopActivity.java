@@ -329,21 +329,29 @@ RecyclerView recyclerView;
         shopHandOneDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+
+                if(shopEquipableItemsForPurchase != null) {
+
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                }
             }
         });
 
         shopHandOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                }
             }
         });
 
         shopHandOneSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+                }
             }
         });
 
@@ -351,21 +359,27 @@ RecyclerView recyclerView;
         shopHandTwoDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                }
             }
         });
 
         shopHandTwoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Hand");
+                }
             }
         });
 
         shopHandTwoSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Hand");
+                }
             }
         });
 
@@ -373,42 +387,54 @@ RecyclerView recyclerView;
         shopHelmetDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Helmet");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Helmet");
+                }
             }
         });
 
         shopHelmetImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Helmet");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Helmet");
+                }
             }
         });
 
         shopHelmetSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Helmet");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Helmet");
+                }
             }
         });
 
         shopChestArmourDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "ChestArmour");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "ChestArmour");
+                }
             }
         });
 
         shopChestArmourImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "ChestArmour");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "ChestArmour");
+                }
             }
         });
 
         shopChestArmourSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "ChestArmour");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "ChestArmour");
+                }
             }
         });
 
@@ -416,21 +442,27 @@ RecyclerView recyclerView;
         shopShirtDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shirt");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shirt");
+                }
             }
         });
 
         shopShirtImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shirt");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shirt");
+                }
             }
         });
 
         shopShirtSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shirt");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shirt");
+                }
             }
         });
 
@@ -438,21 +470,27 @@ RecyclerView recyclerView;
         shopTrousersDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Trousers");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Trousers");
+                }
             }
         });
 
         shopTrousersImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Trousers");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Trousers");
+                }
             }
         });
 
         shopTrousersSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Trousers");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Trousers");
+                }
             }
         });
 
@@ -460,21 +498,27 @@ RecyclerView recyclerView;
         shopShoesDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shoes");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shoes");
+                }
             }
         });
 
         shopShoesImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shoes");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesDialog(shopEquipableItemsForPurchase, "Shoes");
+                }
             }
         });
 
         shopShoesSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shoes");
+                if(shopEquipableItemsForPurchase != null) {
+                    showHandEquipablesToSellDialog(playerEquipablesInInventory, "Shoes");
+                }
             }
         });
 

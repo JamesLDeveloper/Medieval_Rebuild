@@ -92,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     Button switchToCharacter;
 
     Button switchToEnemy;
+
+    Button switchToLastShop;
+
+
+
+
     ScrollView mainTextScrollView;
 
     ScrollView storySoFarScrollView;
@@ -189,6 +195,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
     ArrayList<Enemy> copiedEnemiesStartingStats;
 
+
+    ArrayList<Equipable> lastShopInventory = new ArrayList<>();
+
+    String lastShopName;
 
     String userTextInput;
 
@@ -314,6 +324,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
                 switchToEnemy, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
 
+        switchToLastShop = findViewById(R.id.btn_main_shop);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                switchToLastShop, autoSizeMinTextSize, autoSizeMaxTextSize, autoSizeStepGranularity, unit);
+
 
         storySoFar = "";
         storyUpdate = "";
@@ -426,6 +440,18 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
         });
 
+        switchToLastShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (lastShopInventory != null){
+
+                }
+                switchToShop(lastShopInventory, lastShopName, getPlayerEquipablesList());
+
+            }
+
+        });
 
 
         userResponse0Button.setText("Yes");
@@ -1270,6 +1296,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                 equipableArrayList.add(speedyBoots);
 
+                lastShopInventory = null;
+
 
                 for (Enemy originalEnemy : enemiesStartingStats) {
                     // Assuming the "NewGame" version has the same name with "NewGame" appended
@@ -1612,7 +1640,11 @@ disableAllButtons();
 
 //System.out.println(majistosWorkshop);
 
-                switchToShop(majistosWorkshop, majistosWorkshopName, getPlayerEquipablesList());
+                lastShopInventory = majistosWorkshop;
+
+                lastShopName = majistosWorkshopName;
+
+                switchToShop(lastShopInventory, lastShopName, getPlayerEquipablesList());
 
 
 
@@ -1984,7 +2016,7 @@ disableAllButtons();
                         chooseNewOrLoad();
 
                     }
-                },1500);
+                },15000);
 
                 for (Enemy enemy : enemiesStartingStats) {
                     System.out.println("enemiesStartingStats: " + enemy.toString());
@@ -3765,6 +3797,7 @@ public void switchToCharacterStats () {
         userResponse3Button.setEnabled(true);
         switchToCharacter.setEnabled(true);
         switchToEnemy.setEnabled(true);
+        switchToLastShop.setEnabled(true);
 
     }
 
@@ -3781,6 +3814,7 @@ public void switchToCharacterStats () {
         userResponse3Button.setEnabled(false);
         switchToCharacter.setEnabled(false);
         switchToEnemy.setEnabled(false);
+        switchToLastShop.setEnabled(false);
 
     }
 

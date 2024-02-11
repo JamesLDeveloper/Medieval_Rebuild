@@ -41,9 +41,9 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
 
 
 
-            equipableInListDescription = itemView.findViewById(R.id.btn_item_in_shop_equipable_description);
-            equipableInListSellValue = itemView.findViewById(R.id.btn_item_in_shop_equipable_goldCost);
-            equipableInListImage = itemView.findViewById(R.id.imbtn_item_in_shop_equipable_image);
+            equipableInListDescription = itemView.findViewById(R.id.btn_equipable_to_sell_description);
+            equipableInListSellValue = itemView.findViewById(R.id.btn_equipable_to_sell_gold_value);
+            equipableInListImage = itemView.findViewById(R.id.imbtn_equipable_to_sell_image);
             backButton = itemView.findViewById(R.id.btn_dialog_equipable_to_sell_back);
             btnSellItem = itemView.findViewById(R.id.btn_dialog_equipable_to_sell_sell_item);
 
@@ -84,7 +84,7 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_shop, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.equipable_in_shop_sell, parent, false);
         return new ViewHolder(view, this);
     }
 
@@ -107,10 +107,13 @@ public class ShopAdapterSell extends RecyclerView.Adapter<ShopAdapterSell.ViewHo
                     sellClickListener.onSellClick(equipable);
                 }
             });
+        } else {
+
+            System.out.println("holder.btnSellItem = null");
         }
 
         holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListSellValue.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
+        holder.equipableInListSellValue.setText("Gold Value: " + equipable.getGoldSellValue());
         holder.equipableInListImage.setImageResource(equipable.getImageId());
 
     }
