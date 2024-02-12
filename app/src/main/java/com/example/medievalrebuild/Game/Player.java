@@ -68,8 +68,8 @@ public class Player implements Serializable {
         this.chestArmour = new ChestArmour("Chest Armour: None", 0, 0,0,0, R.drawable.none);
         this.helmet = new Helmet("Helmet: None", 0, 0,0,0, R.drawable.none);
         this.shirt = new Shirt("Shirt: None", 0, 0, 0,0, R.drawable.none);
-        this.trouser = new Trouser("Trouser: None", 0, 0,0,0, R.drawable.none);
-        this.shoe = new Shoe("Shoe: None", 0, 0,0,0, R.drawable.none);
+        this.trouser = new Trouser("Trousers: None", 0, 0,0,0, R.drawable.none);
+        this.shoe = new Shoe("Shoes: None", 0, 0,0,0, R.drawable.none);
         this.mainActivity = mainActivity;
         this.progress = "level1";
     }

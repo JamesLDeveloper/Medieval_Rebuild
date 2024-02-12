@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TextViewCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     String storySoFar;
 
     String storyUpdate;
+
+    RecyclerView recyclerView;
 
 
     ImageView mainImageView;
@@ -1560,38 +1564,42 @@ disableAllButtons();
 
                 String majistosWorkshopName = "Majisto's Workshop";
 
-                Weapon daggerStilleto = new Weapon("Stilleto", 8.0, 300.0, 60.0, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Weapon mace = new Weapon("Mace", 40, 800, 160, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Weapon longsword = new Weapon("Longsword", 35.0, 750.0, 150.0, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Weapon warhammer = new Weapon("Warhammer", 38.0, 780.0, 156.0, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Weapon halberd = new Weapon("Halberd", 32.0, 720.0, 144.0, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Weapon daggerStilleto = new Weapon("Stilleto", 8.0, 300.0, 60.0, 1, R.drawable.stiletto);
+                Weapon mace = new Weapon("Mace", 40, 800, 160, 1, R.drawable.mace_2);
+                Weapon longsword = new Weapon("Longsword", 35.0, 750.0, 150.0, 1, R.drawable.longsword_1);
+                Weapon warhammer = new Weapon("Warhammer", 38.0, 780.0, 156.0, 2, R.drawable.warhammer_4);
+                Weapon halberd = new Weapon("Halberd", 32.0, 720.0, 144.0, 2, R.drawable.halberd_3);
 
-                Shield lionShield = new Shield("Lion Head Shield", 5, 16, 12, 250, 50, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shield romanCenturion = new Shield("Roman Centurian", 3, 10, 25, 500, 100, 1,  R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shield dragonScaleShield = new Shield("Dragon Scale Shield", 6, 18, 15, 300, 60, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shield vikingRoundShield = new Shield("Viking Round Shield", 4, 12, 10, 200, 40, 1, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shield towerShield = new Shield("Tower Shield", 7, 20, 16, 350, 70, 2, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shield lionShield = new Shield("Lion Head Shield", 5, 16, 12, 250, 50, 1, R.drawable.lion_head_shield_3);
+                Shield romanCenturion = new Shield("Roman Centurian", 3, 10, 25, 500, 100, 1, R.drawable.roman_centurian_design_shield_1 );
+                Shield dragonScaleShield = new Shield("Dragon Scale Shield", 6, 18, 15, 300, 60, 1, R.drawable.dragonscale_shield_1);
+                Shield vikingRoundShield = new Shield("Viking Round Shield", 4, 12, 10, 200, 40, 1, R.drawable.viking_round_wooden_shield_4);
+                Shield towerShield = new Shield("Tower Shield", 7, 20, 16, 350, 70, 2, R.drawable.tower_shield_8);
 
                 Helmet dragonHelmet = new Helmet("Dragon Scale Helmet", 20, 15, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Helmet lionHelmet = new Helmet("Lion Mask Helmet", 8, 7, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Helmet tigerHelmet = new Helmet("Tiger Stripe Helmet", 18, 13, 280, 55, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Helmet eagleHelmet = new Helmet("Eagle Feather Helmet", 15, 10, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Helmet bearHelmet = new Helmet("Bear Claw Helmet", 22, 17, 320, 65, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
                 ChestArmour leatherChestArmour = new ChestArmour("Leather Jerkin", 15, 10, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 ChestArmour gambesonChestArmour = new ChestArmour("Gambeson Tunic", 20, 15, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 ChestArmour brigandineChestArmour = new ChestArmour("Brigandine Vest", 25, 20, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 ChestArmour paddedChestArmour = new ChestArmour("Padded Jack", 18, 13, 230, 46, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 ChestArmour surcoatChestArmour = new ChestArmour("Surcoat with Mail Sleeves", 22, 18, 280, 56, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
                 Trouser leatherTrouser = new Trouser("Leather Leggings", 12, 8, 150, 30, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Trouser paddedTrouser = new Trouser("Padded Chausses", 15, 10, 180, 36, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Trouser mailLeggings = new Trouser("Mail Leggings", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Trouser brigandineLeggings = new Trouser("Brigandine Leg Guards", 18, 13, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Trouser clothHose = new Trouser("Cloth Hose", 14, 9, 170, 34, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
                 Shirt linenShirt = new Shirt("Linen Undertunic", 10, 5, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shirt armingDoublet = new Shirt("Arming Doublet", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shirt paddedGambeson = new Shirt("Padded Gambeson", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shirt silkUndershirt = new Shirt("Silk Undershirt", 12, 6, 140, 28, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shirt woolenHauberk = new Shirt("Woolen Hauberk", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+
                 Shoe leatherBoots = new Shoe("Leather Boots", 10, 6, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shoe paddedGreaves = new Shoe("Padded Greaves", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
                 Shoe woodenSabatons = new Shoe("Wooden Sabatons", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
@@ -2013,7 +2021,7 @@ disableAllButtons();
 
                         disableAllButtons();
                         player = null;
-                        chooseNewOrLoad();
+                      //  chooseNewOrLoad();
 
                     }
                 },1500);
@@ -3539,83 +3547,135 @@ public void switchToCharacterStats () {
 
 
 
-    private void chooseEquipable(){
-
-
-
-        ArrayList<String> equipablesNames = new ArrayList<>();
-
-        equipablesNames.add(0, "Cancel equipable item choice.");
-
-        if (!equipableArrayList.isEmpty()){
-            for (Equipable equipable : equipableArrayList){
-                equipablesNames.add(equipable.getName());
-            }
-        }
-
-
-        AlertDialog.Builder chooseEquipablesDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        chooseEquipablesDialogBuilder.setCancelable(true);
-        chooseEquipablesDialogBuilder.setTitle("Which equipable item would you like to equip?");
-
-
-        int equipablesListSize = equipablesNames.size();
-
-        String[] equipablesInList = new String[equipablesListSize];
-
-//        itemsInList[0] = "Cancel Item Use";
-
-        for (int i = 0; i < equipablesListSize; i++) {
-            equipablesInList[i] = equipablesNames.get(i);
-        }
-
-
-        chooseEquipablesDialogBuilder.setItems(equipablesInList, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d("Test Dialog", "Equipables List: " + which);
-//            itemSelected = itemList.get(which-1);
-
-                Equipable equipableChosen;
-
-                if (which > 0) {
-
-//                try {
-
-                    equipableChosen = equipableArrayList.get(which-1);
-
-                    System.out.println("You have chosen to use " + equipableArrayList.get(which-1).getName());
-
-//                    previousPreviousStageTextViewText = "";
-//                    previousStageTextViewText = "";
-                    userChoice = -1;
-
-//                } catch (IOException | ClassNotFoundException e) {
+//    private void chooseEquipable(){
 //
 //
+//
+//        ArrayList<String> equipablesNames = new ArrayList<>();
+//
+//        equipablesNames.add(0, "Cancel equipable item choice.");
+//
+//        if (!equipableArrayList.isEmpty()){
+//            for (Equipable equipable : equipableArrayList){
+//                equipablesNames.add(equipable.getName());
+//            }
+//        }
+//
+//
+//        AlertDialog.Builder chooseEquipablesDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//        chooseEquipablesDialogBuilder.setCancelable(true);
+//        chooseEquipablesDialogBuilder.setTitle("Which equipable item would you like to equip?");
+//
+//
+//        int equipablesListSize = equipablesNames.size();
+//
+//        String[] equipablesInList = new String[equipablesListSize];
+//
+////        itemsInList[0] = "Cancel Item Use";
+//
+//        for (int i = 0; i < equipablesListSize; i++) {
+//            equipablesInList[i] = equipablesNames.get(i);
+//        }
+//
+//
+//        chooseEquipablesDialogBuilder.setItems(equipablesInList, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Log.d("Test Dialog", "Equipables List: " + which);
+////            itemSelected = itemList.get(which-1);
+//
+//                Equipable equipableChosen;
+//
+//                if (which > 0) {
+//
+////                try {
+//
+//                    equipableChosen = equipableArrayList.get(which-1);
+//
+//                    System.out.println("You have chosen to use " + equipableArrayList.get(which-1).getName());
+//
+////                    previousPreviousStageTextViewText = "";
+////                    previousStageTextViewText = "";
+//                    userChoice = -1;
+//
+////                } catch (IOException | ClassNotFoundException e) {
+////
+////
+////                }
+//
+//                    useEquipable(equipableChosen, which-1);
+//
+//                } else /*if (which == 0 && player != null)*/ {
+//                    dialog.dismiss();
+//                    //        } else {
+//                    //            dialog.dismiss();
+//                    //            chooseNewOrLoad();
 //                }
+//
+//
+//
+//            }
+//        });
+//
+//        //        if (saveGamesSize > 0) {
+//
+//        chooseEquipablesDialogBuilder.create().show();
+//
+//    }
 
-                    useEquipable(equipableChosen, which-1);
+    private void chooseEquipable(){
+        AlertDialog.Builder chooseEquipableFromPlayerInventoryBuilder = new AlertDialog.Builder(MainActivity.this);
 
-                } else /*if (which == 0 && player != null)*/ {
-                    dialog.dismiss();
-                    //        } else {
-                    //            dialog.dismiss();
-                    //            chooseNewOrLoad();
-                }
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_equipable_in_player_inventory, null);
 
+        chooseEquipableFromPlayerInventoryBuilder.setView(dialogView);
 
+        RecyclerView recyclerView = dialogView.findViewById(R.id.btn_dialog_equipable_in_player_inventory_equip_item);
 
+        ArrayList<Equipable> generatedPlayerEquipables = new ArrayList<>();
+
+        for (Equipable equipable : equipableArrayList) {
+            generatedPlayerEquipables.add(equipable);
+        }
+
+        EquipableAdapter equipableAdapter = new EquipableAdapter(generatedPlayerEquipables, MainActivity.this);
+        recyclerView.setAdapter(equipableAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        AlertDialog alertDialog = chooseEquipableFromPlayerInventoryBuilder.create();
+        alertDialog.show();
+
+        Button backButton = dialogView.findViewById(R.id.btn_dialog_equipable_in_player_inventory_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
             }
         });
 
-        //        if (saveGamesSize > 0) {
+        equipableAdapter.setOnEquipClickListener(new EquipableAdapter.OnEquipClickListener() {
+            @Override
+            public void onEquipClick(Equipable equipable) {
+                System.out.println("You have chosen an Equipable to equip");
+                useEquipable(equipable);
+                alertDialog.dismiss();
+            }
+        });
 
-        chooseEquipablesDialogBuilder.create().show();
 
     }
 
-    public void useEquipable(Equipable equipableChosen, int arrayListIndex){
+
+
+
+
+
+
+
+
+
+    public void useEquipable(Equipable equipableChosen/*, int arrayListIndex*/){
 
 
         AlertDialog.Builder useEquipableDialogBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -3633,31 +3693,31 @@ public void switchToCharacterStats () {
                 if (equipableChosen instanceof Weapon) {
                     addEquipableToEquipableList(player.getWeapon());
                     player.setCurrentWeapon(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof Helmet) {
                     addEquipableToEquipableList(player.getHelmet());
                     player.setHelmet(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof ChestArmour) {
                     addEquipableToEquipableList(player.getChestArmour());
                     player.setChestArmour(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof Shirt) {
                     addEquipableToEquipableList(player.getShirt());
                     player.setShirt(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof Shoe) {
                     addEquipableToEquipableList(player.getShoe());
                     player.setShoe(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof Trouser) {
                     addEquipableToEquipableList(player.getTrouser());
                     player.setTrouser(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
                 } else if (equipableChosen instanceof Shield) {
                     addEquipableToEquipableList(player.getShield());
                     player.setShield(equipableChosen);
-                    equipableArrayList.remove(arrayListIndex);
+                    equipableArrayList.remove(/*arrayListIndex*/equipableChosen);
 
                 }
 
