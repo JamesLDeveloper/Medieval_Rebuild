@@ -10,6 +10,7 @@ import java.io.File;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.core.widget.TextViewCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -3813,9 +3815,44 @@ public void switchToCharacterStats () {
         equipableArrayList.add(itemToAddToEquipableList);
 
         AlertDialog.Builder collectedEquipableDialogBuiler = new AlertDialog.Builder(MainActivity.this);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_collect_equipable, null);
+
+        collectedEquipableDialogBuiler.setView(dialogView);
+
         collectedEquipableDialogBuiler.setCancelable(true);
-        collectedEquipableDialogBuiler.setMessage("You have collected " + itemToAddToEquipableList.getName() + ". It has been added to your equipable items.");
-        collectedEquipableDialogBuiler.create().show();
+
+     /*   collectedEquipableDialogBuiler.setMessage("You have collected " +
+                itemToAddToEquipableList.getName() +
+                ". It has been added to your equipable items.");
+     */
+
+     TextView  collectEquipableMessage;
+
+     collectEquipableMessage = dialogView.findViewById(R.id.tv_dialog_collect_equipable_message);
+
+     collectEquipableMessage.setText("You have collected " + itemToAddToEquipableList.getName() + ". It has been added to your equipable items.");
+
+     Button collectEquipableGoldValue;
+
+     collectEquipableGoldValue = dialogView.findViewById(R.id.btn_dialog_collect_equipable_gold_value);
+
+     collectEquipableGoldValue.setText("Gold value: " + itemToAddToEquipableList.getGoldSellValue());
+
+     ImageButton collectEquipableImage;
+
+     collectEquipableImage = dialogView.findViewById(R.id.imbtn_dialog_collect_equipable_image);
+
+     collectEquipableImage.setImageResource(itemToAddToEquipableList.getImageId());
+
+     Button collectEquipableDescription;
+
+     collectEquipableDescription = dialogView.findViewById(R.id.btn_dialog_collect_equipable_description);
+
+     collectEquipableDescription.setText(itemToAddToEquipableList.toString());
+
+
+     collectedEquipableDialogBuiler.create().show();
     }
 
 

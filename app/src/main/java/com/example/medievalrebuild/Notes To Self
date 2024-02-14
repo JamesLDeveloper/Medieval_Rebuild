@@ -9,3 +9,47 @@ Make a map of user progress?
 Update images for shop DONE : )
 
 Update damage to be a range.
+
+
+    private void chooseEquipable(){
+        AlertDialog.Builder chooseEquipableFromPlayerInventoryBuilder = new AlertDialog.Builder(MainActivity.this);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_equipable_in_player_inventory, null);
+
+        chooseEquipableFromPlayerInventoryBuilder.setView(dialogView);
+
+        RecyclerView recyclerView = dialogView.findViewById(R.id.btn_dialog_equipable_in_player_inventory_equip_item);
+
+        ArrayList<Equipable> generatedPlayerEquipables = new ArrayList<>();
+
+        for (Equipable equipable : equipableArrayList) {
+            generatedPlayerEquipables.add(equipable);
+        }
+
+        EquipableAdapter equipableAdapter = new EquipableAdapter(generatedPlayerEquipables, MainActivity.this);
+        recyclerView.setAdapter(equipableAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        AlertDialog alertDialog = chooseEquipableFromPlayerInventoryBuilder.create();
+        alertDialog.show();
+
+        Button backButton = dialogView.findViewById(R.id.btn_dialog_equipable_in_player_inventory_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        equipableAdapter.setOnEquipClickListener(new EquipableAdapter.OnEquipClickListener() {
+            @Override
+            public void onEquipClick(Equipable equipable) {
+                System.out.println("You have chosen an Equipable to equip");
+                useEquipable(equipable);
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
