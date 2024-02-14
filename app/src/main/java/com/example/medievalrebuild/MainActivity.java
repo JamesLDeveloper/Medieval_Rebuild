@@ -46,6 +46,7 @@ import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -1038,6 +1039,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                         ArrayList<Item> loadedItemList;
                         String loadedStorySoFar;
                         ArrayList<Equipable> loadedEquipableItemList;
+                        String loadedLatestShop;
+                        ArrayList<Equipable> loadedShopInventory;
 
 
 
@@ -1062,6 +1065,10 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
 
                                 loadedEquipableItemList = (ArrayList<Equipable>) loadedObjectPlayerFile.readObject();
 
+                                loadedLatestShop = (String) loadedObjectPlayerFile.readObject();
+
+                                loadedShopInventory = (ArrayList<Equipable>) loadedObjectPlayerFile.readObject();
+
 
                                 Iterator<Enemy> iterator = enemiesStartingStats.iterator();
                                 while (iterator.hasNext()) {
@@ -1081,6 +1088,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                                 itemList = loadedItemList;
                                 storySoFar = loadedStorySoFar;
                                 equipableArrayList = loadedEquipableItemList;
+                                lastShopName = loadedLatestShop;
+                                lastShopInventory = loadedShopInventory;
 
                                 mainActivity = MyApplication.getMainActivityInstance();
 
@@ -1172,6 +1181,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
                 playerSaver.writeObject(storySoFar);
 
                 playerSaver.writeObject(equipableArrayList);
+
+                playerSaver.writeObject(lastShopName);
+
+                playerSaver.writeObject(lastShopInventory);
+
+
 
                 playerSaver.close();
                 fileOutputStreamSavePlayer.close();
@@ -1576,35 +1591,35 @@ disableAllButtons();
                 Shield vikingRoundShield = new Shield("Viking Round Shield", 4, 12, 10, 200, 40, 1, R.drawable.viking_round_wooden_shield_4);
                 Shield towerShield = new Shield("Tower Shield", 7, 20, 16, 350, 70, 2, R.drawable.tower_shield_8);
 
-                Helmet dragonHelmet = new Helmet("Dragon Scale Helmet", 20, 15, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Helmet lionHelmet = new Helmet("Lion Mask Helmet", 8, 7, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Helmet tigerHelmet = new Helmet("Tiger Stripe Helmet", 18, 13, 280, 55, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Helmet eagleHelmet = new Helmet("Eagle Feather Helmet", 15, 10, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Helmet bearHelmet = new Helmet("Bear Claw Helmet", 22, 17, 320, 65, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Helmet dragonHelmet = new Helmet("Dragon Scale Helmet", 20, 15, 300, 60, R.drawable.dragonhelmet_4);
+                Helmet lionHelmet = new Helmet("Lion Mask Helmet", 8, 7, 200, 40, R.drawable.lionhelmet_2);
+                Helmet tigerHelmet = new Helmet("Tiger Stripe Helmet", 18, 13, 280, 55, R.drawable.tigerhelmet_1);
+                Helmet eagleHelmet = new Helmet("Eagle Feather Helmet", 15, 10, 250, 50, R.drawable.eaglehelmet_4);
+                Helmet bearHelmet = new Helmet("Bear Claw Helmet", 22, 17, 320, 65, R.drawable.bearhelmet_7);
 
-                ChestArmour leatherChestArmour = new ChestArmour("Leather Jerkin", 15, 10, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                ChestArmour gambesonChestArmour = new ChestArmour("Gambeson Tunic", 20, 15, 250, 50, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                ChestArmour brigandineChestArmour = new ChestArmour("Brigandine Vest", 25, 20, 300, 60, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                ChestArmour paddedChestArmour = new ChestArmour("Padded Jack", 18, 13, 230, 46, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                ChestArmour surcoatChestArmour = new ChestArmour("Surcoat with Mail Sleeves", 22, 18, 280, 56, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                ChestArmour leatherChestArmour = new ChestArmour("Leather Jerkin", 15, 10, 200, 40, R.drawable.leatherchestarmour1);
+                ChestArmour gambesonChestArmour = new ChestArmour("Gambeson Tunic", 20, 15, 250, 50, R.drawable.gambeson_chest_armor_1);
+                ChestArmour brigandineChestArmour = new ChestArmour("Brigandine Vest", 25, 20, 300, 60, R.drawable.brigandinechestarmour2);
+                ChestArmour paddedChestArmour = new ChestArmour("Padded Jack", 18, 13, 230, 46, R.drawable.paddedarmour_1);
+                ChestArmour surcoatChestArmour = new ChestArmour("Surcoat with Mail Sleeves", 22, 18, 280, 56, R.drawable.surcoatchestarmour1);
 
-                Trouser leatherTrouser = new Trouser("Leather Leggings", 12, 8, 150, 30, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Trouser paddedTrouser = new Trouser("Padded Chausses", 15, 10, 180, 36, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Trouser mailLeggings = new Trouser("Mail Leggings", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Trouser brigandineLeggings = new Trouser("Brigandine Leg Guards", 18, 13, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Trouser clothHose = new Trouser("Cloth Hose", 14, 9, 170, 34, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Trouser leatherTrouser = new Trouser("Leather Leggings", 12, 8, 150, 30, R.drawable.leatherleggings3);
+                Trouser paddedTrouser = new Trouser("Padded Chausses", 15, 10, 180, 36, R.drawable.padded_chausses);
+                Trouser mailLeggings = new Trouser("Mail Leggings", 20, 15, 220, 44, R.drawable.chainmailleggings_4);
+                Trouser brigandineLeggings = new Trouser("Brigandine Leg Guards", 18, 13, 200, 40, R.drawable.brigandinelegguards1);
+                Trouser clothHose = new Trouser("Cloth Hose", 14, 9, 170, 34, R.drawable.cloth_hose);
 
-                Shirt linenShirt = new Shirt("Linen Undertunic", 10, 5, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shirt armingDoublet = new Shirt("Arming Doublet", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shirt paddedGambeson = new Shirt("Padded Gambeson", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shirt silkUndershirt = new Shirt("Silk Undershirt", 12, 6, 140, 28, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shirt woolenHauberk = new Shirt("Woolen Hauberk", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shirt linenShirt = new Shirt("Linen Undertunic", 10, 5, 120, 24, R.drawable.linen_undertunic_1);
+                Shirt armingDoublet = new Shirt("Arming Doublet", 15, 8, 160, 32, R.drawable.arming_doublet_2);
+                Shirt paddedGambeson = new Shirt("Padded Gambeson", 18, 12, 200, 40, R.drawable.padded_gambeson_2);
+                Shirt silkUndershirt = new Shirt("Silk Undershirt", 12, 6, 140, 28, R.drawable.silk_undertunic_1);
+                Shirt woolenHauberk = new Shirt("Woolen Hauberk", 20, 15, 220, 44, R.drawable.woolen_hauberk_1);
 
-                Shoe leatherBoots = new Shoe("Leather Boots", 10, 6, 120, 24, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shoe paddedGreaves = new Shoe("Padded Greaves", 15, 8, 160, 32, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shoe woodenSabatons = new Shoe("Wooden Sabatons", 18, 12, 200, 40, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shoe furLinedBoots = new Shoe("Fur-lined Boots", 12, 7, 140, 28, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
-                Shoe chainmailFootguards = new Shoe("Chainmail Footguards", 20, 15, 220, 44, R.drawable._880px_panor_mica_oto_o_alc_zar_de_segovia);
+                Shoe leatherBoots = new Shoe("Leather Boots", 10, 6, 120, 24, R.drawable.leather_boots_1);
+                Shoe paddedGreaves = new Shoe("Padded Greaves", 15, 8, 160, 32, R.drawable.padded_greaves_1);
+                Shoe woodenSabatons = new Shoe("Wooden Sabatons", 18, 12, 200, 40, R.drawable.wooden_sabatons_2);
+                Shoe furLinedBoots = new Shoe("Fur-lined Boots", 12, 7, 140, 28, R.drawable.fur_lined_boots_3);
+                Shoe chainmailFootguards = new Shoe("Chainmail Footguards", 20, 15, 220, 44, R.drawable.chainmail_footguards_2);
 
 
 
