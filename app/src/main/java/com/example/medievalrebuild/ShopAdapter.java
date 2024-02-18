@@ -124,7 +124,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
         
         holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListGoldCost.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
+        holder.equipableInListGoldCost.setText("Gold Cost: \n" + equipable.getGoldPurchaseCost());
         holder.equipableInListImage.setImageResource(equipable.getImageId());
 
     }

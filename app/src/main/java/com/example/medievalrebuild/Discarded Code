@@ -1,0 +1,452 @@
+private void battle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward ){
+
+        System.out.println("Battle Called");
+
+
+        String formattedRewardText = "";
+
+
+        if (equipableReward != null && itemReward != null) {
+            formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), equipableReward.getName(), goldReward, itemReward.getItemName());
+        } else if (equipableReward!= null && itemReward == null) {
+            formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), equipableReward.getName(), goldReward);
+        } else if (equipableReward == null && itemReward != null) {
+            formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), goldReward, itemReward.getItemName());
+        } else if (equipableReward == null && itemReward == null) {
+            formattedRewardText = String.format(rewardText, goldReward);
+        }
+
+    while (player.getHealth() > 0) {
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+
+
+
+                        if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
+//            userSubmitButton.setEnabled(false);
+//            //addDelay(2000);
+//            userSubmitButton.setEnabled(true);
+                            levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+
+                            //    enemiesStartingStats.remove(levelEnemy);
+                            //    enemiesStartingStats.add(levelEnemy);
+
+                            System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+
+                            //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+
+                            setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+
+                            System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+                            //  Weapon longSword = new Weapon("Long Sword", 12);
+
+//            if (equipableReward!= null) {
+//
+//                if (equipableReward instanceof Weapon) {
+//                    player.setCurrentWeapon(equipableReward);
+//                } else if (equipableReward instanceof Helmet) {
+//                    player.setHelmet(equipableReward);
+//                } else if (equipableReward instanceof ChestArmour) {
+//                    player.setChestArmour(equipableReward);
+//                } else if (equipableReward instanceof Shirt) {
+//                    player.setShirt(equipableReward);
+//                } else if (equipableReward instanceof Shoe) {
+//                    player.setShoe(equipableReward);
+//                } else if (equipableReward instanceof Trouser) {
+//                    player.setTrouser(equipableReward);
+//                }
+//            }
+
+                            if (equipableReward!=null) {
+                                addEquipableToEquipableList(equipableReward);
+                            }
+
+                            player.addPlayerGold(goldReward);
+
+                            if (itemReward != null){
+                                if (itemReward.getUseOnAcquisition() == true){
+                                    //                       if (itemReward.getMaxHealth() > 0) {
+                                    player.setMaxHealth(player.getMaxHealth()+ itemReward.getMaxHealth());
+                                    //                       } else if
+                                    player.addStrength(itemReward.getStrengthAmount());
+                                    player.heal(itemReward.getHealAmount());
+                                } else {
+                                    addItemToItemList(itemReward);
+                                }
+                            }
+
+
+//            userSubmitButton.setEnabled(false);
+                            //    addDelay(2000);
+//            userSubmitButton.setEnabled(true);
+
+//            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+                            setPreviousAndMainText(formattedRewardText);
+
+                            //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+//            System.out.println("The "+ levelEnemy.getEnemyName() +" was carrying a " + equipableReward.getName() + " which you claim as your own.");
+                            System.out.println(player);
+                            player.setProgress(progress);
+                            System.out.println("Player progress is: " + player.getProgress());
+                            System.out.println("Please enter your save game name.");
+
+
+                            for (Enemy enemy : enemiesStartingStats) {
+                                System.out.println("enemiesStartingStats: " + enemy.toString());
+                            }
+
+                            //                                    //String savedFileName = userTextInputCollected;
+                            //save(userTextInputCollected);
+                            //break;
+                        } else {
+                            //            userSubmitButton.setEnabled(false);
+//            addDelay(2000);
+                            //            userSubmitButton.setEnabled(true);
+
+                            advanceCount = 0;
+
+                            userSubmitButton.setEnabled(true);
+
+                            advanceCountShouldIncrease = true;
+
+                            System.out.println("You have reached the else statement of battle()");
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setPreviousAndMainText("You attack the Zombie");
+                                        }
+                                    });
+
+
+
+
+
+                                }
+                            }).start();
+
+
+
+
+
+
+
+
+
+
+                        }
+                }
+
+
+
+            });
+            }
+
+        }).start();
+    }
+}
+
+
+
+
+
+//        if (player.getCurrentWeaponDamage() >= levelEnemy.getEnemyHealth()) {
+////            userSubmitButton.setEnabled(false);
+////            //addDelay(2000);
+////            userSubmitButton.setEnabled(true);
+//            levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+//
+//        //    enemiesStartingStats.remove(levelEnemy);
+//        //    enemiesStartingStats.add(levelEnemy);
+//
+//            System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+//
+//            //           mainTextView.setText("You have killed the Zombie and taken no damage.");
+//
+//            setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+//
+//            System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no damage.");
+//          //  Weapon longSword = new Weapon("Long Sword", 12);
+//
+////            if (equipableReward!= null) {
+////
+////                if (equipableReward instanceof Weapon) {
+////                    player.setCurrentWeapon(equipableReward);
+////                } else if (equipableReward instanceof Helmet) {
+////                    player.setHelmet(equipableReward);
+////                } else if (equipableReward instanceof ChestArmour) {
+////                    player.setChestArmour(equipableReward);
+////                } else if (equipableReward instanceof Shirt) {
+////                    player.setShirt(equipableReward);
+////                } else if (equipableReward instanceof Shoe) {
+////                    player.setShoe(equipableReward);
+////                } else if (equipableReward instanceof Trouser) {
+////                    player.setTrouser(equipableReward);
+////                }
+////            }
+//
+//            if (equipableReward!=null) {
+//                addEquipableToEquipableList(equipableReward);
+//            }
+//
+//            player.addPlayerGold(goldReward);
+//
+//            if (itemReward != null){
+//                if (itemReward.getUseOnAcquisition() == true){
+//                    //                       if (itemReward.getMaxHealth() > 0) {
+//                    player.setMaxHealth(player.getMaxHealth()+ itemReward.getMaxHealth());
+//                    //                       } else if
+//                    player.addStrength(itemReward.getStrengthAmount());
+//                    player.heal(itemReward.getHealAmount());
+//                } else {
+//                    addItemToItemList(itemReward);
+//                }
+//            }
+//
+//
+////            userSubmitButton.setEnabled(false);
+//            //    addDelay(2000);
+////            userSubmitButton.setEnabled(true);
+//
+////            setPreviousAndMainText("The "+ levelEnemy.getEnemyName() +" was carrying a " + reward.getName() + " which you claim as your own.");
+//            setPreviousAndMainText(formattedRewardText);
+//
+//            //              mainTextView.setText("The Zombie was carrying a Long Sword which you claim as your own.");
+////            System.out.println("The "+ levelEnemy.getEnemyName() +" was carrying a " + equipableReward.getName() + " which you claim as your own.");
+//            System.out.println(player);
+//            player.setProgress(progress);
+//            System.out.println("Player progress is: " + player.getProgress());
+//            System.out.println("Please enter your save game name.");
+//
+//
+//            for (Enemy enemy : enemiesStartingStats) {
+//                System.out.println("enemiesStartingStats: " + enemy.toString());
+//            }
+//
+//            //                                    //String savedFileName = userTextInputCollected;
+//            //save(userTextInputCollected);
+//            break;
+//        } else {
+//            //            userSubmitButton.setEnabled(false);
+////            addDelay(2000);
+//            //            userSubmitButton.setEnabled(true);
+//
+//            advanceCount = 0;
+//
+//            userSubmitButton.setEnabled(true);
+//
+//            advanceCountShouldIncrease = true;
+//
+//            System.out.println("You have reached the else statement of battle()");
+//
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            setPreviousAndMainText("You attack the Zombie");
+//                        }
+//                    });
+//
+//
+//
+//
+//
+//                }
+//            }).start();
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Your while loop doing nothing
+//                    while (advanceCount != 1) {
+//                        // Do nothing
+//                        advanceCountShouldIncrease = true;
+//                    }
+//
+//
+//                    while (advanceCount == 1) {
+//
+//
+//                        // Code block to run after the while loop ends
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                // Your code here
+//                                // This code block will be executed after the while loop ends
+//
+//                                System.out.println("You have damaged the " + levelEnemy.getEnemyName() + ".");
+//
+//                                setPreviousAndMainText("You have damaged the " + levelEnemy.getEnemyName() + ".");
+//
+//                                //      mainTextView.setText("You have damaged the Zombie");
+//                                levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
+//                                advanceCountShouldIncrease = true;
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//
+//                    while (advanceCount == 2) {
+//
+//
+//                        // Code block to run after the while loop ends
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                // Your code here
+//                                // This code block will be executed after the while loop ends
+//
+//
+//                                System.out.println("The Original Final " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats,*/ levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats, */levelEnemy).getEnemyHealth() + " health.");
+//
+//                                System.out.println(enemiesStartingStats.toString());
+//
+//                                System.out.println("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+//
+//                                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+//
+//                                advanceCountShouldIncrease = true;
+//
+//
+//                            }
+//                        });
+//
+//                    }
+//
+//                        while (advanceCount == 3) {
+//
+//                            // Code block to run after the while loop ends
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    // Your code here
+//                                    // This code block will be executed after the while loop ends
+//
+//                                    setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+//
+//                                    //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+//                                    System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+//                                    player.takeDamage(levelEnemy.getEnemyDamage());
+//
+//                                    advanceCountShouldIncrease = true;
+//
+//                                }
+//                            });
+//
+//
+//                        }
+//
+//
+//                }
+//            }).start();
+
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Your while loop doing nothing
+//                    while (advanceCount != 2) {
+//                        // Do nothing
+//                        advanceCountShouldIncrease = true;
+//                    }
+//
+//
+//                    while (advanceCount == 2) {
+//
+//
+//                        // Code block to run after the while loop ends
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                // Your code here
+//                                // This code block will be executed after the while loop ends
+//
+//
+//                                System.out.println("The Original Final " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats,*/ levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats, */levelEnemy).getEnemyHealth() + " health.");
+//
+//                                System.out.println(enemiesStartingStats.toString());
+//
+//                                System.out.println("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+//
+//                                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+//
+//                                advanceCountShouldIncrease = true;
+//
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//                }
+//            }).start();
+//
+//
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Your while loop doing nothing
+//                    while (advanceCount != 3) {
+//                        // Do nothing
+//                        advanceCountShouldIncrease = true;
+//                    }
+//
+//                    while (advanceCount == 3) {
+//
+//                        // Code block to run after the while loop ends
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                // Your code here
+//                                // This code block will be executed after the while loop ends
+//
+//                                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+//
+//                                //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
+//                                System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+//                                player.takeDamage(levelEnemy.getEnemyDamage());
+//
+//                                advanceCountShouldIncrease = true;
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//                }
+//            }).start();

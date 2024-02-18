@@ -126,7 +126,7 @@ public class EquipableAdapter extends RecyclerView.Adapter<EquipableAdapter.View
 
 
         holder.equipableInListDescription.setText(equipable.toString());
-        holder.equipableInListGoldValue.setText("Gold Cost: " + equipable.getGoldPurchaseCost());
+        holder.equipableInListGoldValue.setText("Gold Cost: \n" + equipable.getGoldPurchaseCost());
         holder.equipableInListImage.setImageResource(equipable.getImageId());
 
     }

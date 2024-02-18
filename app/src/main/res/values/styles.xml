@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="Button.DarkRed" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/dark_red</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button.Green" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/green</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.GreenButton" parent="">
+        <item name="materialButtonStyle">@style/Button.Green</item>
+    </style>
+
+    <style name="ThemeOverlay.DarkRedButton" parent="">
+        <item name="materialButtonStyle">@style/Button.DarkRed</item>
+    </style>
+
+</resources>

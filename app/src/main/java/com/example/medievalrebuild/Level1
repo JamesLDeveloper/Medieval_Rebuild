@@ -1,0 +1,292 @@
+            case "level1":
+
+                //               setPreviousAndMainText("");
+//                previousPreviousStageTextView.setText("");
+//                System.out.println("previousPreviousStageTextView.setText(\"\")");
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+                                    userSubmitButton.setEnabled(true);
+
+                                    storySoFar = "";
+
+                                    setPreviousAndMainText(storySoFar);
+
+                                    setPreviousAndMainText("Welcome to Medieval Marvels!");
+
+                                    advanceCount = 0;
+
+                                    userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+
+
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+
+
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            setPreviousAndMainText("Welcome to Medieval Marvels!");
+
+                                                            if (!itemList.isEmpty()) {
+                                                                itemList.clear();
+                                                            }
+
+
+                                                            if (!equipableArrayList.isEmpty()) {
+                                                                equipableArrayList.clear();
+                                                            }
+
+                                                            Shoe speedyBoots = new Shoe("Speedy Boots", 20, 200, 1000, 200, R.drawable.zombie1);
+
+                                                            //         addEquipableToEquipableList(speedyBoots);
+
+                                                            equipableArrayList.add(speedyBoots);
+
+                                                            lastShopInventory = null;
+
+
+                                                            for (Enemy originalEnemy : enemiesStartingStats) {
+                                                                // Assuming the "NewGame" version has the same name with "NewGame" appended
+                                                                String newGameName = originalEnemy.getEnemyName() + "NewGame";
+
+                                                                // Find the "NewGame" version
+                                                                for (Enemy newGameEnemy : enemiesStartingStats) {
+                                                                    if (newGameEnemy.getEnemyName().equals(newGameName)) {
+                                                                        // Update the original enemy's statistics
+                                                                        originalEnemy.updateEnemy(newGameEnemy);
+                                                                        // You may update other properties as needed
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+
+
+                                                                    new Thread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+
+                                                                            runOnUiThread(new Runnable() {
+                                                                                @Override
+                                                                                public void run() {
+
+                                                                                            setPreviousAndMainText("Adventure awaits " + player.getName() + "!");
+
+
+                                                                                            userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                @Override
+                                                                                                public void onClick(View v) {
+
+                                                                                                    new Thread(new Runnable() {
+                                                                                                        @Override
+                                                                                                        public void run() {
+
+                                                                                                            runOnUiThread(new Runnable() {
+                                                                                                                @Override
+                                                                                                                public void run() {
+
+                                                                                                                    setPreviousAndMainText("Your experiments with magic have yielded few successes so far, however a kindly wizard has had compassion for your efforts and given you a magical rucksack.");
+
+                                                                                                                    userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                                        @Override
+                                                                                                                        public void onClick(View v) {
+
+                                                                                                                            new Thread(new Runnable() {
+                                                                                                                                @Override
+                                                                                                                                public void run() {
+
+
+                                                                                                                                    runOnUiThread(new Runnable() {
+                                                                                                                                        @Override
+                                                                                                                                        public void run() {
+
+                                                                                                                                            setPreviousAndMainText("Any non-living item less than the size of a spear could be placed into the sack and be rendered weightless.");
+
+                                                                                                                                            userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                                @Override
+                                                                                                                                                public void onClick(View v) {
+
+                                                                                                                                                    new Thread(new Runnable() {
+                                                                                                                                                        @Override
+                                                                                                                                                        public void run() {
+
+                                                                                                                                                            runOnUiThread(new Runnable() {
+                                                                                                                                                                @Override
+                                                                                                                                                                public void run() {
+
+                                                                                                                                                                    setPreviousAndMainText("The wizard starts you off on your journey and you are excited to try out this magical gift.");
+
+                                                                                                                                                                    userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                                                        @Override
+                                                                                                                                                                        public void onClick(View v) {
+
+
+                                                                                                                                                                            new Thread(new Runnable() {
+                                                                                                                                                                                @Override
+                                                                                                                                                                                public void run() {
+
+                                                                                                                                                                                    runOnUiThread(new Runnable() {
+                                                                                                                                                                                        @Override
+                                                                                                                                                                                        public void run() {
+
+                                                                                                                                                                                            setPreviousAndMainText("You discover a chest. Would you like to open it?");
+
+
+                                                                                                                                                                                            mainImageView.setImageResource(R.drawable._1gwcdig28l__ac_sx569_);
+
+                                                                                                                                                                                            System.out.println("\nYou discover a chest. Would you like to open it? Type y for yes, n for no, s for save, x for exit.");
+                                                                                                                                                                                            //                  String chest = console.next().toLowerCase();
+
+                                                                                                                                                                                            userChoice = -1;
+
+                                                                                                                                                                                            System.out.println(userChoice);
+
+
+                                                                                                                                                                                            waitingForAnswer = true;
+                                                                                                                                                                                            System.out.println("waiting for answer " + waitingForAnswer);
+
+                                                                                                                                                                                            int chest = userChoice;
+                                                                                                                                                                                            System.out.println("chest int  " + chest);
+
+
+                                                                                                                                                                                            chest = 1;
+                                                                                                                                                                                            System.out.println("chest int  " + chest);
+
+
+                                                                                                                                                                                            startDelayedTask(200000, true);
+
+
+                                                                                                                                                                                            enableAllButtons();
+
+                                                                                                                                                                                            userSubmitButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                                                                                @Override
+                                                                                                                                                                                                public void onClick(View v) {
+
+                                                                                                                                                                                                    //               if (userTextInput != null) {
+                                                                                                                                                                                                    //                   typeText(String.valueOf(userTextInput));
+                                                                                                                                                                                                    //               } else {
+                                                                                                                                                                                                    if (validAnswer == true) {
+                                                                                                                                                                                                        onAnswerSubmission();
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    if(validAnswer == true) {
+                                                                                                                                                                                                        waitingForAnswer = false;
+                                                                                                                                                                                                        System.out.println("Waiting for answer = false");
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                    if (advanceCountShouldIncrease == true) {
+                                                                                                                                                                                                        advanceCount += 1;
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    //               }
+                                                                                                                                                                                                }
+                                                                                                                                                                                            });
+
+
+                                                                                                                                                                                        }
+                                                                                                                                                                                    });
+
+
+
+                                                                                                                                                                                }
+                                                                                                                                                                            }).start();
+
+
+
+                                                                                                                                                                        }
+                                                                                                                                                                    });
+
+
+                                                                                                                                                                }
+                                                                                                                                                            });
+
+
+
+                                                                                                                                                        }
+                                                                                                                                                    }).start();
+
+
+
+                                                                                                                                                }
+                                                                                                                                            });
+
+                                                                                                                                        }
+                                                                                                                                    });
+
+
+                                                                                                                                }
+                                                                                                                            }).start();
+
+
+
+                                                                                                                        }
+                                                                                                                    });
+
+
+
+
+
+                                                                                                                }
+                                                                                                            });
+
+
+
+                                                                                                        }
+                                                                                                    }).start();
+
+
+
+                                                                                                }
+                                                                                            });
+
+
+                                                                                }
+                                                                            });
+
+
+                                                                        }
+                                                                    }).start();
+
+
+                                                                }
+                                                            });
+
+
+
+
+                                                        }
+                                                    });
+
+
+                                                }
+                                            }).start();
+
+
+
+
+
+                                        }
+                                    });
+
+
+                                }
+                            });
+
+                        }
+                    }).start();
+
+                break;
