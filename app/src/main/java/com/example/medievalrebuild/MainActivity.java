@@ -50,6 +50,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
+import java.util.concurrent.SubmissionPublisher;
 
 public class MainActivity extends AppCompatActivity implements Serializable, MyAlertDialog.DialogCallBack {
 
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, MyA
     String storySoFar;
 
     String storyUpdate;
+
+    boolean waitingToProceed = true;
 
     RecyclerView recyclerView;
 
@@ -230,6 +233,9 @@ private boolean advanceCountShouldIncrease = false;
 
 
     private Handler handlerDelayMessage = new Handler(Looper.getMainLooper());
+
+
+    private Handler updateUIHandler = new Handler(Looper.getMainLooper());
 
     ArrayList<String> saveGamesAfterRestart = new ArrayList<>();
 
@@ -1300,13 +1306,6 @@ private boolean advanceCountShouldIncrease = false;
     private void runLevelOne(int levelIndex) {
 
 
-
-
-
-
-
-
-
         userSubmitButton.setEnabled(true);
 
         String[] levelTexts = {
@@ -1700,7 +1699,7 @@ private boolean advanceCountShouldIncrease = false;
 
                 lastShopName = majistosWorkshopName;
 
-                switchToShop(lastShopInventory, lastShopName, getPlayerEquipablesList());
+ //               switchToShop(lastShopInventory, lastShopName, getPlayerEquipablesList());
 
 
 
@@ -2334,27 +2333,111 @@ private boolean advanceCountShouldIncrease = false;
                 case "level3":
      //               while (true) {
 
+
                     for (Enemy enemy : enemiesStartingStats) {
                         System.out.println("enemiesStartingStats: " + enemy.toString());
                     }
 
                     chestTwo = userChoice;
-                        if (chestTwo== 0) {
+                    if (chestTwo== 0) {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+                                    ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, 200, 20, R.drawable.chainmailchestarmour);
+                                    //                           player.setChestArmour(chainMail);
+
+                                    addEquipableToEquipableList(chainMail);
+
+                                    setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ".");
+
+
+
+
+                                    System.out.println("You open the chest to find some chain mail. You put it on.");
+
+                                    addItemToItemList(potion);
+
+                                    System.out.println(player);
+
+                                    try {
+                        Thread.sleep(2000); // Add a small delay to avoid excessive CPU usage
+
+
+
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                                    waitingForAnswer = false;
+
+                                }
+                            });
+
+
+                        }
+                    }).start();
+
+
                             //addDelay(2000);
-                            ChestArmour chainMail = new ChestArmour("Chain Mail", 10, 10, 200, 20, R.drawable.chainmailchestarmour);
- //                           player.setChestArmour(chainMail);
 
-                            addEquipableToEquipableList(chainMail);
 
-                            setPreviousAndMainText("You open the chest to find some " + chainMail.getName() + ".");
-                            System.out.println("You open the chest to find some chain mail. You put it on.");
 
-                            addItemToItemList(potion);
-
-                            System.out.println(player);
                             //addDelay(2000);
-                            player.setProgress("level4");
-                            nextLevel();
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            try {
+                                                System.out.println("Attempting to move to level 4");
+
+                                                synchronized (this) {
+                                                    while (waitingForAnswer) {
+                                                        System.out.println("Waiting to move to level 4");
+                                                        wait();
+                                                    }
+                                                    System.out.println("Wait over, moving to level 4");
+                                                    waitingForAnswer = true;
+                                                    player.setProgress("level4");
+                                                    nextLevel();
+
+                                                }
+
+                                                Thread.sleep(2000);
+
+                                                synchronized (this) {
+                                                    waitingForAnswer = false;
+                                                    System.out.println("No longer waiting for answer");
+                                                    notifyAll();
+                                                }
+                                                System.out.println("Done!");
+
+
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e);
+
+
+                                            }
+                                        }
+                                    });
+
+
+                                }
+                            }).start();
+
                             break;
                         } else if (chestTwo== 1) {
                             ChestArmour platedArmor = new ChestArmour("Plated Armor", 7, 6, 140, 35, R.drawable.platedarmour);
@@ -3071,26 +3154,59 @@ private boolean advanceCountShouldIncrease = false;
 //        mainTextViewText = storyUpdate;
 //        previousStageTextViewText = storySoFar;
 
-                storyUpdate = "\n" + updateToStory;
 
-                //addDelay(2000);
-
-                mainTextViewText = storyUpdate;
-                mainTextView.setText(mainTextViewText);
-
-                previousStageTextViewText = storySoFar;
-                previousStageTextView.setText(previousStageTextViewText);
-
-                String updatedStorySoFar = storySoFar.concat("\n\n" + updateToStory);
-
-                storySoFar = updatedStorySoFar;
-
-                storySoFarScrollView.post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        storySoFarScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+
+                        storyUpdate = "\n" + updateToStory;
+
+                        //addDelay(2000);
+
+                        mainTextViewText = storyUpdate;
+                        mainTextView.setText(mainTextViewText);
+
+                        previousStageTextViewText = storySoFar;
+                        previousStageTextView.setText(previousStageTextViewText);
+
+                        String updatedStorySoFar = storySoFar.concat("\n\n" + updateToStory);
+
+                        storySoFar = updatedStorySoFar;
+
+                        storySoFarScrollView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                storySoFarScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                            }
+                        });
+
+
                     }
                 });
+
+//                storyUpdate = "\n" + updateToStory;
+//
+//                //addDelay(2000);
+//
+//                mainTextViewText = storyUpdate;
+//                mainTextView.setText(mainTextViewText);
+//
+//                previousStageTextViewText = storySoFar;
+//                previousStageTextView.setText(previousStageTextViewText);
+//
+//                String updatedStorySoFar = storySoFar.concat("\n\n" + updateToStory);
+//
+//                storySoFar = updatedStorySoFar;
+//
+//                storySoFarScrollView.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        storySoFarScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+//                    }
+//                });
+
+
+
 
     }
 
@@ -3099,14 +3215,13 @@ private boolean advanceCountShouldIncrease = false;
 //        this.time = time;
 //    }
 
-    private void battle(Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward ){
+    private void battle(Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward) {
 
         String formattedRewardText = "";
 
-
         if (equipableReward != null && itemReward != null) {
             formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), equipableReward.getName(), goldReward, itemReward.getItemName());
-        } else if (equipableReward!= null && itemReward == null) {
+        } else if (equipableReward != null && itemReward == null) {
             formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), equipableReward.getName(), goldReward);
         } else if (equipableReward == null && itemReward != null) {
             formattedRewardText = String.format(rewardText, levelEnemy.getEnemyName(), goldReward, itemReward.getItemName());
@@ -3115,87 +3230,81 @@ private boolean advanceCountShouldIncrease = false;
         }
 
         while (player.getHealth() > 0) {
-
             levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
 
             if (levelEnemy.getEnemyHealth() <= 0) {
-//            userSubmitButton.setEnabled(false);
-//            //addDelay(2000);
-//            userSubmitButton.setEnabled(true);
+                try {
+                    System.out.println("Battle Ended");
 
-
-                //    enemiesStartingStats.remove(levelEnemy);
-                //    enemiesStartingStats.add(levelEnemy);
-
-                System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
-
-                //           mainTextView.setText("You have killed the Zombie and taken no damage.");
-
-                setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() +" and taken no additional damage.");
-
-                System.out.println("You have killed the " + levelEnemy.getEnemyName() +" and taken no additional damage.");
-
-
-                if (equipableReward!=null) {
-                    addEquipableToEquipableList(equipableReward);
-                }
-
-                player.addPlayerGold(goldReward);
-
-                if (itemReward != null){
-                    if (itemReward.getUseOnAcquisition() == true){
-                        //                       if (itemReward.getMaxHealth() > 0) {
-                        player.setMaxHealth(player.getMaxHealth()+ itemReward.getMaxHealth());
-                        //                       } else if
-                        player.addStrength(itemReward.getStrengthAmount());
-                        player.heal(itemReward.getHealAmount());
-                    } else {
-                        addItemToItemList(itemReward);
+                    synchronized (this) {
+                        while (waitingToProceed) {
+                            System.out.println("Waiting to Proceed");
+                            wait();
+                        }
+                        System.out.println("Proceeding");
+                        waitingToProceed = true;
                     }
+
+                    System.out.println("The Original" + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(levelEnemy).getEnemyHealth() + " health.");
+
+                    setPreviousAndMainText("You have killed the " + levelEnemy.getEnemyName() + " and taken no additional damage.");
+
+                    if (equipableReward != null) {
+                        addEquipableToEquipableList(equipableReward);
+                    }
+
+                    player.addPlayerGold(goldReward);
+
+                    if (itemReward != null) {
+                        if (itemReward.getUseOnAcquisition()) {
+                            player.setMaxHealth(player.getMaxHealth() + itemReward.getMaxHealth());
+                            player.addStrength(itemReward.getStrengthAmount());
+                            player.heal(itemReward.getHealAmount());
+                        } else {
+                            addItemToItemList(itemReward);
+                        }
+                    }
+
+                    player.setProgress(progress);
+                    setPreviousAndMainText(formattedRewardText);
+
+                    System.out.println(player);
+                    System.out.println("Player progress is: " + player.getProgress());
+                    System.out.println("Please enter your save game name.");
+
+                    for (Enemy enemy : enemiesStartingStats) {
+                        System.out.println("enemiesStartingStats: " + enemy.toString());
+                    }
+
+                    synchronized (this) {
+                        waitingToProceed = false;
+                        System.out.println("No longer waiting to proceed!");
+                        notifyAll();
+                    }
+
+                    break;
+                } catch (InterruptedException e) {
+                    System.out.println(e);
                 }
-
-                player.setProgress(progress);
-                setPreviousAndMainText(formattedRewardText);
-
-                System.out.println(player);
-
-                System.out.println("Player progress is: " + player.getProgress());
-                System.out.println("Please enter your save game name.");
-
-
-                for (Enemy enemy : enemiesStartingStats) {
-                    System.out.println("enemiesStartingStats: " + enemy.toString());
-                }
-
-               // nextLevel();
-                break;
             } else {
+                synchronized (this) {
+                    waitingToProceed = true;
+                    notifyAll();
+                }
 
-                System.out.println("You have damaged the " + levelEnemy.getEnemyName() + ".");
-
-                setPreviousAndMainText("You have damaged the " + levelEnemy.getEnemyName() + ".");
-
-
-                //levelEnemy.enemyTakeDamage(player.getCurrentWeaponDamage());
-
-                System.out.println("The Original Final " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats,*/ levelEnemy).getEnemyName() + " has " + levelEnemy.getOriginalEnemyStats(/*enemiesStartingStats, */levelEnemy).getEnemyHealth() + " health.");
-
-                System.out.println(enemiesStartingStats.toString());
-
-                System.out.println("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
-
-                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
-
-
-                setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
-
-                //       mainTextView.setText("The Zombie has attacked you with " + zombieDamage + " damage.");
-                System.out.println("\nThe " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
-                player.takeDamage(levelEnemy.getEnemyDamage());
+                updateUIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setPreviousAndMainText("You have damaged the " + levelEnemy.getEnemyName() + ".");
+                        setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " now has " + levelEnemy.getEnemyHealth() + " health.");
+                        setPreviousAndMainText("The " + levelEnemy.getEnemyName() + " has attacked you with " + levelEnemy.getEnemyDamage() + " damage.");
+                        player.takeDamage(levelEnemy.getEnemyDamage());
+                    }
+                });
             }
         }
-
     }
+
 
     private void bossBattle (Enemy levelEnemy, Equipable equipableReward, String rewardText, String progress, double goldReward, Item itemReward){
 
